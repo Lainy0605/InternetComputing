@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view>
+  <image src="{{img}}" model="fulltoFill" ></image>
+</view>
+<view>
+  <button bindtap="chooseImg">click me</button>
+</view>

@@ -1,0 +1,42 @@
+{
+    "pages": [
+        "pages/login/login",
+        "pages/index/index",
+        "pages/habits/showHabits/showHabits",
+        "pages/habits/newHabit/newHabit"
+    ],
+    "window": {
+        "backgroundColor": "#F6F6F6",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#F6F6F6",
+        "navigationBarTitleText": "HabitKeeper",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "list": [
+            {
+                "pagePath": "pages/habits/showHabits/showHabits",
+                "text": "习惯",
+                "iconPath": "images/1.png",
+                "selectedIconPath": "images/1.png"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "text": "圈子",
+                "iconPath": "images/1.png",
+                "selectedIconPath": "images/1.png"
+            },
+            {
+                "pagePath": "pages/login/login",
+                "text": "我的",
+                "iconPath": "images/1.png",
+                "selectedIconPath": "images/1.png"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json",
+    "style": "v2",
+    "useExtendedLib": {
+        "weui":true
+    }
+}

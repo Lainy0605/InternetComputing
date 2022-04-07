@@ -1,0 +1,10 @@
+<!--pages/login/login.wxml-->
+<view wx:if="{{!userInfo.openId}}">
+    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">login</button>
+</view>
+
+<view class="uploader-container" wx:if="{{userInfo.openId}}">
+    <image class="image" src="{{userInfo.avatarUrl}}"></image>
+    <view class="name">{{userInfo.nickName}}</view>
+</view>
+

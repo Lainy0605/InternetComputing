@@ -1,0 +1,16 @@
+<view wx:if="{{setHabits && refresh}}">
+    <button bindtap="tonewHabit">新建</button> 
+    <view wx:if="{{habits.length!=0}}">
+        <view wx:for="{{habits}}" wx:key="this" >
+            <view class="habit">
+                <view class="wrap" style="transform: translateX({{item.offset/2}}px);" data-index="{{index}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">你{{item.name}}已经{{item.day}}天了</view>
+                <view  class="delete" bindtap="delete" data-index="{{index}}"><text>删除</text></view>
+            </view>
+        </view>
+    </view>
+    <view wx:else>
+        <button bindtap="tonewHabit">创建我的习惯</button>
+    </view>
+</view>
+
+
