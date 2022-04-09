@@ -1,0 +1,66 @@
+<view class="message">
+    <view class="left">
+        <image class="face-img" src="../../../images/avator.jpg"></image>
+    </view>
+    <view class="right">
+        <view class="nickname">Effy</view>
+        <view>今天也有早睡早起！今天也有早睡早起！今天也有早睡早起！今天也有早睡早起!</view>
+        <view class="images-wrap">
+            <image src="../../../images/dongtai.jpg" class="image-1"></image>
+        </view>
+        <view class="time-delete">
+            <view class="time">2022-4-8 7:59</view>
+            <view class="delete">删除</view>
+        </view>
+        <view class="interaction">
+            <view class="interaction-word">
+                <image src="../../../images/1.png" class="interaction-icon"></image>
+                <view>分享</view>
+            </view>
+            <view class="interaction-word">
+                <image src="../../../images/1.png" class="interaction-icon"></image>
+                <view>评论</view>
+            </view>
+            <view class="interaction-word">
+                <image src="../../../images/1.png" class="interaction-icon"></image>
+                <view>点赞</view>
+            </view>
+        </view>
+
+    </view>
+
+</view>
+<view class="comment-area">
+    <view class="comment-left">
+        <image src="../../../images/1.png" class="comment-icon"></image>
+    </view>
+    <view class="comment-right">
+        <view class="comment">
+            <image src="../../../images/avator.jpg" class="comment-avator"></image>
+            <view>
+                <view class="nickname-time">
+                    <view class="comment-nickname">Effy</view>
+                    <view class="comment-time">2022-4-8 8:01</view>
+                </view>
+                <view>加油！！</view>
+            </view>
+        </view>
+        <view class="comment">
+            <image src="../../../images/avator.jpg" class="comment-avator"></image>
+            <view>
+                <view class="nickname-time">
+                    <view class="comment-nickname">Lainy</view>
+                    <view class="comment-time">2022-4-8 8:05</view>
+                </view>
+                <view>加油！！</view>
+            </view>
+        </view>
+    </view> 
+</view>
+<view style="height:200rpx"></view>
+<view class="take-comment">
+    <view class="take-comment-left">
+        <input class="input-comment" placeholder="评论"/>
+    </view>
+    <view class="send-comment">发送</view>
+</view>

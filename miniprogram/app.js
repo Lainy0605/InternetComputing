@@ -4,7 +4,8 @@ App({
   onLaunch: function () {
     this.globalData = {
       habits:[],
-      openId:""
+      openId:"",
+      userInfo:{}
     };
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力');
@@ -18,5 +19,32 @@ App({
         traceUser: true,
       });
     }
-  }
+
+  },
+
+  // onLoad:function(){
+  //   const that = this
+  //   wx.getUserProfile({
+  //     desc: '获取信息',
+  //     success(res){
+  //       console.log(1111)
+  //         that.globalData.userInfo = res.userInfo
+  //         console.log(res.userInfo)
+  //         wx.setStorageSync('userInfo', res.userInfo)
+  //     },
+  //     fail(err){
+  //       console.log(err)
+  //     }
+  //   })
+  //   wx.cloud.callFunction({
+  //       name:"getOpenId",
+  //       success(res){
+  //           that.globalData.openId = res.result.openid
+  //           wx.setStorageSync('openId', res.result.openid)
+  //       },
+  //       fail(err){
+  //         console.log(err)
+  //       }
+  //   })
+  // }
 });

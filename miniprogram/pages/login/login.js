@@ -1,25 +1,35 @@
 // pages/login/login.js
-
+var app = getApp()
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        userInfo:{openId:""}
+        userInfo:{},
+        openId:""
     },
 
-    onGotUserInfo:function(e){
+    getUserInfo:function(){
         const that = this
+        wx.getUserProfile({
+          desc: '获取信息',
+          success(res){
+              that.setData({
+                  userInfo:res.userInfo
+              })
+              app.globalData.userInfo = that.data.userInfo
+              wx.setStorageSync('userInfo', that.data.userInfo)
+          }
+        })
         wx.cloud.callFunction({
             name:"getOpenId",
             success(res){
                 that.setData({
-                    userInfo:e.detail.userInfo,
-                    ['userInfo.openId']:res.result.openid
+                    openId:res.result.openid
                 }) 
-                console.log("userInfo",that.data.userInfo)
-                wx.setStorageSync('userInfo', that.data.userInfo)
+                app.globalData.openId = that.data.openId
+                wx.setStorageSync('openId', that.data.openId)
             }
         })
     },
@@ -27,27 +37,25 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        const ui = wx.getStorageSync('userInfo')
-        this.setData({
-            userInfo:ui
-        })
+        // const ui = wx.getStorageSync('userInfo')
+        // const od = wx.getStorageSync('openId')
+        // this.setData({
+        //     userInfo:ui,
+        //     openId:od
+        // })
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function (options) {
-        const ui = wx.getStorageSync('userInfo')
-        this.setData({
-            userInfo:ui
-        })
+
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
     },
 
     /**

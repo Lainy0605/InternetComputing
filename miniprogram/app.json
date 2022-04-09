@@ -1,6 +1,9 @@
 {
     "pages": [
         "pages/login/login",
+        "pages/posts/newPost/newPost",
+        "pages/posts/showPosts/showPosts",
+        "pages/posts/detail/detail",
         "pages/index/index",
         "pages/habits/showHabits/showHabits",
         "pages/habits/newHabit/newHabit"
@@ -21,7 +24,7 @@
                 "selectedIconPath": "images/1.png"
             },
             {
-                "pagePath": "pages/index/index",
+                "pagePath": "pages/posts/showPosts/showPosts",
                 "text": "圈子",
                 "iconPath": "images/1.png",
                 "selectedIconPath": "images/1.png"
@@ -37,6 +40,6 @@
     "sitemapLocation": "sitemap.json",
     "style": "v2",
     "useExtendedLib": {
-        "weui":true
+        "weui": true
     }
 }

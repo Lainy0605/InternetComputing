@@ -1,4 +1,7 @@
-<view wx:if="{{setHabits && refresh}}">
+<view wx:if="{{!login}}">
+    请先登陆
+</view>
+<view wx:if="{{setHabits}}">
     <button bindtap="tonewHabit">新建</button> 
     <view wx:if="{{habits.length!=0}}">
         <view wx:for="{{habits}}" wx:key="this" >

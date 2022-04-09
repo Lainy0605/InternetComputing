@@ -6,8 +6,8 @@ Page({
      */
     data: {
         habits: [],
-        setHabits:false,
-        refresh:true,
+        setHabits:false, //判断是否将习惯初始化
+        login:false, //判断是否登录
         index:"",
         Mstart:0
     },
@@ -42,7 +42,6 @@ Page({
     },
     delete:function(e){
         var index=e.currentTarget.dataset.index
-
         HABITS.where({
             _id:this.data.habits[index]._id
         }).remove({})
@@ -52,6 +51,7 @@ Page({
         })
         app.globalData.habits=this.data.habits
     },
+
     /**
      * 生命周期函数--监听页面加载
      */
@@ -61,30 +61,27 @@ Page({
           icon:'loading'
         })
         const that = this
-        wx.cloud.callFunction({
-            name:"getOpenId",
-            success(res){
-                app.globalData.openId = res.result.openid
-                HABITS.where({
-                    _openid:res.result.openid
-                })
-                .get({
-                    success(re){
-                        for(var habit of re.data){
-                            habit.offset=0;
-                        }
-                        that.setData({
-                            habits:re.data,
-                            setHabits:true,
-                        })
-                        app.globalData.habits = that.data.habits                   
-                        wx.hideToast({
-                          success: (res) => {},
-                        })
+        if(app.globalData.openId){
+            HABITS.where({
+                _openid:app.globalData.openId
+            })
+            .get({
+                success(res){
+                    for(var habit of res.data){
+                        habit.offset = 0
                     }
-                })
-            }
-        })
+                    that.setData({
+                        habits:res.data,
+                        setHabits:true,
+                        login:true
+                    })
+                    app.globalData.habits = that.data.habits                   
+                    wx.hideToast({
+                      success: (res) => {},
+                    })
+                }
+            })
+        }
     },
 
     /**
@@ -101,10 +98,14 @@ Page({
           title: '加载中',
           icon:'loading'
         })
-        this.setData({
-            refresh:true,
-            habits:app.globalData.habits
-        })
+        if(!this.data.login){
+            this.onLoad()
+        }
+        else{
+            this.setData({
+                habits:app.globalData.habits
+            })
+        }
         wx.hideToast({
           success: (res) => {},
         })
@@ -114,9 +115,6 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        this.setData({
-            refresh:false
-        })
     },
 
     /**
