@@ -1,5 +1,6 @@
 // pages/message/newPost/newPost.js
 var app = getApp()
+import { Buttonclicked } from '../../../utils/utils'
 Page({
 
     /**
@@ -9,7 +10,9 @@ Page({
         inputValue:"",
         imgList:[],
         cloudimgList:[],
-        index:""
+        index:"",
+        clicked:false,
+        canChoose:true,
     },
     
     getValue(e){
@@ -22,20 +25,25 @@ Page({
         const that = this
         wx.chooseMedia({
             mediaType:['image'],
+            count: 9-that.data.imgList.length,
             success(res){
-              const temp = that.data.imgList.concat(res.tempFiles)
-              that.setData({
-                imgList: temp
-              })
+                const temp = that.data.imgList.concat(res.tempFiles)
+                var t = !(temp.length==9)
+                console.log(t)
+                that.setData({
+                  imgList: temp,
+                  canChoose:t
+                })
             }
           })
     },
 
-    delete(e){
+    deleteImg(e){
         var index=e.currentTarget.dataset.index
         this.data.imgList.splice(index,1)
         this.setData({
-            imgList:this.data.imgList
+            imgList:this.data.imgList,
+            canChoose:true
         })
     },
 
@@ -61,26 +69,36 @@ Page({
                     avatar:app.globalData.userInfo.avatarUrl,
                     text:that.data.inputValue,
                     imgList:that.data.cloudimgList,
-                    time:Date.now()
+                    time:Date.now(),
+                    commentList:[],
+                    likeList:[],
                 },
                 success(res){
-                    console.log(app.globalData.userInfo.nickName)
                     resolve('success')
                 }
             })
         })
     },
     async send(){
-        for(var temp of this.data.imgList){
-            await this.uploadTocloud(temp)
+        if(this.data.inputValue){
+            Buttonclicked(this)
+            for(var temp of this.data.imgList){
+                await this.uploadTocloud(temp)
+            }
+            await this.uploadToDatabase()
+            wx.navigateBack({
+                delta:1
+            })
+            wx.showToast({
+              title: '发布成功',
+            })
         }
-        await this.uploadToDatabase()
-        wx.navigateBack({
-            delta:1
-        })
-        wx.showToast({
-          title: '发布成功',
-        })
+        else{
+            wx.showToast({
+              title: '输入不能为空',
+              icon:'error'
+            })
+        }
     },
     /**
      * 生命周期函数--监听页面加载

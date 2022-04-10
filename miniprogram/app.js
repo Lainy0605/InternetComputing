@@ -20,6 +20,14 @@ App({
       });
     }
 
+    // const that = this
+    // wx.cloud.callFunction({
+    //   name:"getOpenId",
+    //   success(res){
+    //     that.globalData.openId = res.result.openid
+    //     wx.setStorageSync('openId', res.result.openid)
+    //   },
+    // })
   },
 
   // onLoad:function(){

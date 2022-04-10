@@ -1,16 +1,18 @@
 <view class="message">
     <view class="left">
-        <image class="face-img" src="../../../images/avator.jpg"></image>
+        <image class="face-img" src="{{postDetail.avatar}}"></image>
     </view>
     <view class="right">
-        <view class="nickname">Effy</view>
-        <view>今天也有早睡早起！今天也有早睡早起！今天也有早睡早起！今天也有早睡早起!</view>
+        <view class="nickName">{{postDetail.nickName}}</view>
+        <view>{{postDetail.text}}</view>
         <view class="images-wrap">
-            <image src="../../../images/dongtai.jpg" class="image-1"></image>
+            <block wx:for="{{postDetail.imgList}}" wx:key="this">
+                <image src="{{item}}" class="image-1"></image>
+            </block>
         </view>
         <view class="time-delete">
-            <view class="time">2022-4-8 7:59</view>
-            <view class="delete">删除</view>
+            <view class="time">{{postDetail.time}}</view>
+            <view class="delete" wx:if="{{openId==item._openid}}" bindtap="deletePost">删除</view>
         </view>
         <view class="interaction">
             <view class="interaction-word">
@@ -26,41 +28,32 @@
                 <view>点赞</view>
             </view>
         </view>
-
     </view>
 
 </view>
-<view class="comment-area">
+<view class="comment-area" wx:if="{{postDetail.commentList}}">
     <view class="comment-left">
         <image src="../../../images/1.png" class="comment-icon"></image>
     </view>
     <view class="comment-right">
-        <view class="comment">
-            <image src="../../../images/avator.jpg" class="comment-avator"></image>
-            <view>
-                <view class="nickname-time">
-                    <view class="comment-nickname">Effy</view>
-                    <view class="comment-time">2022-4-8 8:01</view>
+        <block wx:for="{{postDetail.commentList}}" wx:key="this">
+            <view class="comment">
+                <image src="{{item.avatar}}" class="comment-avator"></image>
+                <view>
+                    <view class="nickname-time">
+                        <view class="comment-nickname">{{item.nickName}}</view>
+                        <view class="comment-time">{{item.time}}</view>
+                    </view>
+                    <view>{{item.text}}</view>
                 </view>
-                <view>加油！！</view>
             </view>
-        </view>
-        <view class="comment">
-            <image src="../../../images/avator.jpg" class="comment-avator"></image>
-            <view>
-                <view class="nickname-time">
-                    <view class="comment-nickname">Lainy</view>
-                    <view class="comment-time">2022-4-8 8:05</view>
-                </view>
-                <view>加油！！</view>
-            </view>
-        </view>
+        </block>
     </view> 
 </view>
 <view style="height:200rpx"></view>
 <view class="take-comment">
     <view class="take-comment-left">
-        <input class="input-comment" placeholder="评论"/>
+        <input class="input-comment" placeholder="评论" bindinput="getValue"/>
     </view>
-    <view class="send-comment">发送</view>
+    <view class="send-comment" bindtap="send">发送</view>
 </view>

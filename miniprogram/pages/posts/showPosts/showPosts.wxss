@@ -62,11 +62,22 @@ page{
     margin-right: 10rpx;
 }
 .images-wrap{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin-top: 10rpx;
 }
 .image-1{
     width: 400rpx;
     height: 500rpx;
+}
+.image-4{
+    height: 210rpx;
+    width: 215rpx;
+}
+.image-5-9{
+    height: 210rpx;
+    width: 215rpx;
 }
 .comment-area{
     background-color: #f7f7f7;

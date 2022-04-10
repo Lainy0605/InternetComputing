@@ -1,9 +1,10 @@
+<block wx:if="{{openId}}">
 <view class="new-post" bindtap="toPagenewPost">
     <image src="../../../images/1.png" class="new-post-icon"></image>
 </view>
 
 <block wx:for="{{postList}}" wx:key="this">
-<view class="message">
+<view class="message" bindtap="toDetail" data-id="{{item._id}}">
     <view class="left">
         <image class="face-img" src="{{item.avatar}}"></image>
     </view>
@@ -14,10 +15,19 @@
             <block wx:if="{{item.imgList.length == 1}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
                 <image src="{{imgItem}}" class="image-1"></image>
             </block>
+            <block wx:if="{{item.imgList.length == 2 || item.imgList.length==3}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
+                <image src="{{imgItem}}" class="image-2-3"></image>
+            </block>
+            <block wx:if="{{item.imgList.length == 4}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
+                <image src="{{imgItem}}" class="image-4"></image>
+            </block>
+            <block wx:if="{{item.imgList.length>=5}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
+                <image src="{{imgItem}}" class="image-5-9"></image>
+            </block>
         </view>
         <view class="time-delete">
             <view class="time">{{item.time}}</view>
-            <view class="delete" >删除</view>
+            <view class="delete" wx:if="{{openId==item._openid}}" bindtap="deletePost" data-index="{{index}}">删除</view>
         </view>
         <view class="interaction">
             <view class="interaction-word">
@@ -25,26 +35,16 @@
                 <view>分享</view>
             </view>
             <view class="interaction-word">
-                <image src="../../../images/1.png" class="interaction-icon"></image>
+                <image src="../../../images/1.png" class="interaction-icon" bindtap="toDetail"></image>
                 <view>评论</view>
             </view>
             <view class="interaction-word">
-                <image src="../../../images/1.png" class="interaction-icon"></image>
-                <view>点赞</view>
+                <image src="../../../images/1.png" class="interaction-icon" bindtap="like"></image>
+                <view wx:if="{{item.likeNumber!=0}}">{{item.likeNumber}}</view>
             </view>
-        </view>
-        <view class="comment-area">
-            <view class="comment">
-                <text class="comment-nickname">Effy:</text>
-                <text class="comment-content">加油！！</text>
-            </view>
-            <!-- <view class="comment">
-                <text class="comment-nickname">Effy</text>
-                <text>回复 </text>
-                <text class="comment-nickname">Lainy:</text>
-                <text>加油！！</text>
-            </view> -->
         </view>
     </view>
 </view>
 </block>
+</block>
+<block wx:if="{{!openId}}">请先登录</block>

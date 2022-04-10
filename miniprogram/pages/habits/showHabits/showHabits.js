@@ -56,12 +56,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        wx.showToast({
-          title: '加载中',
-          icon:'loading'
-        })
-        const that = this
         if(app.globalData.openId){
+            wx.showToast({
+                title: '加载中',
+                icon:'loading'
+              })
+              const that = this
             HABITS.where({
                 _openid:app.globalData.openId
             })
@@ -82,6 +82,12 @@ Page({
                 }
             })
         }
+        else{
+            wx.showToast({
+              title: '未登录',
+              icon:'error'
+            })
+        }
     },
 
     /**
@@ -95,8 +101,8 @@ Page({
      */
     onShow: function () {
         wx.showToast({
-          title: '加载中',
-          icon:'loading'
+            title: '加载中',
+            icon:'loading'
         })
         if(!this.data.login){
             this.onLoad()
@@ -107,7 +113,7 @@ Page({
             })
         }
         wx.hideToast({
-          success: (res) => {},
+            success: (res) => {},
         })
     },
 

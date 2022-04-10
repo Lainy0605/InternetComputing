@@ -15,7 +15,7 @@ page{
 .left{
     margin-right: 15rpx;
 }
-.nickname{
+.nickName{
     color: #586894;
     font-weight: 550;
     font-size: 30rpx;

@@ -1,5 +1,5 @@
 <view class="send-button">
-    <view class="send-text" bindtap="send">发布</view>
+    <view class="send-text" bindtap="{{!clicked?'send':''}}">发布</view>
 </view>
 <view class="input-area">
     <textarea class="input-text" placeholder="我的打卡日记" maxlength="2000" bindinput="getValue"></textarea>
@@ -8,10 +8,10 @@
     <view wx:for="{{imgList}}" wx:key="this">
         <view class="one-image">
             <image src="{{item.tempFilePath}}" class="img"></image>
-            <image src="../../../images/1.png" class="delete" bindtap="delete" data-index="{{index}}"></image>
+            <image src="../../../images/1.png" class="delete" bindtap="deleteImg" data-index="{{index}}"></image>
         </view>
     </view>
-    <view class="one-image" bindtap="chooseImage">
+    <view class="one-image" wx:if="{{canChoose}}" bindtap="chooseImage">
         <image src="../../../images/chooseImage.jpg" class="img"></image>
     </view>
 </view>

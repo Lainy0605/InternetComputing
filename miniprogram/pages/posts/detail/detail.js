@@ -1,18 +1,74 @@
-// pages/detail/detail.js
+import { formatTime } from "../../../utils/utils"
+var app = getApp()
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        postDetail:"",
+        id:"",
+        inputValue:""
     },
 
+    getValue(e){
+        this.data.inputValue = e.detail.value
+    },
+
+    send(){
+        const that = this
+        console.log()
+        if(app.globalData.openId){
+            wx.cloud.database().collection('dongtai').doc(that.data.id).get({
+                success(res){
+                    var comment = {}
+                    comment.nickName = app.globalData.userInfo.nickName
+                    comment.avatar = app.globalData.userInfo.avatarUrl
+                    comment.openId = app.globalData.openid
+                    comment.text = that.data.inputValue
+                    comment.time = new Date()
+                    res.data.commentList.push(comment)
+                    wx.cloud.database().collection('dongtai').doc(that.data.id).update({
+                        data:{
+                            commentList:res.data.commentList
+                        },
+                        success(res){
+                            wx.showToast({
+                              title: '评论成功',
+                            })
+                            that.reDetail()
+                        }
+                    })
+                }
+            })
+        }
+    },
+
+    reDetail(){
+        const that = this
+        wx.cloud.database().collection('dongtai').doc(this.data.id).get({
+            success(res){
+                var temp = res.data
+                temp.time = formatTime(new Date(temp.time))
+                if(temp.commentList){
+                    for(var comment of temp.commentList)
+                        comment.time = formatTime(new Date(comment.time))
+                }
+                that.setData({
+                    postDetail:temp,
+                    openId:app.globalData.openId
+                })
+            }
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        this.setData({
+            id:options.id
+        })
+        this.reDetail()
     },
 
     /**
