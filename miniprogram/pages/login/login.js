@@ -19,7 +19,7 @@ Page({
                   userInfo:res.userInfo
               })
               app.globalData.userInfo = that.data.userInfo
-              wx.setStorageSync('userInfo', that.data.userInfo)
+            //   wx.setStorageSync('userInfo', that.data.userInfo)
           }
         })
         wx.cloud.callFunction({
@@ -29,7 +29,7 @@ Page({
                     openId:res.result.openid
                 }) 
                 app.globalData.openId = that.data.openId
-                wx.setStorageSync('openId', that.data.openId)
+                // wx.setStorageSync('openId', that.data.openId)
             }
         })
     },

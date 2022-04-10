@@ -6,6 +6,8 @@ Page({
      * 页面的初始数据
      */
     data: {
+        login:false,
+        openId:"",
         postList:[]
     },
 
@@ -19,14 +21,11 @@ Page({
     toDetail:function(e){
         var temp = e.currentTarget.dataset.id
         wx.navigateTo({
-          url: '../detail/detail?id='+temp,
-          success:function(res){}
+            url: '../detail/detail?id='+temp,
+            success:function(res){}
         })
     },
 
-    like:function(){
-
-    },
     deletePost:function(e){
         var index=e.currentTarget.dataset.index
         var temp = this.data.postList[index]
@@ -48,25 +47,50 @@ Page({
         })
     },
 
+    like:function(e){
+        const that = this
+        var index = e.currentTarget.dataset.index
+        var temp = this.data.postList[index]
+        temp.likeList.push(app.globalData.openId)
+        wx.cloud.database().collection('dongtai').doc(temp._id).update({
+            data:{
+                likeList: temp.likeList
+            },
+            success(res){
+                that.setData({
+                    ["postList["+index+"]"+".likeList"]:temp.likeList,
+                    ["postList["+index+"]"+".like"]:true
+                })
+            }
+        })
+    },
+
+    dislike:function(e){
+        const that = this
+        var index = e.currentTarget.dataset.index
+        var temp = this.data.postList[index]
+        var i = temp.likeList.indexOf(app.globalData.openId)
+        temp.likeList.splice(i,1)
+        wx.cloud.database().collection('dongtai').doc(temp._id).update({
+            data:{
+                likeList: temp.likeList
+            },
+            success(res){
+                that.setData({
+                    ["postList["+index+"]"+".likeList"]:temp.likeList,
+                    ["postList["+index+"]"+".like"]:false
+                })
+            }
+        })
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        // var that = this
         this.setData({
             openId:app.globalData.openId
         })
-        // wx.cloud.database().collection('dongtai').orderBy('time','desc').get({
-        //     success(res){
-        //         var temp = res.data
-        //         for(var i of temp){
-        //             i.time = formatTime(new Date(i.time))
-        //         }
-        //         that.setData({
-        //             postList:temp
-        //         })
-        //     }
-        // })
     },
 
     /**
@@ -81,13 +105,22 @@ Page({
      */
     onShow: function () {
         if(app.globalData.openId){
-            this.onLoad()
+            if(!this.data.login){
+                this.onLoad()
+                this.data.login = true
+            }
             var that = this
             wx.cloud.database().collection('dongtai').orderBy('time','desc').get({
                 success(res){
                     var temp = res.data
                     for(var i of temp){
                         i.time = formatTime(new Date(i.time))
+                        if(i.likeList.includes(app.globalData.openId)){
+                            i.like=true
+                        }
+                        else{
+                            i.like=false
+                        }
                     }
                     that.setData({
                         postList:temp
@@ -116,6 +149,11 @@ Page({
      */
     onPullDownRefresh: function () {
         this.onShow()
+        wx.stopPullDownRefresh()
+        wx.showToast({
+            title: '刷新成功',
+            icon:'success'
+          })
     },
 
     /**

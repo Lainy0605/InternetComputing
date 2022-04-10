@@ -7,8 +7,9 @@ Page({
      */
     data: {
         postDetail:"",
-        id:"",
-        inputValue:""
+        inputValue:"",  
+        openId:"",
+        id:""
     },
 
     getValue(e){
@@ -17,14 +18,13 @@ Page({
 
     send(){
         const that = this
-        console.log()
-        if(app.globalData.openId){
+        if(this.data.inputValue){
             wx.cloud.database().collection('dongtai').doc(that.data.id).get({
                 success(res){
                     var comment = {}
+                    comment.openId = app.globalData.openId
                     comment.nickName = app.globalData.userInfo.nickName
                     comment.avatar = app.globalData.userInfo.avatarUrl
-                    comment.openId = app.globalData.openid
                     comment.text = that.data.inputValue
                     comment.time = new Date()
                     res.data.commentList.push(comment)
@@ -32,7 +32,7 @@ Page({
                         data:{
                             commentList:res.data.commentList
                         },
-                        success(res){
+                        success(re){       
                             wx.showToast({
                               title: '评论成功',
                             })
@@ -42,11 +42,17 @@ Page({
                 }
             })
         }
+        else{
+            wx.showToast({
+              title: '输入不能为空',
+              icon:'error'
+            })
+        }
     },
 
     reDetail(){
         const that = this
-        wx.cloud.database().collection('dongtai').doc(this.data.id).get({
+        wx.cloud.database().collection('dongtai').doc(that.data.id).get({
             success(res){
                 var temp = res.data
                 temp.time = formatTime(new Date(temp.time))

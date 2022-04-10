@@ -15,6 +15,9 @@ page{
 .left{
     margin-right: 15rpx;
 }
+.right{
+    width: 600rpx;
+}
 .nickName{
     color: #586894;
     font-weight: 550;
@@ -96,7 +99,10 @@ page{
     color: #7f7f7f;
     font-size: 25rpx;
 }
-
+.comment-text{
+    display: flex;
+    flex-wrap: wrap;
+}
 .take-comment{
     background-color: #f7f7f7;
     padding: 20rpx 40rpx;

@@ -12,7 +12,7 @@
         </view>
         <view class="time-delete">
             <view class="time">{{postDetail.time}}</view>
-            <view class="delete" wx:if="{{openId==item._openid}}" bindtap="deletePost">删除</view>
+            <view class="delete" wx:if="{{openId==postDetail._openid}}" bindtap="deletePost">删除</view>
         </view>
         <view class="interaction">
             <view class="interaction-word">
@@ -31,7 +31,7 @@
     </view>
 
 </view>
-<view class="comment-area" wx:if="{{postDetail.commentList}}">
+<view class="comment-area" wx:if="{{postDetail.commentList.length!=0}}">
     <view class="comment-left">
         <image src="../../../images/1.png" class="comment-icon"></image>
     </view>
@@ -44,13 +44,13 @@
                         <view class="comment-nickname">{{item.nickName}}</view>
                         <view class="comment-time">{{item.time}}</view>
                     </view>
-                    <view>{{item.text}}</view>
+                    <view class="comment-text">{{item.text}}</view>
                 </view>
             </view>
         </block>
     </view> 
 </view>
-<view style="height:200rpx"></view>
+<view style="height:200rpx"></view> <!--为下面的输入框留白防止遮挡-->
 <view class="take-comment">
     <view class="take-comment-left">
         <input class="input-comment" placeholder="评论" bindinput="getValue"/>

@@ -4,47 +4,48 @@
 </view>
 
 <block wx:for="{{postList}}" wx:key="this">
-<view class="message" bindtap="toDetail" data-id="{{item._id}}">
-    <view class="left">
-        <image class="face-img" src="{{item.avatar}}"></image>
+    <view class="message" >
+        <view class="left">
+            <image class="face-img" src="{{item.avatar}}"></image>
+        </view>
+        <view class="right">
+            <view class="nickname">{{item.nickName}}</view>
+            <view bindtap="toDetail" data-id="{{item._id}}">{{item.text}}</view>
+            <view class="images-wrap">
+                <block wx:if="{{item.imgList.length == 1}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
+                    <image src="{{imgItem}}" class="image-1"></image>
+                </block>
+                <block wx:if="{{item.imgList.length == 2 || item.imgList.length==3}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
+                    <image src="{{imgItem}}" class="image-2-3"></image>
+                </block>
+                <block wx:if="{{item.imgList.length == 4}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
+                    <image src="{{imgItem}}" class="image-4"></image>
+                </block>
+                <block wx:if="{{item.imgList.length>=5}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
+                    <image src="{{imgItem}}" class="image-5-9"></image>
+                </block>
+            </view>
+            <view class="time-delete">
+                <view class="time">{{item.time}}</view>
+                <view class="delete" wx:if="{{openId==item._openid}}" bindtap="deletePost" data-index="{{index}}">删除</view>
+            </view>
+            <view class="interaction">
+                <view class="interaction-word">
+                    <image src="../../../images/1.png" class="interaction-icon"></image>
+                    <view>分享</view>
+                </view>
+                <view class="interaction-word">
+                    <image src="../../../images/1.png" class="interaction-icon" bindtap="toDetail" data-id="{{item._id}}"></image>
+                    <view wx:if="{{item.commentList.length}}" class="numbers">{{item.commentList.length}}</view> <!--评论-->
+                </view>
+                <view class="interaction-word">
+                    <image wx:if="{{!item.like}}" src="../../../images/1.png" class="interaction-icon" bindtap="like" data-index="{{index}}"></image>
+                    <image wx:else src="../../../images/avator.jpg" class="interaction-icon" bindtap="dislike" data-index="{{index}}"></image>
+                    <view wx:if="{{item.likeList.length}}" class="numbers">{{item.likeList.length}}</view><!--点赞-->
+                </view>
+            </view>
+        </view>
     </view>
-    <view class="right">
-        <view class="nickname">{{item.nickName}}</view>
-        <view>{{item.text}}</view>
-        <view class="images-wrap">
-            <block wx:if="{{item.imgList.length == 1}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
-                <image src="{{imgItem}}" class="image-1"></image>
-            </block>
-            <block wx:if="{{item.imgList.length == 2 || item.imgList.length==3}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
-                <image src="{{imgItem}}" class="image-2-3"></image>
-            </block>
-            <block wx:if="{{item.imgList.length == 4}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
-                <image src="{{imgItem}}" class="image-4"></image>
-            </block>
-            <block wx:if="{{item.imgList.length>=5}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem">
-                <image src="{{imgItem}}" class="image-5-9"></image>
-            </block>
-        </view>
-        <view class="time-delete">
-            <view class="time">{{item.time}}</view>
-            <view class="delete" wx:if="{{openId==item._openid}}" bindtap="deletePost" data-index="{{index}}">删除</view>
-        </view>
-        <view class="interaction">
-            <view class="interaction-word">
-                <image src="../../../images/1.png" class="interaction-icon"></image>
-                <view>分享</view>
-            </view>
-            <view class="interaction-word">
-                <image src="../../../images/1.png" class="interaction-icon" bindtap="toDetail"></image>
-                <view>评论</view>
-            </view>
-            <view class="interaction-word">
-                <image src="../../../images/1.png" class="interaction-icon" bindtap="like"></image>
-                <view wx:if="{{item.likeNumber!=0}}">{{item.likeNumber}}</view>
-            </view>
-        </view>
-    </view>
-</view>
 </block>
 </block>
 <block wx:if="{{!openId}}">请先登录</block>
