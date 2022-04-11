@@ -53,7 +53,7 @@
 <view style="height:200rpx"></view> <!--为下面的输入框留白防止遮挡-->
 <view class="take-comment">
     <view class="take-comment-left">
-        <input class="input-comment" placeholder="评论" bindinput="getValue"/>
+        <input class="input-comment" placeholder="评论" bindinput="getValue" value="{{nothing}}"/>
     </view>
     <view class="send-comment" bindtap="send">发送</view>
 </view>
