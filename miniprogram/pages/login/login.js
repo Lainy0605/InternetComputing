@@ -24,8 +24,8 @@ Page({
                         }) 
                         app.globalData.openId = that.data.openId
                         app.globalData.userInfo = that.data.userInfo
-                        // wx.setStorageSync('openId', that.data.openId)
-                        // wx.setStorageSync('userInfo', that.data.userInfo)
+                        wx.setStorageSync('openId', that.data.openId)
+                        wx.setStorageSync('userInfo', that.data.userInfo)
                     }
                 })
             }
@@ -37,6 +37,8 @@ Page({
     onLoad: function (options) {
         const ui = wx.getStorageSync('userInfo')
         const od = wx.getStorageSync('openId')
+        app.globalData.openId = od
+        app.globalData.userInfo = ui
         this.setData({
             userInfo:ui,
             openId:od

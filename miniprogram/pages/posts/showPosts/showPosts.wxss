@@ -79,13 +79,8 @@ page{
     flex-wrap: wrap;
     margin-top: 10rpx;
 }
-.image-1{
-    width: 400rpx;
-    height: 500rpx;
-    margin: 5rpx 5rpx;
-}
 .image-4{
-    height: 210rpx;
+    height: 215rpx;
     width: 215rpx;
     margin: 5rpx 5rpx;
 }

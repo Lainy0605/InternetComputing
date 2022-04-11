@@ -14,7 +14,7 @@
             <view class="images-wrap">
                 <!--一张图-->
                 <block wx:if="{{item.imgList.length == 1}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
-                    <image src="{{imgItem}}" mode="aspectFill" bindtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}" bindload="oneImageLoad" mode="{{item.isHeightMode ? 'heightFix' : 'widthFix'}}" style="height: {{item.isHeightMode ? '500rpx' : ''}}"></image>
+                    <image src="{{imgItem}}" mode="aspectFill" bindtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}" mode="widthFix"></image>
                 </block>
                 <!--四张图-->
                 <block wx:if="{{item.imgList.length == 4}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
