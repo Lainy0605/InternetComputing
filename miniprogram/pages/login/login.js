@@ -13,23 +13,21 @@ Page({
     getUserInfo:function(){
         const that = this
         wx.getUserProfile({
-          desc: '获取信息',
-          success(res){
-              that.setData({
-                  userInfo:res.userInfo
-              })
-              app.globalData.userInfo = that.data.userInfo
-            //   wx.setStorageSync('userInfo', that.data.userInfo)
-          }
-        })
-        wx.cloud.callFunction({
-            name:"getOpenId",
+            desc: '获取信息',
             success(res){
-                that.setData({
-                    openId:res.result.openid
-                }) 
-                app.globalData.openId = that.data.openId
-                // wx.setStorageSync('openId', that.data.openId)
+                wx.cloud.callFunction({
+                    name:"getOpenId",
+                    success(re){
+                        that.setData({
+                            openId:re.result.openid,
+                            userInfo:res.userInfo
+                        }) 
+                        app.globalData.openId = that.data.openId
+                        app.globalData.userInfo = that.data.userInfo
+                        // wx.setStorageSync('openId', that.data.openId)
+                        // wx.setStorageSync('userInfo', that.data.userInfo)
+                    }
+                })
             }
         })
     },
@@ -37,12 +35,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        // const ui = wx.getStorageSync('userInfo')
-        // const od = wx.getStorageSync('openId')
-        // this.setData({
-        //     userInfo:ui,
-        //     openId:od
-        // })
+        const ui = wx.getStorageSync('userInfo')
+        const od = wx.getStorageSync('openId')
+        this.setData({
+            userInfo:ui,
+            openId:od
+        })
     },
 
     /**

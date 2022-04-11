@@ -26,6 +26,21 @@ Page({
         })
     },
 
+    previewImg:function(e){
+        const imgList = this.data.postList[e.currentTarget.dataset.index].imgList
+        const current = e.currentTarget.dataset.src
+        wx.previewImage({
+          urls: imgList,
+          current:current
+        })
+    },
+
+    oneImageLoad(e){
+        var index = e.currentTarget.dataset.index
+        const {width,height} = e.detail
+        if(height >= width){this.setData({["postList["+index+"].isHeightMode"]:true})}
+    },
+
     deletePost:function(e){
         const that = this
         wx.showModal({

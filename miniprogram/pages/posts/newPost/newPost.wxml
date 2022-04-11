@@ -7,7 +7,7 @@
 <view class="image-area">
     <view wx:for="{{imgList}}" wx:key="this">
         <view class="one-image">
-            <image src="{{item.tempFilePath}}" class="img"></image>
+            <image src="{{item.tempFilePath}}" class="img" mode="aspectFill"></image>
             <image src="../../../images/删除.png" class="delete" bindtap="deleteImg" data-index="{{index}}"></image>
         </view>
     </view>

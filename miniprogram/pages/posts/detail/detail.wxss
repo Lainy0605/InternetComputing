@@ -69,9 +69,16 @@ page{
 .images-wrap{
     margin-top: 10rpx;
 }
-.image-1{
-    width: 400rpx;
-    height: 500rpx;
+
+.image-4{
+    height: 210rpx;
+    width: 215rpx;
+    margin: 5rpx 5rpx;
+}
+.image-5-9{
+    height: 180rpx;
+    width: 180rpx;
+    margin: 5rpx 5rpx;
 }
 .comment-area{
     display: flex;

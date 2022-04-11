@@ -12,6 +12,18 @@ Page({
         id:""
     },
 
+    oneImageLoad(e){
+        const {width,height} = e.detail
+        if(height >= width){this.setData({["postDetail.isHeightMode"]:true})}
+    },
+
+    previewImg:function(e){
+        wx.previewImage({
+          urls: this.data.postDetail.imgList,
+          current:e.currentTarget.dataset.src
+        })
+    },
+
     deletePost:function(){
         const that = this
         wx.showModal({
@@ -133,9 +145,9 @@ Page({
                               title: '评论成功',
                             })
                             that.setData({
-                                nothing:""
+                                nothing:"",
+                                ["postDetail.commentList"]:res.data.commentList
                             })
-                            that.reDetail()
                         }
                     })
                 }

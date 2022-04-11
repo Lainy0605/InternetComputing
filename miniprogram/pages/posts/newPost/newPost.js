@@ -30,7 +30,6 @@ Page({
             success(res){
                 const temp = that.data.imgList.concat(res.tempFiles)
                 var t = !(temp.length==9)
-                console.log(t)
                 that.setData({
                   imgList: temp,
                   canChoose:t
