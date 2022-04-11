@@ -11,7 +11,9 @@
             </block> -->
             <!--一张图-->
             <block wx:if="{{postDetail.imgList.length == 1}}" wx:for="{{postDetail.imgList}}" wx:key="this">
-                <image src="{{item}}" mode="aspectFill" bindtap="previewImg" data-src="{{item}}" bindload="oneImageLoad" mode="{{postDetail.isHeightMode ? 'heightFix' : 'widthFix'}}" style="height: {{postDetail.isHeightMode ? '500rpx' : ''}}"></image>
+                <!--判断高度自适应or宽度自适应-->
+                <!-- <image src="{{item}}" mode="aspectFill" bindtap="previewImg" data-src="{{item}}" bindload="oneImageLoad" mode="{{postDetail.isHeightMode ? 'heightFix' : 'widthFix'}}" style="height: {{postDetail.isHeightMode ? '500rpx' : ''}}"></image>  -->
+                <image src="{{item}}" mode="aspectFill" bindtap="previewImg" data-src="{{item}}" bindload="oneImageLoad" mode="widthFix"></image>
             </block>
             <!--四张图-->
             <block wx:if="{{postDetail.imgList.length == 4}}" wx:for="{{postDetail.imgList}}" wx:key="this">
@@ -27,8 +29,10 @@
             <view class="delete" bindtap="deletePost" wx:if="{{openId==postDetail._openid}}">删除</view>
         </view>
         <view class="interaction">
-                <view> <!--不能删-->
-                    <button open-type="share" size="mini"><image src="../../../images/分享.png" class="interaction-icon"></image></button>
+                <view class="interaction-share"> <!--不能删-->
+                    <button open-type="share" size="mini" class="button-1">
+                        <image src="../../../images/分享.png" class="interaction-icon"></image>
+                    </button>
                 </view>
                 <view class="interaction-comment">
                     <image src="../../../images/评论.png" class="interaction-icon"></image>
@@ -41,9 +45,12 @@
                 </view>
         </view>
     </view>
-
 </view>
-<view class="comment-area" wx:if="{{postDetail.commentList.length!=0}}">
+<block wx:if="{{postDetail.commentList.length!=0}}">
+    <view class="separate-area">
+        <image src="../../../images/地址分隔线.png" class="separate"></image>
+    </view>
+<view class="comment-area">
     <view class="comment-left">
         <image src="../../../images/1.png" class="comment-icon"></image>
     </view>
@@ -62,6 +69,8 @@
         </block>
     </view> 
 </view>
+</block>
+
 <view style="height:200rpx"></view> <!--为下面的输入框留白防止遮挡-->
 <view class="take-comment">
     <view class="take-comment-left">

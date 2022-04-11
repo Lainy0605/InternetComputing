@@ -3,8 +3,7 @@
         "pages/login/login",
         "pages/posts/newPost/newPost",
         "pages/posts/showPosts/showPosts",
-        "pages/posts/detail/detail",
-        "pages/index/index",
+        "pages/posts/postDetail/postDetail",
         "pages/habits/showHabits/showHabits",
         "pages/habits/newHabit/newHabit"
     ],

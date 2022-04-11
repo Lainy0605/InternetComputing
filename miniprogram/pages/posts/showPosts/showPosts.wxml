@@ -24,9 +24,6 @@
                 <block wx:if="{{item.imgList.length == 2 || item.imgList.length==3 || item.imgList.length>=5}}" wx:for="{{item.imgList}}" wx:key="this"   wx:for-item="imgItem" wx:for-index="innerIndex">
                     <image src="{{imgItem}}" class="image-5-9" mode="aspectFill" bindtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
                 </block>
-                <!-- <block wx:if="{{item.imgList.length>=5}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
-                    <image src="{{imgItem}}" class="image-5-9" mode="aspectFill" bindtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
-                </block> -->
             </view>
             <view class="time-delete">
                 <view class="time">{{item.time}}</view>
@@ -47,6 +44,9 @@
                 </view>
             </view>
         </view>
+    </view>
+    <view class="separate-area">
+        <image src="../../../images/分割线 (4).png" class="separate"></image>
     </view>
 </block>
 </block>

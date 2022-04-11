@@ -21,7 +21,7 @@ Page({
     toDetail:function(e){
         var temp = e.currentTarget.dataset.id
         wx.navigateTo({
-            url: '../detail/detail?id='+temp,
+            url: '../postDetail/postDetail?id='+temp,
             success:function(res){}
         })
     },
@@ -35,11 +35,11 @@ Page({
         })
     },
 
-    oneImageLoad(e){
-        var index = e.currentTarget.dataset.index
-        const {width,height} = e.detail
-        if(height >= width){this.setData({["postList["+index+"].isHeightMode"]:true})}
-    },
+    // oneImageLoad(e){
+    //     var index = e.currentTarget.dataset.index
+    //     const {width,height} = e.detail
+    //     if(height >= width){this.setData({["postList["+index+"].isHeightMode"]:true})}
+    // },
 
     deletePost:function(e){
         const that = this
@@ -189,7 +189,7 @@ Page({
             var index = e.target.dataset.index
             return{
                 title:'快来一起养成好习惯吧！', //todo
-                path:'/pages/posts/detail/detail?id='+this.data.postList[index]._id,
+                path:'/pages/posts/postDetail/postDetail?id='+this.data.postList[index]._id,
                 imageUrl:'../../../images/1.png', //todo
             }
         }

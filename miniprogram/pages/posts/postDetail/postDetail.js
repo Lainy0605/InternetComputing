@@ -12,10 +12,10 @@ Page({
         id:""
     },
 
-    oneImageLoad(e){
-        const {width,height} = e.detail
-        if(height >= width){this.setData({["postDetail.isHeightMode"]:true})}
-    },
+    // oneImageLoad(e){
+    //     const {width,height} = e.detail
+    //     if(height >= width){this.setData({["postDetail.isHeightMode"]:true})}
+    // },
 
     previewImg:function(e){
         wx.previewImage({
@@ -230,9 +230,8 @@ Page({
      */
     onShareAppMessage: function () {
         return{
-            title:'111',
-            path:'/miniprogram/pages/share/share.wxml',
-            // imageUrl:'../../../images/avator.jpg',
+            title:'快来一起养成好习惯吧！',//todo
+            path:'/pages/posts/postDetail/postDetail?id='+this.data.postDetail._id,
         }
     }
 })
