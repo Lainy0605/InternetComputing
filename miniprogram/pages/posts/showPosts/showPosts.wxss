@@ -47,14 +47,23 @@ page{
 .interaction{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     color: #7f7f7f;
     margin: 10rpx 0rpx 10rpx 0rpx;
+    position: relative;
 }
-.interaction-word{
+.interaction-comment{
     display: flex;
     flex-direction: row;
     align-items: center;
+    left: 275rpx;
+    position:absolute;
+}
+.interaction-like{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    left: 520rpx;
+    position:absolute;
 }
 .interaction-icon{
     width: 40rpx;

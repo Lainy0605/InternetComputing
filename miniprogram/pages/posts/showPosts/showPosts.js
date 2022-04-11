@@ -27,22 +27,32 @@ Page({
     },
 
     deletePost:function(e){
-        var index=e.currentTarget.dataset.index
-        var temp = this.data.postList[index]
-        this.data.postList.splice(index,1)
         const that = this
-        wx.cloud.database().collection('dongtai').where({
-            _id:temp._id
-        }).remove()
-        wx.cloud.deleteFile({
-            fileList:temp.imgList,
+        wx.showModal({
+            title:"提示",
+            content:"确定删除？",
+            cancelColor: 'cancelColor',
+            confirmColor:'#fc5959',
             success(res){
-                wx.showToast({
-                  title: '删除成功',
-                })
-                that.setData({
-                    postList:that.data.postList
-                })
+                if(res.confirm){
+                    var index=e.currentTarget.dataset.index
+                    var temp = that.data.postList[index]
+                    that.data.postList.splice(index,1)
+                    wx.cloud.database().collection('dongtai').where({
+                        _id:temp._id
+                    }).remove()
+                    wx.cloud.deleteFile({
+                        fileList:temp.imgList,
+                        success(res){
+                            wx.showToast({
+                            title: '删除成功',
+                            })
+                            that.setData({
+                                postList:that.data.postList
+                            })
+                        }
+                    })
+                }
             }
         })
     },
@@ -112,18 +122,11 @@ Page({
             var that = this
             wx.cloud.database().collection('dongtai').orderBy('time','desc').get({
                 success(res){
-                    var temp = res.data
-                    for(var i of temp){
-                        i.time = formatTime(new Date(i.time))
-                        if(i.likeList.includes(app.globalData.openId)){
-                            i.like=true
-                        }
-                        else{
-                            i.like=false
-                        }
+                    for(var i of res.data){
+                        i.like = i.likeList.includes(app.globalData.openId) ? true :false
                     }
                     that.setData({
-                        postList:temp
+                        postList:res.data
                     })
                 }
             })
@@ -166,7 +169,14 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
-
+    onShareAppMessage: function (e) {
+        if(e.from==='button'){
+            var index = e.target.dataset.index
+            return{
+                title:'快来一起养成好习惯吧！', //todo
+                path:'/pages/posts/detail/detail?id='+this.data.postList[index]._id,
+                imageUrl:'../../../images/1.png', //todo
+            }
+        }
     }
 })

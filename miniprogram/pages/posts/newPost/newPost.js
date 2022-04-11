@@ -1,18 +1,19 @@
 // pages/message/newPost/newPost.js
 var app = getApp()
 import { Buttonclicked } from '../../../utils/utils'
+import { formatTime } from "../../../utils/utils"
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        inputValue:"",
-        imgList:[],
-        cloudimgList:[],
-        index:"",
-        clicked:false,
-        canChoose:true,
+        inputValue:"",  //输入框的值
+        imgList:[],     //图片本地缓存路径
+        cloudimgList:[],//图片云端存储路径
+        index:"",       //删除选中的图片
+        clicked:false,  //是否重复提交
+        canChoose:true, //图片选择上限
     },
     
     getValue(e){
@@ -69,7 +70,7 @@ Page({
                     avatar:app.globalData.userInfo.avatarUrl,
                     text:that.data.inputValue,
                     imgList:that.data.cloudimgList,
-                    time:Date.now(),
+                    time:formatTime(new Date()),
                     commentList:[],
                     likeList:[],
                 },
@@ -80,7 +81,7 @@ Page({
         })
     },
     async send(){
-        if(this.data.inputValue){
+        if(this.data.inputValue || this.data.imgList.length!=0){
             Buttonclicked(this)
             for(var temp of this.data.imgList){
                 await this.uploadTocloud(temp)
