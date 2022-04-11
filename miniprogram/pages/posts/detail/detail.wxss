@@ -100,8 +100,8 @@ page{
     font-size: 25rpx;
 }
 .comment-text{
-    display: flex;
-    flex-wrap: wrap;
+    width: 500rpx;
+    word-wrap: break-word;
 }
 .take-comment{
     background-color: #f7f7f7;

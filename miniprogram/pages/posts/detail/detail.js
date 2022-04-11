@@ -36,6 +36,9 @@ Page({
                             wx.showToast({
                               title: '评论成功',
                             })
+                            that.setData({
+                                nothing:""
+                            })
                             that.reDetail()
                         }
                     })
