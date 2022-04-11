@@ -1,6 +1,6 @@
 <block wx:if="{{openId}}">
 <view class="new-post" bindtap="toPagenewPost">
-    <image src="../../../images/1.png" class="new-post-icon"></image>
+    <image src="../../../images/发布.png" class="new-post-icon"></image>
 </view>
 
 <block wx:for="{{postList}}" wx:key="this">
@@ -31,16 +31,16 @@
             </view>
             <view class="interaction">
                 <view class="interaction-word">
-                    <image src="../../../images/1.png" class="interaction-icon"></image>
+                    <image src="../../../images/分享.png" class="interaction-icon"></image>
                     <view>分享</view>
                 </view>
                 <view class="interaction-word">
-                    <image src="../../../images/1.png" class="interaction-icon" bindtap="toDetail" data-id="{{item._id}}"></image>
+                    <image src="../../../images/评论.png" class="interaction-icon" bindtap="toDetail" data-id="{{item._id}}"></image>
                     <view wx:if="{{item.commentList.length}}" class="numbers">{{item.commentList.length}}</view> <!--评论-->
                 </view>
                 <view class="interaction-word">
-                    <image wx:if="{{!item.like}}" src="../../../images/1.png" class="interaction-icon" bindtap="like" data-index="{{index}}"></image>
-                    <image wx:else src="../../../images/avator.jpg" class="interaction-icon" bindtap="dislike" data-index="{{index}}"></image>
+                    <image wx:if="{{!item.like}}" src="../../../images/点赞.png" class="interaction-icon" bindtap="like" data-index="{{index}}"></image>
+                    <image wx:else src="../../../images/已点赞.png" class="interaction-icon" bindtap="dislike" data-index="{{index}}"></image>
                     <view wx:if="{{item.likeList.length}}" class="numbers">{{item.likeList.length}}</view><!--点赞-->
                 </view>
             </view>

@@ -7,7 +7,7 @@ page{
 }
 .new-post-icon{
     width: 65rpx;
-    height: 55rpx;
+    height: 65rpx;
 }
 .message{
     display: flex;

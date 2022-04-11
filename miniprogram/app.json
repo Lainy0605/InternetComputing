@@ -16,24 +16,25 @@
         "navigationBarTextStyle": "black"
     },
     "tabBar": {
+        "selectedColor": "#758A99",
         "list": [
             {
                 "pagePath": "pages/habits/showHabits/showHabits",
                 "text": "习惯",
-                "iconPath": "images/1.png",
-                "selectedIconPath": "images/1.png"
+                "iconPath": "images/习惯.png", 
+                "selectedIconPath": "images/习惯-选中.png" 
             },
             {
                 "pagePath": "pages/posts/showPosts/showPosts",
                 "text": "圈子",
-                "iconPath": "images/1.png",
-                "selectedIconPath": "images/1.png"
+                "iconPath": "images/圈子.png", 
+                "selectedIconPath": "images/圈子-选中.png" 
             },
             {
                 "pagePath": "pages/login/login",
                 "text": "我的",
-                "iconPath": "images/1.png",
-                "selectedIconPath": "images/1.png"
+                "iconPath": "images/我的.png", 
+                "selectedIconPath": "images/我的-选中.png"
             }
         ]
     },

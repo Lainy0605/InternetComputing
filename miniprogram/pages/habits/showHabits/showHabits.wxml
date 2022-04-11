@@ -2,7 +2,9 @@
     请先登录
 </block>
 <view wx:if="{{setHabits}}">
-    <button bindtap="tonewHabit">新建</button> 
+    <view class="new-habit" bindtap="tonewHabit"> 
+        <image src="../../../images/新建.png" class="new-habit-icon"></image> 
+    </view>
     <view wx:if="{{habits.length!=0}}">
         <view wx:for="{{habits}}" wx:key="this" >
             <view class="habit">

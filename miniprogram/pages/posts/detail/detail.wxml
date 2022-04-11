@@ -16,15 +16,15 @@
         </view>
         <view class="interaction">
             <view class="interaction-word">
-                <image src="../../../images/1.png" class="interaction-icon"></image>
+                <image src="../../../images/分享.png" class="interaction-icon"></image>
                 <view>分享</view>
             </view>
             <view class="interaction-word">
-                <image src="../../../images/1.png" class="interaction-icon"></image>
+                <image src="../../../images/评论.png" class="interaction-icon"></image>
                 <view>评论</view>
             </view>
             <view class="interaction-word">
-                <image src="../../../images/1.png" class="interaction-icon"></image>
+                <image src="../../../images/点赞.png" class="interaction-icon"></image>
                 <view>点赞</view>
             </view>
         </view>

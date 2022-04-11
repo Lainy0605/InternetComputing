@@ -1,6 +1,13 @@
 .habit{
     position: relative;
 }
+.new-habit{
+    text-align: center;
+}
+.new-habit-icon{
+    width: 65rpx;
+    height: 65rpx;
+}
 .wrap{
     position: relative;
     z-index: 2; 
