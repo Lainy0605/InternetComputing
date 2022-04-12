@@ -1,8 +1,7 @@
 <block wx:if="{{!login}}">
     请先登录
 </block>
-<view wx:if="{{setHabits}}">
-    
+<view wx:if="{{setHabits}}">    
     <view wx:if="{{habits.length!=0}}">
         <view class="new-habit"> 
             <image src="../../../images/新建.png" class="new-habit-icon" bindtap="tonewHabit"></image> 

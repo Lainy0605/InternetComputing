@@ -67,6 +67,7 @@ Page({
      */
     onLoad: function (options) {
         if(app.globalData.openId){
+            console.log(app.globalData.openId)
             wx.showToast({
                 title: '加载中',
                 icon:'loading'
@@ -114,30 +115,14 @@ Page({
             title: '加载中',
             icon:'loading'
         })
-        wx.showToast({
-            title: '加载中',
-            icon:'loading'
-          })
-          const that = this
-        HABITS.where({
-            _openid:app.globalData.openId
-        })
-        .get({
-            success(res){
-                for(var habit of res.data){
-                    habit.offset = 0
-                }
-                that.setData({
-                    habits:res.data,
-                    setHabits:true,
-                    login:true
-                })
-                app.globalData.habits = that.data.habits                   
-                wx.hideToast({
-                  success: (res) => {},
-                })
-            }
-        })
+        if(!this.data.login){
+            this.onLoad()
+        }
+        else{
+            this.setData({
+                habits:app.globalData.habits
+            })
+        }
         wx.hideToast({
             success: (res) => {},
         })
