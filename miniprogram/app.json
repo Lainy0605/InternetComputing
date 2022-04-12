@@ -1,11 +1,9 @@
 {
-<<<<<<< HEAD
   "pages": [
     "pages/login/login",
     "pages/posts/newPost/newPost",
     "pages/posts/showPosts/showPosts",
-    "pages/posts/detail/detail",
-    "pages/index/index",
+    "pages/posts/postDetail/postDetail",
     "pages/habits/showHabits/showHabits",
     "pages/habits/newHabit/newHabit",
     "pages/habits/habitDetail/habitDetail"
@@ -44,50 +42,5 @@
   "style": "v2",
   "useExtendedLib": {
     "weui": true
-  }
-=======
-    "pages": [
-        "pages/login/login",
-        "pages/posts/newPost/newPost",
-        "pages/posts/showPosts/showPosts",
-        "pages/posts/postDetail/postDetail",
-        "pages/habits/showHabits/showHabits",
-        "pages/habits/newHabit/newHabit"
-    ],
-    "window": {
-        "backgroundColor": "#F6F6F6",
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#F6F6F6",
-        "navigationBarTitleText": "HabitKeeper",
-        "navigationBarTextStyle": "black"
-    },
-    "tabBar": {
-        "selectedColor": "#758A99",
-        "list": [
-            {
-                "pagePath": "pages/habits/showHabits/showHabits",
-                "text": "习惯",
-                "iconPath": "images/习惯.png",
-                "selectedIconPath": "images/习惯-选中.png"
-            },
-            {
-                "pagePath": "pages/posts/showPosts/showPosts",
-                "text": "圈子",
-                "iconPath": "images/圈子.png",
-                "selectedIconPath": "images/圈子-选中.png"
-            },
-            {
-                "pagePath": "pages/login/login",
-                "text": "我的",
-                "iconPath": "images/我的.png",
-                "selectedIconPath": "images/我的-选中.png"
-            }
-        ]
-    },
-    "sitemapLocation": "sitemap.json",
-    "style": "v2",
-    "useExtendedLib": {
-        "weui": true
     }
->>>>>>> 7932a1364718ac79d852570116f4d0f332d9da8d
 }
