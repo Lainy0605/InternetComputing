@@ -3,19 +3,45 @@
 }
 .new-habit{
     text-align: center;
+    vertical-align: right;
+    height: 66rpx;
 }
 .new-habit-icon{
     width: 65rpx;
     height: 65rpx;
+     float: right; 
+    right: 10rpx;
+}.newHabit{
+    color: red;
 }
+.habitTest{
+    font: bolder;
+    width: 690rpx;
+    padding: 30rpx 30rpx 20rpx;
+    margin: 7rpx 0 6rpx 0;
+    background: #ffffff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 5px rgb(214, 240, 236);
+  }
 .wrap{
     position: relative;
-    z-index: 2; 
-    top: 0;
+    z-index: 0; 
+    top: 0rpx;
     left: 0;
     background-color: #fff;
     width: 100%;
     height: 100%;
+}
+.wrap habit{
+    color: blueviolet;
+}
+.wrap days{
+    color: blueviolet;
+}
+.wrap alignright { 
+    float: right; 
+    /* text-align:right;  */
 }
 .delete{
     background-color: red;
@@ -25,4 +51,10 @@
     right: 0;
     width: 120rpx;
     height: 100%;
+}
+.setFirst{
+    position: relative;
+    top:194rpx;
+    width: 80%;
+    height:75%;
 }

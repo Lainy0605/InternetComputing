@@ -2,20 +2,47 @@
     请先登录
 </block>
 <view wx:if="{{setHabits}}">
-    <view class="new-habit" bindtap="tonewHabit"> 
-        <image src="../../../images/新建.png" class="new-habit-icon"></image> 
-    </view>
+    
     <view wx:if="{{habits.length!=0}}">
-        <view wx:for="{{habits}}" wx:key="this" >
-            <view class="habit">
-                <view class="wrap" style="transform: translateX({{item.offset/2}}px);" data-index="{{index}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">你{{item.name}}已经{{item.day}}天了</view>
-                <view  class="delete" bindtap="delete" data-index="{{index}}"><text>删除</text></view>
+        <view class="new-habit"> 
+            <image src="../../../images/新建.png" class="new-habit-icon" bindtap="tonewHabit"></image> 
+        </view>
+        <view wx:for="{{habits}}" wx:key="this">
+            <view class="habitTest" bindtap="toHabitDetail" data-id="{{item._id}}">
+                <view class="wrap">
+                    你坚持培养#<habit>{{func.getFirst5(item.name)}}</habit>#习惯已经<alignright><days>{{item.day}}</days>  天({{func.period(item.day)}})</alignright>
+                </view>
+                <!-- <view bindtap="delete" data-index="{{index}}" class="wrap">
+                    删除
+                </view> -->
             </view>
         </view>
     </view>
     <view wx:else>
-        <button bindtap="tonewHabit">创建我的习惯</button>
+        <button class="setFirst" bindtap="tonewHabit">您还没有创建习惯哦，点我创建第一个习惯！</button>
     </view>
 </view>
 
 
+<wxs module="func">
+    module.exports={
+        period: function(day){
+            console.log(day);
+            if (day<=3)
+                return "观察期";
+            if (day<=7)
+                return "起步期";
+            if (day<=21)
+                return "养成期";
+            if (day<=90)
+                return "稳定期";
+            return "已完成";  
+        },
+        getFirst5:function(name){
+            if (name.length>=6)
+                return name[0]+name[1]+name[2]+name[3]+"...";
+            else
+                return name;
+        }
+    }
+</wxs>

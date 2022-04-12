@@ -1,3 +1,4 @@
+/* pages/habits/habitDetail/habitDetail.wxss */
 .setHabitName{
   font: bolder;
   width: 690rpx;
@@ -7,4 +8,16 @@
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   box-shadow: 0 2px 5px rgb(214, 240, 236);
+}
+.setHabitName days{
+  color: blueviolet;
+}
+.wrap{
+  position: relative;
+  z-index: 0; 
+  top: 0rpx;
+  left: 0;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
 }

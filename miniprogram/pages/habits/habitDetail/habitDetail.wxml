@@ -1,0 +1,41 @@
+<!--pages/habits/habitDetail/habitDetail.wxml-->
+<!-- <view>{{habitDetail.name}}</view> -->
+<view class="setHabitName">
+  <view>
+      习惯名称：{{habitDetail.name}}
+  </view>
+  <view>
+      已进行<days>{{habitDetail.day}}</days>天（{{func.period(habitDetail.day)}}）
+  </view>
+  <view bindtap="delete" class="wrap">
+      删除
+  </view>
+</view>
+
+
+
+
+
+
+<wxs module="func">
+    module.exports={
+        period: function(day){
+            console.log(day);
+            if (day<=3)
+                return "观察期";
+            if (day<=7)
+                return "起步期";
+            if (day<=21)
+                return "养成期";
+            if (day<=90)
+                return "稳定期";
+            return "已完成";  
+        },
+        getFirst5:function(name){
+            if (name.length>=6)
+                return name[0]+name[1]+name[2]+name[3]+"...";
+            else
+                return name;
+        }
+    }
+</wxs>

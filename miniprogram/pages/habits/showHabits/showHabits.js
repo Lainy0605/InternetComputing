@@ -1,6 +1,8 @@
 const HABITS = wx.cloud.database().collection('habits')
 var app = getApp()
+var period;
 Page({
+    
     /**
      * 页面的初始数据
      */
@@ -16,6 +18,13 @@ Page({
         wx.navigateTo({
           url: '../newHabit/newHabit',
           success:function(res){}
+        })
+    },
+    toHabitDetail:function(e){
+        var temp = e.currentTarget.dataset.id
+        wx.navigateTo({
+            url: '../habitDetail/habitDetail?id='+temp,
+            success:function(res){}
         })
     },
     touchStart:function(e){
@@ -41,6 +50,7 @@ Page({
         })
     },
     delete:function(e){
+        
         var index=e.currentTarget.dataset.index
         HABITS.where({
             _id:this.data.habits[index]._id
@@ -104,14 +114,30 @@ Page({
             title: '加载中',
             icon:'loading'
         })
-        if(!this.data.login){
-            this.onLoad()
-        }
-        else{
-            this.setData({
-                habits:app.globalData.habits
-            })
-        }
+        wx.showToast({
+            title: '加载中',
+            icon:'loading'
+          })
+          const that = this
+        HABITS.where({
+            _openid:app.globalData.openId
+        })
+        .get({
+            success(res){
+                for(var habit of res.data){
+                    habit.offset = 0
+                }
+                that.setData({
+                    habits:res.data,
+                    setHabits:true,
+                    login:true
+                })
+                app.globalData.habits = that.data.habits                   
+                wx.hideToast({
+                  success: (res) => {},
+                })
+            }
+        })
         wx.hideToast({
             success: (res) => {},
         })

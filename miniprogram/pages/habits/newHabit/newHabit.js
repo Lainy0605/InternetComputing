@@ -15,8 +15,9 @@ Page({
     },
     addHabit(){
         const that = this
-        app.globalData.habits.push({"name":this.data.name,"day":0,"offset":0})
-        HABITS.add({
+        if (this.data.name.length>0) {
+            app.globalData.habits.push({"name":this.data.name,"day":0,"offset":0,"period":"观察期"});
+            HABITS.add({
             data:{
                 name:that.data.name,
                 day:0
@@ -25,8 +26,17 @@ Page({
                 wx.navigateBack({
                     delta:1
                 })
+                
              },
         })
+        }
+        else{
+            wx.showToast({
+                title: '输入不能为空',
+                icon:'error'
+              })
+        }
+        
     },
     /**
      * 生命周期函数--监听页面加载

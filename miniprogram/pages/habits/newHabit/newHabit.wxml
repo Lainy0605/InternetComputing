@@ -1,5 +1,5 @@
 <!--pages/habits/newHabit/newHabit.wxml-->
 <view>
-    <input bindinput="nameInput" placeholder="给你的习惯取一个名字"/>
+    <input class="setHabitName" bindinput="nameInput" placeholder="给你的习惯取一个名字"/>
     <button bindtap="addHabit">确认</button>
 </view>
