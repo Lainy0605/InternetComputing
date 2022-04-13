@@ -8,20 +8,15 @@ const db = cloud.database();
 // 修改数据库信息云函数入口函数
 exports.main = async (event, context) => {
   try {
-    // 遍历修改数据库信息
-    for (let i = 0; i < event.data.length; i++) {
-      await db.collection('sales').where({
-        _id: event.data[i]._id
-      })
-        .update({
-          data: {
-            sales: event.data[i].sales
-          },
-        });
-    }
+    console.log(3)
+    await db.collection('dongtai').where({
+      _openid:event.openId
+    })
+    .update({
+      nickName:111,
+    })
     return {
       success: true,
-      data: event.data
     };
   } catch (e) {
     return {

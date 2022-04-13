@@ -1,3 +1,4 @@
+
 <view wx:if="{{!openId}}">
     <button lang="zh_CN" bindtap="getUserInfo">login</button>
 </view>

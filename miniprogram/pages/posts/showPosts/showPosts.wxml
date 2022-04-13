@@ -1,6 +1,11 @@
 <block wx:if="{{openId}}">
-<view class="new-post" bindtap="toPagenewPost">
-    <image src="../../../images/发布.png" class="new-post-icon"></image>
+    <van-tabs active="{{}}" bind:change="onChange">
+        <van-tab title="我的"></van-tab>
+        <van-tab title="习惯2"></van-tab>
+        <van-tab title="习惯3"></van-tab>
+    </van-tabs>
+    <view class="new-post" bindtap="toPagenewPost">
+        <image src="../../../images/发布.png" class="new-post-icon"></image>
 </view>
 
 <block wx:for="{{postList}}" wx:key="this">

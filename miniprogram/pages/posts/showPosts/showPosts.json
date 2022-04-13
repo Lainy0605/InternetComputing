@@ -1,3 +1,7 @@
 {
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-tab":"/pages/dist/tab/index",
+    "van-tabs":"/pages/dist/tabs/index"
+  }
 }

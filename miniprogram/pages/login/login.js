@@ -26,6 +26,16 @@ Page({
                         app.globalData.userInfo = that.data.userInfo
                         wx.setStorageSync('openId', that.data.openId)
                         wx.setStorageSync('userInfo', that.data.userInfo)
+                        wx.cloud.callFunction({
+                            name:'quickstartFunctions',
+                            data:{
+                                type:'updateRecord',
+                                openId:that.data.openId,
+                                nickName:that.data.userInfo.nickName,
+                                avatarUrl:that.data.userInfo.avatarUrl
+                            },
+                            success(r){console.log(r)},
+                        })
                     }
                 })
             }
@@ -34,15 +44,14 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-        const ui = wx.getStorageSync('userInfo')
-        const od = wx.getStorageSync('openId')
-        app.globalData.openId = od
-        app.globalData.userInfo = ui
+    onLoad: function (options) {    
+        app.globalData.userInfo = wx.getStorageSync('userInfo')
+        app.globalData.openId = wx.getStorageSync('openId')
         this.setData({
-            userInfo:ui,
-            openId:od
+            userInfo:app.globalData.userInfo,
+            openId:app.globalData.openId
         })
+        console.log(111)
     },
 
     /**
