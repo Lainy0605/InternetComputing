@@ -41,7 +41,7 @@
         "useStaticServer": true
     },
     "appid": "wx5c8252835a1c914e",
-    "projectname": "InternetComputing",
+    "projectname": "11",
     "libVersion": "2.14.1",
     "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
     "compileType": "miniprogram",

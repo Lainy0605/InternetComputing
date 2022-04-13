@@ -25,8 +25,7 @@ Page({
             success:function(res){
                 wx.navigateBack({
                     delta:1
-                })
-                
+                })                
              },
         })
         }

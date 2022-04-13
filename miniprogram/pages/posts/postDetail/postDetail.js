@@ -161,26 +161,21 @@ Page({
         }
     },
 
-    reDetail(){
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
         const that = this
-        wx.cloud.database().collection('dongtai').doc(that.data.id).get({
+        wx.cloud.database().collection('dongtai').doc(options.id).get({
             success(res){
                 res.data.like = res.data.likeList.includes(app.globalData.openId) ? true :false
                 that.setData({
+                    id:options.id,
                     postDetail:res.data,
                     openId:app.globalData.openId
                 })
             }
         })
-    },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-        this.setData({
-            id:options.id
-        })
-        this.reDetail()
     },
 
     /**

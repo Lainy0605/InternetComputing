@@ -109,13 +109,40 @@ Page({
         })
     },
 
+    getPosts(){
+        const that = this
+        wx.showToast({
+          title: '加载中',
+          icon:"loading"
+        })
+        return new Promise(function(resolve,reject){
+            wx.cloud.database().collection('dongtai').orderBy('time','desc').get({
+                success(res){
+                    for(var i of res.data){
+                        i.like = i.likeList.includes(app.globalData.openId) ? true : false
+                    }
+                    that.setData({
+                        postList:res.data,                    
+                    })
+                    wx.hideToast({
+                        success: (res) => {},
+                    })
+                    resolve('success')
+                }
+            })
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
-        this.setData({
-            openId:app.globalData.openId
-        })
+    async onLoad() {
+        if(app.globalData.openId){
+            await this.getPosts()
+            this.setData({
+                login:true,
+                openId:app.globalData.openId
+            })
+        }
     },
 
     /**
@@ -132,18 +159,15 @@ Page({
         if(app.globalData.openId){
             if(!this.data.login){
                 this.onLoad()
-                this.data.login = true
             }
-            var that = this
-            wx.cloud.database().collection('dongtai').orderBy('time','desc').get({
-                success(res){
-                    for(var i of res.data){
-                        i.like = i.likeList.includes(app.globalData.openId) ? true :false
-                    }
-                    that.setData({
-                        postList:res.data
-                    })
-                }
+            else{
+                this.getPosts()
+            }
+        }
+        else{
+            wx.showToast({
+              title: '未登录',
+              icon:'error'
             })
         }
     },
@@ -165,13 +189,9 @@ Page({
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function () {
-        this.onShow()
+    async onPullDownRefresh() {
+        await this.getPosts()
         wx.stopPullDownRefresh()
-        wx.showToast({
-            title: '刷新成功',
-            icon:'success'
-          })
     },
 
     /**

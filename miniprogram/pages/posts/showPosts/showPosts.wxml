@@ -9,37 +9,39 @@
             <image class="face-img" src="{{item.avatar}}"></image>
         </view>
         <view class="right">
-            <view class="nickname" bindtap="toDetail" data-id="{{item._id}}">{{item.nickName}}</view>
-            <view bindtap="toDetail" data-id="{{item._id}}">{{item.text}}</view>
+            <view bindtap="toDetail" data-id="{{item._id}}">
+            <view class="nickname">{{item.nickName}}</view>
+            <view>{{item.text}}</view>
             <view class="images-wrap">
                 <!--一张图-->
                 <block wx:if="{{item.imgList.length == 1}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
-                    <image src="{{imgItem}}" mode="aspectFill" bindtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}" mode="widthFix"></image>
+                    <image src="{{imgItem}}" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}" mode="widthFix"></image>
                 </block>
                 <!--四张图-->
                 <block wx:if="{{item.imgList.length == 4}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
-                    <image src="{{imgItem}}" class="image-4" mode="aspectFill" bindtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
+                    <image src="{{imgItem}}" class="image-4" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
                 </block>
                 <!--2、3、5~9-->
                 <block wx:if="{{item.imgList.length == 2 || item.imgList.length==3 || item.imgList.length>=5}}" wx:for="{{item.imgList}}" wx:key="this"   wx:for-item="imgItem" wx:for-index="innerIndex">
-                    <image src="{{imgItem}}" class="image-5-9" mode="aspectFill" bindtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
+                    <image src="{{imgItem}}" class="image-5-9" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
                 </block>
             </view>
             <view class="time-delete">
                 <view class="time">{{item.time}}</view>
-                <view class="delete" wx:if="{{openId==item._openid}}" bindtap="deletePost" data-index="{{index}}">删除</view>
+                <view class="delete" wx:if="{{openId==item._openid}}" catchtap="deletePost" data-index="{{index}}">删除</view>
+            </view>
             </view>
             <view class="interaction">
                 <view> <!--不能删-->
                     <button open-type="share" size="mini" data-index="{{index}}"><image src="../../../images/分享.png" class="interaction-icon"></image></button>
                 </view>
                 <view class="interaction-comment">
-                    <image src="../../../images/评论.png" class="interaction-icon" bindtap="toDetail" data-id="{{item._id}}"></image>
+                    <image src="../../../images/评论.png" class="interaction-icon" catchtap="toDetail" data-id="{{item._id}}"></image>
                     <view wx:if="{{item.commentList.length}}" class="numbers">{{item.commentList.length}}</view> <!--评论-->
                 </view>
                 <view class="interaction-like">
-                    <image wx:if="{{!item.like}}" src="../../../images/点赞.png" class="interaction-icon" bindtap="like" data-index="{{index}}"></image>
-                    <image wx:else src="../../../images/已点赞.png" class="interaction-icon" bindtap="dislike" data-index="{{index}}"></image>
+                    <image wx:if="{{!item.like}}" src="../../../images/点赞.png" class="interaction-icon" catchtap="like" data-index="{{index}}"></image>
+                    <image wx:else src="../../../images/已点赞.png" class="interaction-icon" catchtap="dislike" data-index="{{index}}"></image>
                     <view wx:if="{{item.likeList.length}}" class="numbers">{{item.likeList.length}}</view><!--点赞-->
                 </view>
             </view>

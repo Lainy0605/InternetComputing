@@ -67,12 +67,11 @@ Page({
      */
     onLoad: function (options) {
         if(app.globalData.openId){
-            console.log(app.globalData.openId)
             wx.showToast({
                 title: '加载中',
                 icon:'loading'
               })
-              const that = this
+            const that = this
             HABITS.where({
                 _openid:app.globalData.openId
             })

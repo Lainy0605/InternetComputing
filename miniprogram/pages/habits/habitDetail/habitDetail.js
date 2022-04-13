@@ -55,15 +55,13 @@ delete:function(){
                     var temp = that.data.habitDetail
                     wx.cloud.database().collection('habits').where({
                         _id:temp._id
-                    }).remove()
-                        
+                    }).remove()            
                             wx.showToast({
                             title: '删除成功',
                             })
                             wx.navigateBack({
                                 delta:1
-                            })
-                    
+                            })                  
                 }
              }
         })
