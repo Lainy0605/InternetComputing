@@ -24,6 +24,8 @@ page{
     width: 90%;
     overflow-y: scroll;
     white-space: nowrap;
+    background-color: white;
+    z-index: 99999;
     /* justify-content: space-between; */
 }
 .selected{
@@ -45,8 +47,14 @@ page{
     justify-content: center;
 }
 .new-post{
+    display: flex;
     text-align: right;
-    margin: 5rpx 5rpx 0rpx 0rpx;
+    /* margin: 5rpx 12rpx 0rpx 0rpx; */
+    position: fixed;
+    right: 0;
+    z-index: 99999;
+    width: 77rpx;
+    background-color: white;
 }
 .new-post-icon{
     width: 65rpx;
