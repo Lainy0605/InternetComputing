@@ -1,5 +1,7 @@
 const HABITS = wx.cloud.database().collection('habits')
+const GROUPHABITS = wx.cloud.database().collection('groupHabits')
 var app = getApp()
+import { milisecondLast } from "../../../utils/utils"
 Page({
 
     /**
@@ -15,27 +17,53 @@ Page({
     },
     addHabit(){
         const that = this
-        if (this.data.name.length>0) {
-            app.globalData.habits.push({"name":this.data.name,"day":0,"offset":0,"period":"观察期"});
-            HABITS.add({
-            data:{
-                name:that.data.name,
-                day:0
-            },
-            success:function(res){
-                wx.navigateBack({
-                    delta:1
-                })                
-             },
-        })
+        if (this.data.name.length>0 && this.data.name.length<=9) {
+            var dates = milisecondLast(new Date());
+            GROUPHABITS.add({
+                data:{
+                    name:that.data.name,
+                    memberIds:[]
+                },
+                success:function(re)
+                {
+                    dates = milisecondLast(new Date());
+                    app.globalData.habits.push({"name":that.data.name,"day":0,"offset":0,"lastDaka":dates,"GroupHabitId":re._id});
+                    HABITS.add
+                    ({
+                        data:{
+                            name:that.data.name,
+                            lastDaka:dates,
+                            GroupHabitId:re._id,
+                            day:0
+                        },
+                        success:function(res){
+                            wx.cloud.database().collection('groupHabits').doc(re._id).update({
+                                data:{
+                                     memberIds:[res._id]
+                                }
+                            }),
+                            wx.navigateBack({
+                                delta:1
+                            })
+                        }
+                       
+                    })
+                }
+            })
+            
         }
-        else{
+        else if(this.data.name.length==0){
             wx.showToast({
-                title: '输入不能为空',
+                title: '没有空习惯哦~',
                 icon:'error'
               })
         }
-        
+        else{
+            wx.showToast({
+              title: '太长啦~',
+              icon:'error'
+            })
+        }
     },
     /**
      * 生命周期函数--监听页面加载

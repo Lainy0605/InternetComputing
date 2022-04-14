@@ -7,15 +7,17 @@
     </view>
 </block>
 <block wx:if="{{openId}}">
-    <view class="list">
-        <block wx:for="{{habitsList}}" wx:key="this">
-        <view class="{{index==currentTab ? 'selected':'notselected'}}"  bindtap="ChangeTab" data-index="{{index}}">{{item.name}}</view>
-        </block>
+    <view class="tabbar">
+        <view class="list">
+            <block wx:for="{{habitsList}}" wx:key="this">
+                <view class="{{index==currentTab ? 'selected':'notselected'}}"  bindtap="ChangeTab" data-index="{{index}}">{{item.name}}</view>
+            </block>
+        </view>
+        <view class="new-post" >
+            <image src="../../../images/发布.png" class="new-post-icon" bindtap="toPagenewPost"></image>
+        </view>
     </view>
-    <view class="new-post" >
-        <image src="../../../images/发布.png" class="new-post-icon" bindtap="toPagenewPost"></image>
-    </view>
-
+    <view style="height:45rpx"></view>
     <block wx:for="{{postList}}" wx:key="this">
         <view class="message" >
             <view class="left">
