@@ -13,7 +13,9 @@ exports.main = async (event, context) => {
       _openid:event.openId
     })
     .update({
+      data:{
       nickName:111,
+    },
     })
     return {
       success: true,

@@ -25,16 +25,13 @@ Page({
                         app.globalData.openId = that.data.openId
                         app.globalData.userInfo = that.data.userInfo
                         wx.setStorageSync('openId', that.data.openId)
-                        wx.setStorageSync('userInfo', that.data.userInfo)
+                        wx.setStorageSync('userInfo', that.data.userInfo)               
                         wx.cloud.callFunction({
-                            name:'quickstartFunctions',
+                            name:"updateInfo",
                             data:{
-                                type:'updateRecord',
-                                openId:that.data.openId,
                                 nickName:that.data.userInfo.nickName,
-                                avatarUrl:that.data.userInfo.avatarUrl
+                                avatarUrl:that.data.userInfo.avatarUrl,
                             },
-                            success(r){console.log(r)},
                         })
                     }
                 })
@@ -45,6 +42,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {    
+        const that = this
         app.globalData.userInfo = wx.getStorageSync('userInfo')
         app.globalData.openId = wx.getStorageSync('openId')
         this.setData({
@@ -52,6 +50,7 @@ Page({
             openId:app.globalData.openId
         })
         console.log(111)
+
     },
 
     /**
