@@ -18,14 +18,22 @@ Page({
                 wx.cloud.callFunction({
                     name:"getOpenId",
                     success(re){
+                        wx.cloud.database().collection('habits').where({
+                            _openid:re.result.openid
+                        })
+                        .get({
+                            success(r){
+                                app.globalData.habits = r.data                  
+                            }
+                        }) 
+                        app.globalData.openId = re.result.openid,
+                        app.globalData.userInfo = res.userInfo
                         that.setData({
                             openId:re.result.openid,
                             userInfo:res.userInfo
                         }) 
-                        app.globalData.openId = that.data.openId
-                        app.globalData.userInfo = that.data.userInfo
                         wx.setStorageSync('openId', that.data.openId)
-                        wx.setStorageSync('userInfo', that.data.userInfo)               
+                        wx.setStorageSync('userInfo', that.data.userInfo)            
                         wx.cloud.callFunction({
                             name:"updateInfo",
                             data:{
@@ -42,15 +50,20 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {    
-        const that = this
         app.globalData.userInfo = wx.getStorageSync('userInfo')
         app.globalData.openId = wx.getStorageSync('openId')
         this.setData({
             userInfo:app.globalData.userInfo,
             openId:app.globalData.openId
         })
-        console.log(111)
-
+        wx.cloud.database().collection('habits').where({
+            _openid:app.globalData.openId
+        })
+        .get({
+            success(res){
+                app.globalData.habits = res.data                  
+            }
+        }) 
     },
 
     /**

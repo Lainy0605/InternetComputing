@@ -8,8 +8,7 @@ Page({
      */
     data: {
         habits: [],
-        setHabits:false, //判断是否将习惯初始化
-        login:false, //判断是否登录
+        openId:"",
         index:"",
         Mstart:0
     },
@@ -21,12 +20,13 @@ Page({
         })
     },
     toHabitDetail:function(e){
-        var temp = e.currentTarget.dataset.id
+        var temp = e.currentTarget.dataset.index
         wx.navigateTo({
-            url: '../habitDetail/habitDetail?id='+temp,
+            url: '../habitDetail/habitDetail?index='+temp,
             success:function(res){}
         })
     },
+
     touchStart:function(e){
         this.setData({
             index: e.currentTarget.dataset.index,
@@ -49,55 +49,52 @@ Page({
             habits:list
         })
     },
-    delete:function(e){
-        
-        var index=e.currentTarget.dataset.index
-        HABITS.where({
-            _id:this.data.habits[index]._id
-        }).remove({})
-        this.data.habits.splice(index,1)
-        this.setData({
-            habits:this.data.habits
-        })
-        app.globalData.habits=this.data.habits
-    },
+    // delete:function(e){
+    //     var index=e.currentTarget.dataset.index
+    //     HABITS.where({
+    //         _id:this.data.habits[index]._id
+    //     }).remove({})
+    //     this.data.habits.splice(index,1)
+    //     this.setData({
+    //         habits:this.data.habits
+    //     })
+    //     app.globalData.habits=this.data.habits
+    // },
 
+    getHabits(){
+        const that = this
+        return new Promise(function(resolve,reject){
+            wx.cloud.database().collection('habits').where({
+                _openid:app.globalData.openId
+            }).get({
+                success(res){
+                    that.setData({
+                        habits:res.data,
+                    })
+                    app.globalData.habits = res.data
+                    resolve('success')
+                }
+            })
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+   async  onLoad() {
+        wx.showToast({
+          title: '加载中',
+          icon:'loading'
+        })
         if(app.globalData.openId){
-            wx.showToast({
-                title: '加载中',
-                icon:'loading'
-              })
-            const that = this
-            HABITS.where({
-                _openid:app.globalData.openId
-            })
-            .get({
-                success(res){
-                    for(var habit of res.data){
-                        habit.offset = 0
-                    }
-                    that.setData({
-                        habits:res.data,
-                        setHabits:true,
-                        login:true
-                    })
-                    app.globalData.habits = that.data.habits                   
-                    wx.hideToast({
-                      success: (res) => {},
-                    })
-                }
-            })
+            await this.getHabits()
+            this.setData({
+                login:true,
+                openId:app.globalData.openId
+            })          
         }
-        else{
-            wx.showToast({
-              title: '未登录',
-              icon:'error'
-            })
-        }
+        wx.hideToast({
+          success: (res) => {},
+        })
     },
 
     /**
@@ -110,21 +107,20 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        wx.showToast({
-            title: '加载中',
-            icon:'loading'
-        })
-        if(!this.data.login){
-            this.onLoad()
+        if(app.globalData.openId){
+            if(!this.data.login){
+                this.onLoad()
+            }
+            else{
+                this.getHabits()
+            }
         }
         else{
-            this.setData({
-                habits:app.globalData.habits
+            wx.showToast({
+              title: '未登录',
+              icon:'error'
             })
         }
-        wx.hideToast({
-            success: (res) => {},
-        })
     },
 
     /**

@@ -9,14 +9,15 @@
     "pages/habits/habitDetail/habitDetail"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#CDF46E",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "#CDF46E",
     "navigationBarTitleText": "HabitKeeper",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "selectedColor": "#758A99",
+    "backgroundColor": "#CDF46E",
+    "selectedColor": "#EBA13E",
     "list": [
       {
         "pagePath": "pages/habits/showHabits/showHabits",

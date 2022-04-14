@@ -1,47 +1,38 @@
-<block wx:if="{{!login}}">
-    请先登录
+<block wx:if="{{!openId}}">
+    <view class="initial">
+        <text>您尚未登陆哦~
+        请跳转至“我的”界面,
+        完成登录后即可开启习惯养成之旅!
+        </text>
+    </view>
 </block>
-<view wx:if="{{setHabits}}">    
+<block wx:if="{{openId}}">
+    <view class="new-habit"> 
+        <image src="../../../images/新建.png" class="new-habit-icon" bindtap="tonewHabit"></image> 
+    </view>
     <view wx:if="{{habits.length!=0}}">
-        <view class="new-habit"> 
-            <image src="../../../images/新建.png" class="new-habit-icon" bindtap="tonewHabit"></image> 
-        </view>
-        <view wx:for="{{habits}}" wx:key="this">
-            <view class="habitTest" bindtap="toHabitDetail" data-id="{{item._id}}">
-                <view class="wrap">
-                    你坚持培养#<habit>{{func.getFirst5(item.name)}}</habit>#习惯已经<alignright><days>{{item.day}}</days>  天({{func.period(item.day)}})</alignright>
+        <view wx:for="{{habits}}" wx:key="this" >
+            <view class="habit" bindtap="toHabitDetail" data-index="{{index}}">
+                <view class="wrap" style="transform: translateX({{item.offset/2}}px);" data-index="{{index}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+                    <text style="align-self:center">你坚持{{item.name}}已经</text>
+                    <text class="dayCount">{{item.day}}天
+                        <text wx:if="{{item.day}}>=0&&{{item.day}}<=3" style="background-color: #EBA13E; border-radius: 10rpx;">（观察期）</text>
+                        <text wx:elif="{{item.day}}>=4&&{{item.day}}<=7" style="background-color: #EBA13E; border-radius: 10rpx;">（起步期）</text>
+                        <text wx:elif="{{item.day}}>=8&&{{item.day}}<=21" style="background-color: #EBA13E; border-radius: 10rpx;">（养成期）</text>
+                        <text wx:elif="{{item.day}}>=22&&{{item.day}}<=90" style="background-color: #EBA13E; border-radius: 10rpx;">（稳定期）</text>
+                    </text>
                 </view>
-                <!-- <view bindtap="delete" data-index="{{index}}" class="wrap">
-                    删除
-                </view> -->
             </view>
         </view>
     </view>
     <view wx:else>
-        <button class="setFirst" bindtap="tonewHabit">您还没有创建习惯哦，点我创建第一个习惯！</button>
+        <view class="initial">
+            <text>您没有正在培养的习惯，
+            快点击上方加号,
+                创建您的第一个习惯吧!
+            </text>
+        </view>
     </view>
-</view>
+</block>
 
 
-<wxs module="func">
-    module.exports={
-        period: function(day){
-            console.log(day);
-            if (day<=3)
-                return "观察期";
-            if (day<=7)
-                return "起步期";
-            if (day<=21)
-                return "养成期";
-            if (day<=90)
-                return "稳定期";
-            return "已完成";  
-        },
-        getFirst5:function(name){
-            if (name.length>=6)
-                return name[0]+name[1]+name[2]+name[3]+"...";
-            else
-                return name;
-        }
-    }
-</wxs>

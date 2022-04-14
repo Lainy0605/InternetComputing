@@ -9,63 +9,50 @@ Page({
   data: {
     habitDetail:"", 
     openId:"",
-    id:""
+    index:""
   },
 
-  Detail(){
+  delete:function(){
     const that = this
-    // console.log(that.data.id)
-    wx.cloud.database().collection('habits').doc(that.data.id).get({
-        success(res){
-            that.setData({
-              habitDetail:res.data,
-              openId:app.globalData.openId
-            })
-            console.log(res)
+    wx.showModal({
+      title:"提示",
+      content:"确定删除？",
+      cancelColor: 'cancelColor',
+      confirmColor:'#fc5959',
+      success(res){
+        if(res.confirm){
+          var temp = that.data.habitDetail
+          wx.cloud.database().collection('habits').where({
+            _id:temp._id
+          }).remove()    
+          app.globalData.habits.splice(that.data.index,1)        
+          wx.showToast({
+            title: '删除成功',
+          })
+          wx.navigateBack({
+           delta:1
+          })                  
         }
-        // fail(err){
-        //   console.log(111)
-        // },
-        // complete(e){
-        //   console.log(333)
-        // }
+      }
     })
-  //  console.log(222)
-},
+  },
 /**
  * 生命周期函数--监听页面加载
  */
 onLoad: function (options) {
-    this.setData({
-        id:options.id
-    })
-    //console.log(id)
-    this.Detail()
+  const that = this
+  wx.cloud.database().collection('habits').doc(app.globalData.habits[options.index]._id).get({
+    success(res){
+      that.setData({
+        habitDetail:res.data,
+        openId:app.globalData.openId,
+        index:options.index
+      })
+    }
+  })
 },
 
-delete:function(){
-  const that = this
-        wx.showModal({
-            title:"提示",
-            content:"确定删除？",
-            cancelColor: 'cancelColor',
-            confirmColor:'#fc5959',
-            success(res){
-                if(res.confirm){
-                    var temp = that.data.habitDetail
-                    wx.cloud.database().collection('habits').where({
-                        _id:temp._id
-                    }).remove()            
-                            wx.showToast({
-                            title: '删除成功',
-                            })
-                            wx.navigateBack({
-                                delta:1
-                            })                  
-                }
-             }
-        })
-},
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

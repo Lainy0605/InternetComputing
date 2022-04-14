@@ -1,60 +1,67 @@
+<block wx:if="{{!openId}}">
+    <view class="initial">
+        <text>您尚未登陆哦~
+        请跳转至“我的”界面,
+        完成登录后即可开启习惯养成之旅!
+        </text>
+    </view>
+</block>
 <block wx:if="{{openId}}">
-    <van-tabs active="{{}}" bind:change="onChange">
-        <van-tab title="我的"></van-tab>
-        <van-tab title="习惯2"></van-tab>
-        <van-tab title="习惯3"></van-tab>
-    </van-tabs>
-    <view class="new-post" bindtap="toPagenewPost">
-        <image src="../../../images/发布.png" class="new-post-icon"></image>
-</view>
+    <view class="list">
+        <block wx:for="{{habitsList}}" wx:key="this">
+        <view class="{{index==currentTab ? 'selected':'notselected'}}"  bindtap="ChangeTab" data-index="{{index}}">{{item.name}}</view>
+        </block>
+    </view>
+    <view class="new-post" >
+        <image src="../../../images/发布.png" class="new-post-icon" bindtap="toPagenewPost"></image>
+    </view>
 
-<block wx:for="{{postList}}" wx:key="this">
-    <view class="message" >
-        <view class="left">
-            <image class="face-img" src="{{item.avatar}}"></image>
+    <block wx:for="{{postList}}" wx:key="this">
+        <view class="message" >
+            <view class="left">
+                <image class="face-img" src="{{item.avatar}}"></image>
+            </view>
+            <view class="right">
+                <view bindtap="toDetail" data-id="{{item._id}}">
+                <view class="nickname">{{item.nickName}}</view>
+                <view>{{item.text}}</view>
+                <view class="images-wrap">
+                    <!--一张图-->
+                    <block wx:if="{{item.imgList.length == 1}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
+                        <image src="{{imgItem}}" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}" mode="widthFix"></image>
+                    </block>
+                    <!--四张图-->
+                    <block wx:if="{{item.imgList.length == 4}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
+                        <image src="{{imgItem}}" class="image-4" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
+                    </block>
+                    <!--2、3、5~9-->
+                    <block wx:if="{{item.imgList.length == 2 || item.imgList.length==3 || item.imgList.length>=5}}" wx:for="{{item.imgList}}" wx:key="this"   wx:for-item="imgItem" wx:for-index="innerIndex">
+                        <image src="{{imgItem}}" class="image-5-9" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
+                    </block>
+                </view>
+                <view class="time-delete">
+                    <view class="time">{{item.time}}</view>
+                    <view class="delete" wx:if="{{openId==item._openid}}" catchtap="deletePost" data-index="{{index}}">删除</view>
+                </view>
+                </view>
+                <view class="interaction">
+                    <view> <!--不能删-->
+                        <button open-type="share" size="mini" data-index="{{index}}"><image src="../../../images/分享.png" class="interaction-icon"></image></button>
+                    </view>
+                    <view class="interaction-comment">
+                        <image src="../../../images/评论.png" class="interaction-icon" catchtap="toDetail" data-id="{{item._id}}"></image>
+                        <view wx:if="{{item.commentList.length}}" class="numbers">{{item.commentList.length}}</view> <!--评论-->
+                    </view>
+                    <view class="interaction-like">
+                        <image wx:if="{{!item.like}}" src="../../../images/点赞.png" class="interaction-icon" catchtap="like" data-index="{{index}}"></image>
+                        <image wx:else src="../../../images/已点赞.png" class="interaction-icon" catchtap="dislike" data-index="{{index}}"></image>
+                        <view wx:if="{{item.likeList.length}}" class="numbers">{{item.likeList.length}}</view><!--点赞-->
+                    </view>
+                </view>
+            </view>
         </view>
-        <view class="right">
-            <view bindtap="toDetail" data-id="{{item._id}}">
-            <view class="nickname">{{item.nickName}}</view>
-            <view>{{item.text}}</view>
-            <view class="images-wrap">
-                <!--一张图-->
-                <block wx:if="{{item.imgList.length == 1}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
-                    <image src="{{imgItem}}" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}" mode="widthFix"></image>
-                </block>
-                <!--四张图-->
-                <block wx:if="{{item.imgList.length == 4}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
-                    <image src="{{imgItem}}" class="image-4" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
-                </block>
-                <!--2、3、5~9-->
-                <block wx:if="{{item.imgList.length == 2 || item.imgList.length==3 || item.imgList.length>=5}}" wx:for="{{item.imgList}}" wx:key="this"   wx:for-item="imgItem" wx:for-index="innerIndex">
-                    <image src="{{imgItem}}" class="image-5-9" mode="aspectFill" catchtap="previewImg" data-src="{{imgItem}}" data-index="{{index}}"></image>
-                </block>
-            </view>
-            <view class="time-delete">
-                <view class="time">{{item.time}}</view>
-                <view class="delete" wx:if="{{openId==item._openid}}" catchtap="deletePost" data-index="{{index}}">删除</view>
-            </view>
-            </view>
-            <view class="interaction">
-                <view> <!--不能删-->
-                    <button open-type="share" size="mini" data-index="{{index}}"><image src="../../../images/分享.png" class="interaction-icon"></image></button>
-                </view>
-                <view class="interaction-comment">
-                    <image src="../../../images/评论.png" class="interaction-icon" catchtap="toDetail" data-id="{{item._id}}"></image>
-                    <view wx:if="{{item.commentList.length}}" class="numbers">{{item.commentList.length}}</view> <!--评论-->
-                </view>
-                <view class="interaction-like">
-                    <image wx:if="{{!item.like}}" src="../../../images/点赞.png" class="interaction-icon" catchtap="like" data-index="{{index}}"></image>
-                    <image wx:else src="../../../images/已点赞.png" class="interaction-icon" catchtap="dislike" data-index="{{index}}"></image>
-                    <view wx:if="{{item.likeList.length}}" class="numbers">{{item.likeList.length}}</view><!--点赞-->
-                </view>
-            </view>
+        <view class="separate-area">
+            <image src="../../../images/分割线 (4).png" class="separate"></image>
         </view>
-    </view>
-    <view class="separate-area">
-        <image src="../../../images/分割线 (4).png" class="separate"></image>
-    </view>
+    </block>
 </block>
-</block>
-<block wx:if="{{!openId}}">请先登录</block>

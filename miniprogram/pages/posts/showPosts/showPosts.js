@@ -8,7 +8,18 @@ Page({
     data: {
         login:false,
         openId:"",
-        postList:[]
+        postList:[],
+        habitsList:[],
+        currentTab:0,
+        currentHabit_id:""
+    },
+
+    ChangeTab(e){
+        var index = e.currentTarget.dataset.index;
+        this.setData({
+            currentTab:index,
+            currentHabit_id:this.data.habitsList[index].id
+        })
     },
 
     toPagenewPost:function(){
@@ -111,10 +122,6 @@ Page({
 
     getPosts(){
         const that = this
-        wx.showToast({
-          title: '加载中',
-          icon:"loading"
-        })
         return new Promise(function(resolve,reject){
             wx.cloud.database().collection('dongtai').orderBy('time','desc').get({
                 success(res){
@@ -122,10 +129,8 @@ Page({
                         i.like = i.likeList.includes(app.globalData.openId) ? true : false
                     }
                     that.setData({
-                        postList:res.data,                    
-                    })
-                    wx.hideToast({
-                        success: (res) => {},
+                        postList:res.data,   
+                        habitsList:app.globalData.habits                 
                     })
                     resolve('success')
                 }
@@ -136,13 +141,20 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad() {
+        wx.showToast({
+            title: '加载中',
+            icon:'loading'
+          })
         if(app.globalData.openId){
             await this.getPosts()
             this.setData({
                 login:true,
-                openId:app.globalData.openId
+                openId:app.globalData.openId,
             })
         }
+        wx.hideToast({
+            success: (res) => {},
+          })
     },
 
     /**

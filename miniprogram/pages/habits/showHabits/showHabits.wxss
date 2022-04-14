@@ -1,60 +1,58 @@
-.habit{
-    position: relative;
+page{
+    background-color: #ffffff;
 }
+
+.initial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: gray;
+    font-size: small;
+    height: 1200rpx;
+    width: 100%;
+}
+
 .new-habit{
     text-align: center;
     vertical-align: right;
     height: 66rpx;
 }
 .new-habit-icon{
-    width: 65rpx;
-    height: 65rpx;
-     float: right; 
-    right: 10rpx;
-}.newHabit{
-    color: red;
+    width: 66rpx;
+    height: 66rpx;
 }
-.habitTest{
-    font: bolder;
-    width: 690rpx;
-    padding: 30rpx 30rpx 20rpx;
-    margin: 7rpx 0 6rpx 0;
-    background: #ffffff;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    box-shadow: 0 2px 5px rgb(214, 240, 236);
-  }
+.habit{
+    position: relative;
+    margin: 5rpx 5rpx;
+}
+
 .wrap{
+    display: flex;
+    height: 100rpx;
     position: relative;
-    z-index: 0; 
-    top: 0rpx;
-    left: 0;
-    background-color: #fff;
-    width: 100%;
-    height: 100%;
+    padding: 20rpx;
+    border-width: 5rpx;
+    border-style: solid;
+    border-radius: 10rpx;
+    border-color: #CDF46E;
+    margin: 20rpx 20rpx 20rpx 20rpx;
+    z-index: 2; 
+    background-color: white;
 }
-.wrap habit{
-    color: blueviolet;
-}
-.wrap days{
-    color: blueviolet;
-}
-.wrap alignright { 
-    float: right; 
-    /* text-align:right;  */
-}
-.delete{
-    background-color: red;
+
+.dayCount{
+    text-align: center;
     position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    width: 120rpx;
-    height: 100%;
+    right: 2rpx;
+    top: 2rpx;
+    bottom: 2rpx;
+    padding-left: 5rpx;
+    padding-right: 5rpx;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+    border-radius: 10rpx;
+    background-color: #F5E952;
 }
-.setFirst{
-    position: relative;
-    top:194rpx;
-    width: 80%;
-    height:75%;
-}
+

@@ -1,4 +1,8 @@
 /* pages/login/login.wxss */
+page{
+    background-color: #ffffff;
+}
+
 .image{
     width: 100px;
     height: 100px;

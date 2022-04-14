@@ -12,11 +12,6 @@
   </view>
 </view>
 
-
-
-
-
-
 <wxs module="func">
     module.exports={
         period: function(day){
