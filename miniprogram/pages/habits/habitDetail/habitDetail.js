@@ -1,5 +1,5 @@
 // pages/habits/habitDetail/habitDetail.jsvar 
-const HABITS = wx.cloud.database().collection('habits')
+import { milisecond } from "../../../utils/utils"
 var app=getApp()
 Page({
 
@@ -10,6 +10,57 @@ Page({
     habitDetail:"", 
     openId:"",
     index:""
+  },
+
+  daka: function(){
+    const that = this
+    var dates = milisecond(new Date());
+    var canDaka = false;
+    console.log(dates)
+    console.log(that.data.habitDetail.lastDaka)
+    if (that.data.habitDetail.lastDaka<dates)
+      canDaka = true;
+    wx.showModal({
+        title:"提示",
+        content:"确定打卡？",
+        cancelColor: '#005959',
+        confirmColor:'#fc5959',
+        success(res){
+            if(res.confirm&&canDaka){
+                var temp = that.data.habitDetail
+                var tempDay = app.globalData.habits[that.data.index].day+1
+                wx.cloud.database().collection('habits').doc(temp._id).update({
+                  data:{
+                      lastDaka:dates,
+                      day:tempDay
+                  },
+                  success(re){
+                    that.setData({
+                      ["habitDetail.lastDaka"]:dates,
+                      ["habitDetail.day"] : tempDay,
+                    })
+                    app.globalData.habits[that.data.index].lastDaka = dates;
+                    app.globalData.habits[that.data.index].day = app.globalData.habits[that.data.index].day+1;
+                    wx.showToast({
+                      title: '打卡成功',
+                      })
+                  }
+                })
+            }
+            else if ((!canDaka)&&(res.confirm))
+            {
+              wx.showToast({
+                title: '您今日已打卡',
+                icon: 'error'
+                })
+            }
+
+        }
+    })
+  },
+
+  invite: function(){
+
   },
 
   delete:function(){
