@@ -9,7 +9,8 @@ Page({
   data: {
     habitDetail:"", 
     openId:"",
-    index:""
+    index:"",
+    GroupHabitId:""
   },
 
   daka: function(){
@@ -59,9 +60,13 @@ Page({
     })
   },
 
-  invite: function(){
-
-  },
+  // invite: function(e){
+  //   var temp = e.currentTarget.dataset.index;
+  //       wx.navigateTo({
+  //           url: '../invite/invite?index='+temp,
+  //           success:function(res){}
+  //       })
+  // },
 
   delete:function(){
     const that = this
@@ -97,7 +102,8 @@ onLoad: function (options) {
       that.setData({
         habitDetail:res.data,
         openId:app.globalData.openId,
-        index:options.index
+        index:options.index,
+        GroupHabitId:res.data.GroupHabitId
       })
     }
   })
@@ -151,6 +157,11 @@ onLoad: function (options) {
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
-  }
+    var that = this;
+    console.log(that.data.GroupHabitId)
+    return{
+        title:'快来一起养成好习惯吧！',//todo
+        path:'/pages/habits/invite/invite?GroupHabitId='+that.data.GroupHabitId,
+    }
+}
 })

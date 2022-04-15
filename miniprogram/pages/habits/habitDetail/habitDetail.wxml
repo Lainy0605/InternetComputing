@@ -10,9 +10,9 @@
   <view bindtap="daka" class="wrap">
       打卡
   </view>
-  <view bindtap="invite" class="wrap">
-      邀请
-  </view>
+    <button open-type="share" class="wrap">
+        分享
+    </button>
   <br></br>
   <view bindtap="delete" class="wrap">
       删除
