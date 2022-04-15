@@ -2,7 +2,7 @@
     <view class="send-text" bindtap="{{!clicked?'send':''}}">发布</view>
 </view>
 <view class="input-area">
-    <textarea class="input-text" placeholder="我的打卡日记" maxlength="2000" bindinput="getValue"></textarea>
+    <textarea class="input-text" placeholder="今天也没有落下哦~" maxlength="2000" bindinput="getValue"></textarea>
 </view>
 <view class="image-area">
     <view wx:for="{{imgList}}" wx:key="this">

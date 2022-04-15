@@ -7,6 +7,13 @@
   <view>
       已进行<days>{{habitDetail.day}}</days>天（{{func.period(habitDetail.day)}}）
   </view>
+  <view bindtap="daka" class="wrap">
+      打卡
+  </view>
+    <button open-type="share" class="wrap">
+        分享
+    </button>
+  <br></br>
   <view bindtap="delete" class="wrap">
       删除
   </view>

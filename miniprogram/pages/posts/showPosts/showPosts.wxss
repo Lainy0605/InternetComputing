@@ -1,13 +1,6 @@
 page{
     background-color: #ffffff;
 }
-/* .nav{
-    position: fixed;
-    background:white;
-    color: #353535;
-    z-index:999999;
-    max-height: ;
-} */
 .initial{
     display: flex;
     justify-content: center;
@@ -18,6 +11,13 @@ page{
     height: 1200rpx;
     width: 100%;
 }
+.tabbar{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    background-color: white;
+    z-index: 99999;
+}
 .list{
     position: fixed;
     display: flex;
@@ -25,10 +25,10 @@ page{
     overflow-y: scroll;
     white-space: nowrap;
     background-color: white;
-    z-index: 99999;
     /* justify-content: space-between; */
 }
 .selected{
+    color: #F5E952;
     display: flex;
     height: 100%;
     margin: 10rpx;
@@ -47,12 +47,8 @@ page{
     justify-content: center;
 }
 .new-post{
-    display: flex;
-    text-align: right;
-    /* margin: 5rpx 12rpx 0rpx 0rpx; */
     position: fixed;
     right: 0;
-    z-index: 99999;
     width: 77rpx;
     background-color: white;
 }

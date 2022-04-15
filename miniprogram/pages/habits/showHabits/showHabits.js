@@ -112,7 +112,9 @@ Page({
                 this.onLoad()
             }
             else{
-                this.getHabits()
+                this.setData({
+                    habits:app.globalData.habits
+                })
             }
         }
         else{

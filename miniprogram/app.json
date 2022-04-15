@@ -6,7 +6,8 @@
     "pages/posts/postDetail/postDetail",
     "pages/habits/showHabits/showHabits",
     "pages/habits/newHabit/newHabit",
-    "pages/habits/habitDetail/habitDetail"
+    "pages/habits/habitDetail/habitDetail",
+    "pages/habits/invite/invite"
   ],
   "window": {
     "backgroundColor": "#CDF46E",
@@ -43,5 +44,5 @@
   "style": "v2",
   "useExtendedLib": {
     "weui": true
-    }
+  }
 }
