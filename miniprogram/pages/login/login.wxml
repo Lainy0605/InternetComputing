@@ -5,6 +5,8 @@
 <view class="uploader-container" wx:if="{{userInfo}}">
     <div class="userInfomation">
         <image class="image" src="{{userInfo.avatarUrl}}"></image>
-        <view class="name">{{userInfo.nickName}}</view>
+        <view class="text">{{userInfo.nickName}}</view>
+        
     </div>
+
 </view>

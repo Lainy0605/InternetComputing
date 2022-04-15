@@ -7,7 +7,7 @@ Page({
      */
     data: {
         userInfo:{},
-        openId:""
+        openId:"",
     },
 
     getUserInfo:function(){
