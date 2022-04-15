@@ -17,8 +17,6 @@ Page({
     const that = this
     var dates = milisecond(new Date());
     var canDaka = false;
-    console.log(dates)
-    console.log(that.data.habitDetail.lastDaka)
     if (that.data.habitDetail.lastDaka<dates)
       canDaka = true;
     wx.showModal({
