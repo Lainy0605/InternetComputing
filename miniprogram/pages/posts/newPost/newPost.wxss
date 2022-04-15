@@ -18,7 +18,7 @@
     margin: 20rpx 40rpx;
 }
 .input-text{
-    height: 300rpx;
+    height: 400rpx;
     width: 100%;
 }
 .image-area{
