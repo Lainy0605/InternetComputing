@@ -8,6 +8,7 @@ Page({
     data: {
         userInfo:{},
         openId:"",
+        habits:[],
     },
 
     getUserInfo:function(){
@@ -23,8 +24,10 @@ Page({
                         })
                         .get({
                             success(r){
-                                app.globalData.habits = r.data                  
+                                app.globalData.habits = r.data 
+                                that.setData({habits:r.data})                 
                             }
+                           
                         }) 
                         app.globalData.openId = re.result.openid,
                         app.globalData.userInfo = res.userInfo
@@ -52,18 +55,37 @@ Page({
     onLoad: function (options) {    
         app.globalData.userInfo = wx.getStorageSync('userInfo')
         app.globalData.openId = wx.getStorageSync('openId')
-        this.setData({
-            userInfo:app.globalData.userInfo,
-            openId:app.globalData.openId
-        })
+
         wx.cloud.database().collection('habits').where({
             _openid:app.globalData.openId
         })
         .get({
             success(res){
-                app.globalData.habits = res.data                  
+                app.globalData.habits = res.data         
             }
         }) 
+        this.setData({
+            userInfo:app.globalData.userInfo,
+            openId:app.globalData.openId,
+            habits:app.globalData.habits
+        })
+    },
+
+    getHabits(){
+        const that = this
+        return new Promise(function(resolve,reject){
+            wx.cloud.database().collection('habits').where({
+                _openid:app.globalData.openId
+            }).get({
+                success(res){
+                    that.setData({
+                        habits:res.data,
+                    })
+                    app.globalData.habits = res.data
+                    resolve('success')
+                }
+            })
+        })
     },
 
     /**
@@ -77,6 +99,20 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        if(app.globalData.openId){
+            if(!this.data.login){
+                this.onLoad()
+            }
+            else{
+                this.getHabits()
+            }
+        }
+        else{
+            wx.showToast({
+              title: '未登录',
+              icon:'error'
+            })
+        }
     },
 
     /**
