@@ -1,17 +1,9 @@
 /* pages/login/login.wxss */
-page {
-    background-color: #f8f8f8;
+page{
+    background-color: #ffffff;
 }
 
-button {
-    margin-top: 40px;
-    width: 100px;
-    height: auto;
-    background-color: red;
-    color: white;
-}
-
-.image {
+.image{
     width: 100px;
     height: 100px;
     margin: 0 auto;
@@ -20,18 +12,19 @@ button {
     border-radius: 15%;
 }
 
-.text {
+.name{
     text-align: center;
     padding-top: 10px;
 }
 
 .userInformation {
     width: 200px;
-    height: 250px;
+    height: 200px;
 }
 
-.showHabits {
-    height: auto;
-    margin-left: 20px;
+button{
+    background: #EA5149;
+    width: 60%;
+    margin-top: 100px;
+    color: #ffffff;
 }
-

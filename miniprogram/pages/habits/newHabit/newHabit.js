@@ -26,20 +26,21 @@ Page({
                 },
                 success:function(re)
                 {
-                    dates = milisecondLast(new Date());
-                    app.globalData.habits.push({"name":that.data.name,"day":0,"offset":0,"lastDaka":dates,"GroupHabitId":re._id});
+                    // dates = milisecondLast(new Date());
+
                     HABITS.add
                     ({
                         data:{
                             name:that.data.name,
                             lastDaka:dates,
-                            GroupHabitId:re._id,
+                            groupHabitId:re._id,
                             day:0
                         },
                         success:function(res){
-                            wx.cloud.database().collection('groupHabits').doc(re._id).update({
+                            app.globalData.habits.push({"name":that.data.name,"day":0,"offset":0,"lastDaka":dates,"groupHabitId":re._id,"_id":res._id});
+                            GROUPHABITS.doc(re._id).update({
                                 data:{
-                                     memberIds:[res._id]
+                                     memberIds:res._id
                                 }
                             }),
                             wx.navigateBack({

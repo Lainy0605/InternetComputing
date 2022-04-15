@@ -6,17 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    habitId:""
+    groupHabitId:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
-    console.log(options.GroupHabitId)
+    console.log(options.groupHabitId)
     this.setData({
-       habitId:options.GroupHabitId
+       groupHabitId:options.groupHabitId
     })
   },
 

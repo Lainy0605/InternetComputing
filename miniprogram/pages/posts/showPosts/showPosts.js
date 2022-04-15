@@ -11,20 +11,30 @@ Page({
         postList:[],
         habitsList:[],
         currentTab:0,
-        currentHabit_id:""
+        current_groupHabitId:""
     },
 
     ChangeTab(e){
         var index = e.currentTarget.dataset.index;
-        this.setData({
-            currentTab:index,
-            currentHabit_id:this.data.habitsList[index].id
-        })
+        if(index==0){
+            this.setData({
+                currentTab:index,
+                current_groupHabitId:""
+            })
+            this.getMyPosts()
+        }
+        else{
+            this.setData({
+                currentTab:index,
+                current_groupHabitId:this.data.habitsList[index].groupHabitId
+            })
+            this.getPosts(this.data.current_groupHabitId)
+        }
     },
 
     toPagenewPost:function(){
         wx.navigateTo({
-          url: '../newPost/newPost',
+          url: '../newPost/newPost?groupHabitId='+this.data.current_groupHabitId,
           success:function(res){}
         })
     },
@@ -120,17 +130,43 @@ Page({
         })
     },
 
-    getPosts(){
+    getMyPosts(){
         const that = this
         return new Promise(function(resolve,reject){
-            wx.cloud.database().collection('dongtai').orderBy('time','desc').get({
+            wx.cloud.database().collection('dongtai').where({
+                _openid:app.globalData.openId
+            }).orderBy('time','desc').get({
                 success(res){
                     for(var i of res.data){
                         i.like = i.likeList.includes(app.globalData.openId) ? true : false
                     }
+                    var temp = [{"name":"我的"}]
+                    temp = temp.concat(app.globalData.habits)
                     that.setData({
                         postList:res.data,   
-                        habitsList:app.globalData.habits                 
+                        habitsList:temp       
+                    })
+                    resolve('success')
+                }
+            })
+        })
+    },
+
+    getPosts(groupHabitId){
+        const that = this
+        return new Promise(function(resolve,reject){
+            wx.cloud.database().collection('dongtai').where({
+                groupHabitId:groupHabitId
+            }).orderBy('time','desc').get({
+                success(res){
+                    for(var i of res.data){
+                        i.like = i.likeList.includes(app.globalData.openId) ? true : false
+                    }
+                    var temp = [{"name":"我的"}]
+                    temp = temp.concat(app.globalData.habits)
+                    that.setData({
+                        postList:res.data,   
+                        habitsList:temp       
                     })
                     resolve('success')
                 }
@@ -146,7 +182,7 @@ Page({
             icon:'loading'
           })
         if(app.globalData.openId){
-            await this.getPosts()
+            await this.getMyPosts()
             this.setData({
                 login:true,
                 openId:app.globalData.openId,
@@ -173,7 +209,12 @@ Page({
                 this.onLoad()
             }
             else{
-                this.getPosts()
+                if(this.data.currentTab==0){
+                    this.getMyPosts()
+                }
+                else{
+                    this.getPosts(this.data.current_groupHabitId)
+                }
             }
         }
         else{

@@ -69,6 +69,7 @@ Page({
                     avatar:app.globalData.userInfo.avatarUrl,
                     text:that.data.inputValue,
                     imgList:that.data.cloudimgList,
+                    groupHabitId:that.data.groupHabitId,
                     time:formatTime(new Date()),
                     commentList:[],
                     likeList:[],
@@ -104,7 +105,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        this.setData({
+            groupHabitId:options.groupHabitId
+        })
     },
 
     /**

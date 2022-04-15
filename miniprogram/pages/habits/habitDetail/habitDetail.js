@@ -10,7 +10,7 @@ Page({
     habitDetail:"", 
     openId:"",
     index:"",
-    GroupHabitId:""
+    groupHabitId:""
   },
 
   daka: function(){
@@ -103,7 +103,7 @@ onLoad: function (options) {
         habitDetail:res.data,
         openId:app.globalData.openId,
         index:options.index,
-        GroupHabitId:res.data.GroupHabitId
+        groupHabitId:res.data.groupHabitId
       })
     }
   })
@@ -158,10 +158,9 @@ onLoad: function (options) {
    */
   onShareAppMessage: function () {
     var that = this;
-    console.log(that.data.GroupHabitId)
     return{
         title:'快来一起养成好习惯吧！',//todo
-        path:'/pages/habits/invite/invite?GroupHabitId='+that.data.GroupHabitId,
+        path:'/pages/habits/invite/invite?groupHabitId='+that.data.groupHabitId,
     }
 }
 })
