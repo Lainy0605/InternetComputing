@@ -1,4 +1,5 @@
 // pages/habits/invite/invite.js
+// 邀请界面，向好友发送习惯组队邀请所展示的界面，数据包括习惯的id，要求打开该页面能够获取用户星系，并成功添加该习惯
 var app=getApp()
 Page({
 
