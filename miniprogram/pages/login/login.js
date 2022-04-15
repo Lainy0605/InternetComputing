@@ -62,7 +62,7 @@ Page({
         })
         .get({
             success(res){
-                app.globalData.habits = res.data         
+                app.globalData.habits = res.data      
             }
         }) 
         this.setData({
@@ -70,6 +70,7 @@ Page({
             openId:app.globalData.openId,
             habits:app.globalData.habits
         })
+        
     },
 
     getHabits(){
@@ -101,12 +102,7 @@ Page({
      */
     onShow: function () {
         if(app.globalData.openId){
-            if(!this.data.login){
-                this.onLoad()
-            }
-            else{
                 this.getHabits()
-            }
         }
         else{
             wx.showToast({
