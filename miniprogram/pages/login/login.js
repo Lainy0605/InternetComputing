@@ -104,12 +104,6 @@ Page({
         if(app.globalData.openId){
                 this.getHabits()
         }
-        else{
-            wx.showToast({
-              title: '未登录',
-              icon:'error'
-            })
-        }
     },
 
     /**

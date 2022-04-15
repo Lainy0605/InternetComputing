@@ -14,7 +14,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#CDF46E",
     "navigationBarTitleText": "HabitKeeper",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 50
   },
   "tabBar": {
     "backgroundColor": "#CDF46E",

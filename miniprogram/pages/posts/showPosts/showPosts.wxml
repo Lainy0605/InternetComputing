@@ -2,7 +2,7 @@
     <view class="initial">
         <text>您尚未登陆哦~
         请跳转至“我的”界面,
-        完成登录后即可开启习惯养成之旅!
+        完成登录后即可开启习惯养成之旅！
         </text>
     </view>
 </block>
@@ -18,6 +18,14 @@
         </view>
     </view>
     <view style="height:45rpx"></view>
+    <block wx:if="{{postList.length==0}}">
+        <view class="initial">
+        <text>暂无打卡动态哦~
+        点击右上方图标，
+        发布您的第一条打卡动态吧！
+        </text>
+    </view>
+    </block>
     <block wx:for="{{postList}}" wx:key="this">
         <view class="message" >
             <view class="left">

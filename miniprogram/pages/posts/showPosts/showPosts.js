@@ -11,7 +11,8 @@ Page({
         postList:[],
         habitsList:[],
         currentTab:0,
-        current_groupHabitId:""
+        current_groupHabitId:"",
+        skipNumber:0
     },
 
     ChangeTab(e){
@@ -19,14 +20,16 @@ Page({
         if(index==0){
             this.setData({
                 currentTab:index,
-                current_groupHabitId:""
+                current_groupHabitId:"",
+                skipNumber:0
             })
             this.getMyPosts()
         }
         else{
             this.setData({
                 currentTab:index,
-                current_groupHabitId:this.data.habitsList[index].groupHabitId
+                current_groupHabitId:this.data.habitsList[index].groupHabitId,
+                skipNumber:0
             })
             this.getPosts(this.data.current_groupHabitId)
         }
@@ -135,18 +138,34 @@ Page({
         return new Promise(function(resolve,reject){
             wx.cloud.database().collection('dongtai').where({
                 _openid:app.globalData.openId
-            }).orderBy('time','desc').get({
+            }).skip(that.data.skipNumber).orderBy('time','desc').get({
                 success(res){
                     for(var i of res.data){
                         i.like = i.likeList.includes(app.globalData.openId) ? true : false
                     }
                     var temp = [{"name":"我的"}]
                     temp = temp.concat(app.globalData.habits)
-                    that.setData({
-                        postList:res.data,   
-                        habitsList:temp       
-                    })
-                    resolve('success')
+                    if(that.data.skipNumber!=0){
+                        if(res.data.length==0){
+                            wx.showToast({
+                              title: '已经没有更多啦~',
+                              icon:'error'
+                            })
+                        }
+                        else{
+                            that.setData({
+                                postList:that.data.postList.concat(res.data),
+                                habitsList:temp
+                            })
+                        }
+                    }
+                    else{
+                        that.setData({
+                            postList:res.data,   
+                            habitsList:temp,
+                        })
+                    }
+                  resolve('success')
                 }
             })
         })
@@ -157,17 +176,33 @@ Page({
         return new Promise(function(resolve,reject){
             wx.cloud.database().collection('dongtai').where({
                 groupHabitId:groupHabitId
-            }).orderBy('time','desc').get({
+            }).skip(that.data.skipNumber).orderBy('time','desc').get({
                 success(res){
                     for(var i of res.data){
                         i.like = i.likeList.includes(app.globalData.openId) ? true : false
                     }
                     var temp = [{"name":"我的"}]
                     temp = temp.concat(app.globalData.habits)
-                    that.setData({
-                        postList:res.data,   
-                        habitsList:temp       
-                    })
+                    if(that.data.skipNumber!=0){
+                        if(res.data.length==0){
+                            wx.showToast({
+                              title: '已经没有更多啦~',
+                              icon:'error'
+                            })
+                        }
+                        else{
+                            that.setData({
+                                postList:that.data.postList.concat(res.data),
+                                habitsList:temp
+                            })
+                        }
+                    }
+                    else{
+                        that.setData({
+                            postList:res.data,   
+                            habitsList:temp,
+                        })
+                    }
                     resolve('success')
                 }
             })
@@ -243,15 +278,34 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     async onPullDownRefresh() {
-        await this.getPosts()
+        this.setData({
+            skipNumber:0
+        })
+        if(this.data.currentTab==0){
+            await this.getMyPosts()
+        }
+        else{
+            await this.getPosts(this.data.current_groupHabitId)
+        }
         wx.stopPullDownRefresh()
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function () {
-
+    async onReachBottom() {
+        this.setData({
+            skipNumber:this.data.postList.length
+        })
+        if(this.data.currentTab==0){
+            await this.getMyPosts()
+        }
+        else{
+            await this.getPosts(this.data.current_groupHabitId)
+        }
+        this.setData({
+            skipNumber:0
+        })
     },
 
     /**
@@ -263,7 +317,7 @@ Page({
             return{
                 title:'快来一起养成好习惯吧！', //todo
                 path:'/pages/posts/postDetail/postDetail?id='+this.data.postList[index]._id,
-                imageUrl:'../../../images/1.png', //todo
+                // imageUrl:'../../../images/1.png', //todo
             }
         }
     }

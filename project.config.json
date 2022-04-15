@@ -30,7 +30,7 @@
         "minifyWXML": true
     },
     "appid": "wx5c8252835a1c914e",
-    "projectname": "InternetComputing",
+    "projectname": "miniPrograme-test",
     "libVersion": "2.14.1",
     "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
     "compileType": "miniprogram",
