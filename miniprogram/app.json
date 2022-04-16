@@ -7,7 +7,8 @@
     "pages/habits/showHabits/showHabits",
     "pages/habits/newHabit/newHabit",
     "pages/habits/habitDetail/habitDetail",
-    "pages/habits/invite/invite"
+    "pages/habits/invite/invite",
+    "pages/login/rules/rules"
   ],
   "window": {
     "backgroundColor": "#CDF46E",
