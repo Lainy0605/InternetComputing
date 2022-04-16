@@ -56,21 +56,16 @@ Page({
                             success(r){
                                 app.globalData.habits = r.data 
                                 that.setData({habits:r.data})  
+                                var temp1=0;var temp2=0;var temp3=0
                                 for(var habit of app.globalData.habits){
-                                    if(habit.state=="培养中"){
-                                        that.data.developingNumber++
-                                    }
-                                    else if(habit.state=="培养成功"){
-                                        that.data.successNumber++
-                                    }
-                                    else if(habit.state=="培养失败"){
-                                        that.data.failureNumber++
-                                    }
+                                    if(habit.state=="培养中"){temp1++}
+                                    else if(habit.state=="培养成功"){temp2++}
+                                    else if(habit.state=="培养失败"){temp3++}
                                 } 
                                 that.setData({
-                                    developingNumber:that.data.developingNumber,
-                                    successNumber:that.data.successNumber,
-                                    failureNumber:that.data.failureNumber
+                                    developingNumber:temp1,
+                                    successNumber:temp2,
+                                    failureNumber:temp3
                                 })
                             }          
                         }) 
@@ -94,7 +89,7 @@ Page({
 
     toRules:function(){
         wx.navigateTo({
-          url:'./rules/rules',
+          url:'../../my/rules/rules',
           success:function(res){}
         })
     },
@@ -112,22 +107,17 @@ Page({
         .get({         
             success(res){
                 app.globalData.habits = res.data  
+                var temp1=0;var temp2=0;var temp3=0
                 for(var habit of app.globalData.habits){
-                    if(habit.state=="培养中"){
-                        that.data.developingNumber++
-                    }
-                    else if(habit.state=="培养成功"){
-                        that.data.successNumber++
-                    }
-                    else if(habit.state=="培养失败"){
-                        that.data.failureNumber++
-                    }
+                    if(habit.state=="培养中"){temp1++}
+                    else if(habit.state=="培养成功"){temp2++}
+                    else if(habit.state=="培养失败"){temp3++}
                 } 
                 that.setData({
-                    developingNumber:that.data.developingNumber,
-                    successNumber:that.data.successNumber,
-                    failureNumber:that.data.failureNumber
-                })    
+                    developingNumber:temp1,
+                    successNumber:temp2,
+                    failureNumber:temp3
+                })  
             }          
         }) 
         this.setData({
@@ -159,21 +149,16 @@ Page({
                     })
                 }
             })
+            var temp1=0;var temp2=0;var temp3=0
             for(var habit of app.globalData.habits){
-                if(habit.state=="培养中"){
-                    that.data.developingNumber++
-                }
-                else if(habit.state=="培养成功"){
-                    that.data.successNumber++
-                }
-                else if(habit.state=="培养失败"){
-                    that.data.failureNumber++
-                }
+                if(habit.state=="培养中"){temp1++}
+                else if(habit.state=="培养成功"){temp2++}
+                else if(habit.state=="培养失败"){temp3++}
             } 
-            this.setData({
-                developingNumber:that.data.developingNumber,
-                successNumber:that.data.successNumber,
-                failureNumber:that.data.failureNumber
+            that.setData({
+                developingNumber:temp1,
+                successNumber:temp2,
+                failureNumber:temp3
             })
         }
     },

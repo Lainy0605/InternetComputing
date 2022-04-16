@@ -1,5 +1,5 @@
 <view class="top">
-    <image class="rules" bindtap="toRules" src="../../images/1.png"></image>
+    <image class="rules" bindtap="toRules" src="../../../images/1.png"></image>
     <block wx:if="{{openId}}">
         <view class="avatar">
             <image class="image" src="{{userInfo.avatarUrl}}"></image>
@@ -11,7 +11,7 @@
     </block>
     <block wx:else>
         <view class="avatar">
-            <image class="image" src="../../images/1.png"></image>
+            <image class="image" src="../../../images/1.png"></image>
         </view>
         <view class="login" bindtap="getUserInfo">点击登录</view>
     </block>
@@ -22,18 +22,18 @@
         <view class="number">{{developingNumber}}</view>
         <view class="text">个习惯</view>
         <view class="ing">培养中</view>
-        <image class="more" src="../../images/1.png"></image>
+        <image class="more" src="../../../images/1.png"></image>
     </view>
     <view class="item" bindtap="toSUCCESS">
         <view class="number">{{successNumber}}</view>
         <view class="text">个习惯</view>
         <view class="success">培养成功</view>
-        <image class="more" src="../../images/1.png"></image>
+        <image class="more" src="../../../images/1.png"></image>
     </view>
     <view class="item" bindtap="toFAILURE">
         <view class="number">{{failureNumber}}</view>
         <view class="text">个习惯</view>
         <view class="failure">培养失败</view>
-        <image class="more" src="../../images/1.png"></image>
+        <image class="more" src="../../../images/1.png"></image>
     </view>
 </view>
