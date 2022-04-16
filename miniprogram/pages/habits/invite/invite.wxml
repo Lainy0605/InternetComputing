@@ -1,2 +1,4 @@
 <!--pages/habits/invite/invite.wxml-->
-<text>{{groupHabitId}}</text>
+<div>
+    <text>abc</text>
+</div>

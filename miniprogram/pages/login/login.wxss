@@ -1,7 +1,7 @@
 /* pages/login/login.wxss */
-page{
-    background-color: #ffffff;
-}
+page { 
+    background-color: #f8f8f8; 
+} 
 
 .image{
     width: 100px;
@@ -27,4 +27,8 @@ button{
     width: 60%;
     margin-top: 100px;
     color: #ffffff;
+}
+
+.showHabits {
+    margin-left: 20px;
 }
