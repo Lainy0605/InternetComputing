@@ -19,6 +19,7 @@ Page({
           success:function(res){}
         })
     },
+    
     toHabitDetail:function(e){
         var temp = e.currentTarget.dataset.index
         wx.navigateTo({

@@ -1,0 +1,15 @@
+/* pages/login/rules/rules.wxss */
+
+Page {
+    width: 100%;
+    height: 100%;
+}
+
+text {
+    text-align: center;
+    font-size: 25px;
+}
+
+rich-text{
+    margin-left: 3%;
+}

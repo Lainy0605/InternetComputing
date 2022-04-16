@@ -8,16 +8,17 @@
         <view class="name">{{userInfo.nickName}}</view>
     </div>
 
-    <view class="showHabits" wx:if="{{habits.length != 0}}"> 
-        <view wx:for="{{habits}}" wx:key="this"> 
-            <text style="align-self:center"> 
-                {{userInfo.nickName}} 坚持 {{item.name}} 已经 {{item.day}} 天了 
-                <text wx:if="{{item.day}}>=0&&{{item.day}}<=3" style="background-color: #EBA13E; border-radius: 10rpx;">（观察期）</text> 
-                <text wx:elif="{{item.day}}<=7" style="background-color: #EBA13E; border-radius: 10rpx;">（起步期）</text> 
-                <text wx:elif="{{item.day}}<=21" style="background-color: #EBA13E; border-radius: 10rpx;">（养成期）</text> 
-                <text wx:elif="{{item.day}}<=90" style="background-color: #EBA13E; border-radius: 10rpx;">（稳定期）</text> 
-            </text> 
-        </view> 
+    <view class="showHabits" wx:if="{{habits.length != 0}}">
+        <view wx:for="{{habits}}" wx:key="this">
+            <text style="align-self:center">
+                {{userInfo.nickName}} 坚持 {{item.name}} 已经 {{item.day}} 天了
+                <text wx:if="{{item.day}}>=0&&{{item.day}}<=3" style="background-color: #EBA13E; border-radius: 10rpx;">（观察期）</text>
+                <text wx:elif="{{item.day}}<=7" style="background-color: #EBA13E; border-radius: 10rpx;">（起步期）</text>
+                <text wx:elif="{{item.day}}<=21" style="background-color: #EBA13E; border-radius: 10rpx;">（养成期）</text>
+                <text wx:elif="{{item.day}}<=90" style="background-color: #EBA13E; border-radius: 10rpx;">（稳定期）</text>
+            </text>
+        </view>
     </view>
 
+    <button lang="zh_CN" bindtap="toRules">规则介绍</button>
 </view>
