@@ -1,6 +1,6 @@
 <block wx:if="{{!openId}}">
     <view class="initial">
-        <text>您尚未登陆哦~
+        <text>您尚未登录哦~
         请跳转至“我的”界面,
         完成登录后即可开启习惯养成之旅！
         </text>

@@ -12,6 +12,6 @@
         </view>
     </view>
     <view class="one-image" wx:if="{{canChoose}}" bindtap="chooseImage">
-        <image src="../../../images/chooseImage.jpg" class="img"></image>
+        <image src="../../../images/chooseImage.png" class="img"></image>
     </view>
 </view>
