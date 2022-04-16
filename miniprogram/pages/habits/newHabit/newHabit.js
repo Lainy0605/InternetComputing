@@ -35,10 +35,11 @@ Page({
                             name:that.data.name,
                             lastDaka:dates,
                             groupHabitId:re._id,
-                            day:0
+                            day:0,
+                            state:"培养中"
                         },
                         success:function(res){
-                            app.globalData.habits.push({"name":that.data.name,"day":0,"offset":0,"lastDaka":dates,"groupHabitId":re._id,"_id":res._id});
+                            app.globalData.habits.push({"name":that.data.name,"day":0,"offset":0,"lastDaka":dates,"groupHabitId":re._id,"_id":res._id,"state":"培养中"});
                             GROUPHABITS.doc(re._id).update({
                                 data:{
                                      memberIds:res._id

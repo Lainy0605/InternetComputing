@@ -1,14 +1,14 @@
 {
   "pages": [
-    "pages/login/login",
+    "pages/my/login/login",
+    "pages/my/rules/rules",
     "pages/posts/newPost/newPost",
     "pages/posts/showPosts/showPosts",
     "pages/posts/postDetail/postDetail",
     "pages/habits/showHabits/showHabits",
     "pages/habits/newHabit/newHabit",
     "pages/habits/habitDetail/habitDetail",
-    "pages/habits/invite/invite",
-    "pages/login/rules/rules"
+    "pages/habits/invite/invite"
   ],
   "window": {
     "backgroundColor": "#CDF46E",
@@ -35,7 +35,7 @@
         "selectedIconPath": "images/圈子-选中.png"
       },
       {
-        "pagePath": "pages/login/login",
+        "pagePath": "pages/my/login/login",
         "text": "我的",
         "iconPath": "images/我的.png",
         "selectedIconPath": "images/我的-选中.png"
