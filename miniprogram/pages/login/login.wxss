@@ -1,34 +1,128 @@
 /* pages/login/login.wxss */
 page { 
-    background-color: #f8f8f8; 
+    background-color: #ffffff; 
 } 
 
+.top{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 350rpx;
+    background-color: #CDF46E;
+}
+.rules{
+    position: absolute;
+    top: 10rpx;
+    right: 10rpx;
+    height: 50rpx;
+    width: 50rpx;
+}
+.avatar{
+    display: flex;
+    width: 30%;
+    height: 100%;
+    align-items: center;
+    position: relative;
+    margin: 0 30rpx 0 0;
+}
 .image{
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    display: block;
-    margin-top: 20px;
-    border-radius: 15%;
+    display: flex;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    position: absolute;
+    right: 0;
 }
-
-.name{
-    text-align: center;
-    padding-top: 10px;
+.info{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 25rpx;
+    width: 200rpx;
+    color: white;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
 }
-
-.userInformation {
-    width: 200px;
-    height: 200px;
+.level{
+    position: absolute;
+    left: 0;
+    top: 40%;
 }
-
-button{
-    background: #EA5149;
-    width: 60%;
-    margin-top: 100px;
-    color: #ffffff;
+.credits{
+    position: absolute;
+    left: 0;
+    top: 50%;
 }
-
-.showHabits {
-    margin-left: 20px;
+.login{
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 30rpx;
+}
+.show-area{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 50rpx;
+    font-size: 30rpx;
+}
+.item{
+    display: flex;
+    width: 100%;
+    height: 80rpx;
+    margin-bottom: 10rpx;
+    align-items: center;
+    border-color: #EBA13E;
+    border-width: 5rpx;
+    border-style:solid;
+    border-radius: 15rpx;
+}
+.number{
+    display: flex;
+    width: 50rpx;
+    margin-left: 20rpx;
+    justify-content: center;
+    align-items: center;
+}
+.text{
+    display: flex;
+    width: 100rpx;
+    justify-content: center;
+    align-items: center;
+}
+.ing{
+    color:white;
+    display: flex;
+    width: 150rpx;
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
+    background-color:#F5E952;
+    border-radius: 10rpx;
+}
+.success{
+    color:white;
+    display: flex;
+    width: 150rpx;
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
+    background-color:#CDF46E;
+    border-radius: 10rpx;
+}
+.failure{
+    color:white;
+    display: flex;
+    width: 150rpx;
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
+    background-color:tomato;
+    border-radius: 10rpx;
+}
+.more{
+    width: 40rpx;
+    height: 40rpx;
+    position: absolute;
+    right: 10rpx;
 }

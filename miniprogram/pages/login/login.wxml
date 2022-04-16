@@ -1,24 +1,39 @@
-<view wx:if="{{!openId}}">
-    <button lang="zh_CN" bindtap="getUserInfo">login</button>
-</view>
-
-<view class="uploader-container" wx:if="{{userInfo}}">
-    <div class="userInfomation">
-        <image class="image" src="{{userInfo.avatarUrl}}"></image>
-        <view class="name">{{userInfo.nickName}}</view>
-    </div>
-
-    <view class="showHabits" wx:if="{{habits.length != 0}}">
-        <view wx:for="{{habits}}" wx:key="this">
-            <text style="align-self:center">
-                {{userInfo.nickName}} 坚持 {{item.name}} 已经 {{item.day}} 天了
-                <text wx:if="{{item.day}}>=0&&{{item.day}}<=3" style="background-color: #EBA13E; border-radius: 10rpx;">（观察期）</text>
-                <text wx:elif="{{item.day}}<=7" style="background-color: #EBA13E; border-radius: 10rpx;">（起步期）</text>
-                <text wx:elif="{{item.day}}<=21" style="background-color: #EBA13E; border-radius: 10rpx;">（养成期）</text>
-                <text wx:elif="{{item.day}}<=90" style="background-color: #EBA13E; border-radius: 10rpx;">（稳定期）</text>
-            </text>
+<view class="top">
+    <image class="rules" bindtap="toRules" src="../../images/1.png"></image>
+    <block wx:if="{{openId}}">
+        <view class="avatar">
+            <image class="image" src="{{userInfo.avatarUrl}}"></image>
         </view>
+        <view class="info">
+            <view class="level">Lv 0 : 习惯小白</view>
+            <view class="credits">我的积分 : 10000</view>
+        </view>
+    </block>
+    <block wx:else>
+        <view class="avatar">
+            <image class="image" src="../../images/1.png"></image>
+        </view>
+        <view class="login" bindtap="getUserInfo">点击登录</view>
+    </block>
     </view>
 
-    <button lang="zh_CN" bindtap="toRules">规则介绍</button>
+<view class="show-area">
+    <view class="item" bindtap="toING">
+        <view class="number">1</view>
+        <view class="text">个习惯</view>
+        <view class="ing">培养中</view>
+        <image class="more" src="../../images/1.png"></image>
+    </view>
+    <view class="item" bindtap="toSUCCESS">
+        <view class="number">0</view>
+        <view class="text">个习惯</view>
+        <view class="success">培养成功</view>
+        <image class="more" src="../../images/1.png"></image>
+    </view>
+    <view class="item" bindtap="toFAILURE">
+        <view class="number">100</view>
+        <view class="text">个习惯</view>
+        <view class="failure">培养失败</view>
+        <image class="more" src="../../images/1.png"></image>
+    </view>
 </view>
