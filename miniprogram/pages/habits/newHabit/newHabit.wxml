@@ -1,5 +1,5 @@
 <!--pages/habits/newHabit/newHabit.wxml-->
 <view>
     <input class="setHabitName" bindinput="nameInput" placeholder="取个好听的名字吧~"/>
-    <button bindtap="addHabit">确认</button>
+    <button bindtap="{{!clicked ? 'addHabit':''}}">确认</button>
 </view>

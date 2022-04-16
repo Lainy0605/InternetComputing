@@ -2,6 +2,7 @@ const HABITS = wx.cloud.database().collection('habits')
 const GROUPHABITS = wx.cloud.database().collection('groupHabits')
 var app = getApp()
 import { milisecondLast } from "../../../utils/utils"
+import { Buttonclicked } from '../../../utils/utils'
 Page({
 
     /**
@@ -9,6 +10,7 @@ Page({
      */
     data: {
         name:"",
+        clicked:false,
     },
     nameInput(e){
         this.setData({
@@ -17,7 +19,8 @@ Page({
     },
     addHabit(){
         const that = this
-        if (this.data.name.length>0 && this.data.name.length<=9) {
+        if (!this.data.clicked && this.data.name.length>0 && this.data.name.length<=9) {
+            Buttonclicked(this)
             var dates = milisecondLast(new Date());
             GROUPHABITS.add({
                 data:{
@@ -26,8 +29,6 @@ Page({
                 },
                 success:function(re)
                 {
-                    // dates = milisecondLast(new Date());
-
                     HABITS.add
                     ({
                         data:{
