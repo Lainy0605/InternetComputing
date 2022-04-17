@@ -24,7 +24,8 @@ Page({
                         })
                         .get({
                             success(r){
-                                app.globalData.habits = r.data 
+                                app.globalData.habits = r.data
+                                console.log(r)
                                 that.setData({habits:r.data})                 
                             }
                            
@@ -50,12 +51,7 @@ Page({
         })
     },
 
-    toRules:function(){
-        wx.navigateTo({
-          url:'./rules/rules',
-          success:function(res){}
-        })
-    },
+    
     
     /**
      * 生命周期函数--监听页面加载

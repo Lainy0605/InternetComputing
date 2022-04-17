@@ -41,7 +41,7 @@ Page({
                             app.globalData.habits.push({"name":that.data.name,"day":0,"offset":0,"lastDaka":dates,"groupHabitId":re._id,"_id":res._id});
                             GROUPHABITS.doc(re._id).update({
                                 data:{
-                                     memberIds:res._id
+                                     memberIds: wx.cloud.database().command.push(res._id)
                                 }
                             }),
                             wx.navigateBack({

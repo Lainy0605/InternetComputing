@@ -1,4 +1,17 @@
 <!--pages/habits/invite/invite.wxml-->
-<div>
-    <text>abc</text>
-</div>
+pageInvite
+<text>groupHabitId: {{groupHabitId}}</text>
+<text>curr{{currHabitName}}</text>
+<text>inviteeOpenId: {{openId}}</text>
+
+<view wx:if="{{!openId}}">
+    <button lang="zh_CN" bindtap="getUserInfo">login</button>
+</view>
+
+<view class="uploader-container" wx:if="{{userInfo}}">
+    <div class="userInfomation">
+        <image class="image" src="{{userInfo.avatarUrl}}"></image>
+        <view class="name">{{userInfo.nickName}}</view>
+    </div>
+    <button lang="zh_CN" bindtap="acceptInvitation">加入群组</button>
+</view>
