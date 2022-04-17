@@ -12,7 +12,34 @@ Page({
         successNumber:0,
         failureNumber:0,
         credits:0,
-        level:""
+        level:"",
+        levelValue:""
+    },
+
+    setlevelValue(level){
+        switch(level){
+            case 0:
+                this.data.levelValue="习惯小白"
+                break;
+            case 1:
+                this.data.levelValue="习惯？？"
+                break;
+            case 2:
+                this.data.levelValue="习惯？？"
+                break;
+            case 3:
+                this.data.levelValue="习惯精英"
+                break;
+            case 4:
+                this.data.levelValue="习惯大师"
+                break;
+            case 5:
+                this.data.levelValue="习惯王者"
+                break;
+        }
+        this.setData({
+            levelValue:this.data.levelValue
+        })
     },
 
     getUserInfo:function(){
@@ -46,6 +73,7 @@ Page({
                                         credits:r.data[0].credits,
                                         level:r.data[0].level
                                     })
+                                    that.setlevelValue(r.data[0].level)
                                 }
                             },
                         })
@@ -147,6 +175,7 @@ Page({
                         credits:r.data[0].credits,
                         level:r.data[0].level
                     })
+                    that.setlevelValue(r.data[0].level)
                 }
             })
             var temp1=0;var temp2=0;var temp3=0
