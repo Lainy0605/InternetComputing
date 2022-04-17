@@ -9,7 +9,7 @@ Page({
         habits: [],
         openId:"",
         index:"",
-        Mstart:0,
+        // Mstart:0,
     },
 
     tonewHabit:function(){
@@ -27,28 +27,28 @@ Page({
         })
     },
 
-    touchStart:function(e){
-        this.setData({
-            index: e.currentTarget.dataset.index,
-            Mstart: e.changedTouches[0].pageX
-        })
-    },
-    touchMove:function(e){
-        let list = this.data.habits;
-        let move = this.data.Mstart-e.changedTouches[0].pageX;
-        list[this.data.index].offset = move > 0 ? -move : 0;
-        this.setData({
-            habits:list
-        })
-    },
-    touchEnd:function(e){
-        let list = this.data.habits;
-        let move = this.data.Mstart-e.changedTouches[0].pageX;
-        list[this.data.index].offset = move >100 ? -180:0;
-        this.setData({
-            habits:list
-        })
-    },
+    // touchStart:function(e){
+    //     this.setData({
+    //         index: e.currentTarget.dataset.index,
+    //         Mstart: e.changedTouches[0].pageX
+    //     })
+    // },
+    // touchMove:function(e){
+    //     let list = this.data.habits;
+    //     let move = this.data.Mstart-e.changedTouches[0].pageX;
+    //     list[this.data.index].offset = move > 0 ? -move : 0;
+    //     this.setData({
+    //         habits:list
+    //     })
+    // },
+    // touchEnd:function(e){
+    //     let list = this.data.habits;
+    //     let move = this.data.Mstart-e.changedTouches[0].pageX;
+    //     list[this.data.index].offset = move >100 ? -180:0;
+    //     this.setData({
+    //         habits:list
+    //     })
+    // },
 
     getHabits(){
         const that = this
