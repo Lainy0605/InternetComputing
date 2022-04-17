@@ -70,7 +70,7 @@ Page({
         wx.showModal({
             title:"提示",
             content:"确定删除？",
-            cancelColor: 'cancelColor',
+            cancelColor: '#CDF46E',
             confirmColor:'#fc5959',
             success(res){
                 if(res.confirm){
@@ -161,8 +161,6 @@ Page({
                         i.likeClicked = false
                         i.dislikeClicked = false
                     }
-                    var temp = [{"name":"我的"}]
-                    temp = temp.concat(app.globalData.habits)
                     if(that.data.skipNumber!=0){
                         if(res.data.length==0){
                             wx.showToast({
@@ -173,14 +171,12 @@ Page({
                         else{
                             that.setData({
                                 postList:that.data.postList.concat(res.data),
-                                habitsList:temp
                             })
                         }
                     }
                     else{
                         that.setData({
                             postList:res.data,   
-                            habitsList:temp,
                         })
                     }
                   resolve('success')
@@ -201,8 +197,6 @@ Page({
                         i.likeClicked = false
                         i.dislikeClicked = false
                     }
-                    var temp = [{"name":"我的"}]
-                    temp = temp.concat(app.globalData.habits)
                     if(that.data.skipNumber!=0){
                         if(res.data.length==0){
                             wx.showToast({
@@ -213,14 +207,12 @@ Page({
                         else{
                             that.setData({
                                 postList:that.data.postList.concat(res.data),
-                                habitsList:temp
                             })
                         }
                     }
                     else{
                         that.setData({
                             postList:res.data,   
-                            habitsList:temp,
                         })
                     }
                     resolve('success')
@@ -232,11 +224,24 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad() {
+        const that = this
         wx.showToast({
             title: '加载中',
             icon:'loading'
           })
         if(app.globalData.openId){
+            wx.cloud.database().collection('habits').where({
+                _openid:app.globalData.openId,
+                state:"培养中"
+            }).get({
+                success(re){
+                    var temp = [{"name":"我的"}]
+                    temp = temp.concat(re.data)
+                    that.setData({
+                        habitsList:temp
+                    })
+                }
+            })
             await this.getMyPosts()
             this.setData({
                 login:true,
@@ -259,11 +264,24 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        const that = this
         if(app.globalData.openId){
             if(!this.data.login){
                 this.onLoad()
             }
             else{
+                wx.cloud.database().collection('habits').where({
+                    _openid:app.globalData.openId,
+                    state:"培养中"
+                }).get({
+                    success(re){
+                        var temp = [{"name":"我的"}]
+                        temp = temp.concat(re.data)
+                        that.setData({
+                            habitsList:temp
+                        })
+                    }
+                })
                 if(this.data.currentTab==0){
                     this.getMyPosts()
                 }

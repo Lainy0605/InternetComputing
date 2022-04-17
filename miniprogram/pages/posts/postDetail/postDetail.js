@@ -33,7 +33,7 @@ Page({
         wx.showModal({
             title:"提示",
             content:"确定删除？",
-            cancelColor: 'cancelColor',
+            cancelColor: '#CDF46E',
             confirmColor:'#fc5959',
             success(res){
                 if(res.confirm){
@@ -64,7 +64,7 @@ Page({
             wx.showModal({
                 title:"提示",
                 content:"确定删除？",
-                cancelColor: 'cancelColor',
+                cancelColor: '#CDF46E',
                 confirmColor:'#fc5959',
               success(res){
                 if(res.confirm){

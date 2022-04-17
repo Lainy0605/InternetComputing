@@ -15,6 +15,6 @@
     </button>
     <br></br>
     <view bindtap="delete" class="wrap">
-        删除
+        放弃
     </view>
 </view>

@@ -50,64 +50,18 @@ Page({
                 wx.cloud.callFunction({
                     name:"getOpenId",
                     success(re){
-                        wx.cloud.database().collection('userInfos').where({
-                            _openid:re.result.openid
-                        }).get({
-                            success(r){
-                                if(r.data.length==0){
-                                    wx.cloud.database().collection('userInfos').add({
-                                        data:{
-                                            credits:0,
-                                            level:0
-                                        },
-                                        success(t){
-                                            that.setData({
-                                                credits:0,
-                                                level:0
-                                            })
-                                        }
-                                    })
-                                }
-                                else{
-                                    that.setData({
-                                        credits:r.data[0].credits,
-                                        level:r.data[0].level
-                                    })
-                                    that.setlevelValue(r.data[0].level)
-                                }
-                            },
-                        })
-                        wx.cloud.database().collection('habits').where({
-                            _openid:re.result.openid
-                        })
-                        .get({
-                            success(r){
-                                app.globalData.habits = r.data 
-                                that.setData({habits:r.data})  
-                                var temp1=0;var temp2=0;var temp3=0
-                                for(var habit of app.globalData.habits){
-                                    if(habit.state=="培养中"){temp1++}
-                                    else if(habit.state=="培养成功"){temp2++}
-                                    else if(habit.state=="培养失败"){temp3++}
-                                } 
-                                that.setData({
-                                    developingNumber:temp1,
-                                    successNumber:temp2,
-                                    failureNumber:temp3
-                                })
-                            }          
-                        }) 
                         app.globalData.openId = re.result.openid,
                         app.globalData.userInfo = res.userInfo
                         that.setData({
                             openId:re.result.openid,
                             userInfo:res.userInfo,
                         }) 
+                        that.onShow()
                         wx.setStorageSync('openId', that.data.openId)
                         wx.setStorageSync('userInfo', that.data.userInfo)            
                         wx.cloud.callFunction({
                             name:"updateInfo",
-                            data:{avatarUrl:that.data.userInfo.avatarUrl},
+                            data:{avatarUrl:that.data.userInfo.avatarUrl,nickName:that.data.userInfo.nickName},
                         })
                     }
                 })
@@ -126,28 +80,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {    
-        const that = this
         app.globalData.userInfo = wx.getStorageSync('userInfo')
         app.globalData.openId = wx.getStorageSync('openId')
-        wx.cloud.database().collection('habits').where({
-            _openid:app.globalData.openId
-        })
-        .get({         
-            success(res){
-                app.globalData.habits = res.data  
-                var temp1=0;var temp2=0;var temp3=0
-                for(var habit of app.globalData.habits){
-                    if(habit.state=="培养中"){temp1++}
-                    else if(habit.state=="培养成功"){temp2++}
-                    else if(habit.state=="培养失败"){temp3++}
-                } 
-                that.setData({
-                    developingNumber:temp1,
-                    successNumber:temp2,
-                    failureNumber:temp3
-                })  
-            }          
-        }) 
         this.setData({
             userInfo:app.globalData.userInfo,
             openId:app.globalData.openId,
@@ -170,24 +104,46 @@ Page({
             wx.cloud.database().collection('userInfos').where({
                 _openid:app.globalData.openId
             }).get({
-                success(r){
+                    success(res){
+                        if(res.data.length==0){
+                             wx.cloud.database().collection('userInfos').add({
+                                data:{
+                                    credits:0,
+                                    level:0
+                                },
+                                success(t){
+                                    that.setData({
+                                        credits:0,
+                                        level:0
+                                    })
+                                }
+                            })
+                        }
+                        else{
+                            that.setData({
+                                credits:res.data[0].credits,
+                                level:res.data[0].level
+                            })
+                            that.setlevelValue(res.data[0].level)
+                        }
+                    },
+            })          
+            wx.cloud.database().collection('habits').where({
+                _openid:app.globalData.openId
+            }).get({
+                success(res){
+                    var temp1=0;var temp2=0;var temp3=0
+                    for(var habit of res.data){
+                        if(habit.state=="培养中"){temp1++}
+                        else if(habit.state=="培养成功"){temp2++}
+                        else if(habit.state=="培养失败"){temp3++}
+                    } 
                     that.setData({
-                        credits:r.data[0].credits,
-                        level:r.data[0].level
+                        developingNumber:temp1,
+                        successNumber:temp2,
+                        failureNumber:temp3
                     })
-                    that.setlevelValue(r.data[0].level)
                 }
-            })
-            var temp1=0;var temp2=0;var temp3=0
-            for(var habit of app.globalData.habits){
-                if(habit.state=="培养中"){temp1++}
-                else if(habit.state=="培养成功"){temp2++}
-                else if(habit.state=="培养失败"){temp3++}
-            } 
-            that.setData({
-                developingNumber:temp1,
-                successNumber:temp2,
-                failureNumber:temp3
             })
         }
     },

@@ -3,7 +3,6 @@ import regeneratorUntime from './utils/runtime'
 App({
   onLaunch: function () {
     this.globalData = {
-      habits:[],
       openId:"",
       userInfo:{}
     };

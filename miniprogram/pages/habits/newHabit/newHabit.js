@@ -2,7 +2,7 @@ const HABITS = wx.cloud.database().collection('habits')
 const GROUPHABITS = wx.cloud.database().collection('groupHabits')
 var app = getApp()
 import { milisecondLast } from "../../../utils/utils"
-import { Buttonclicked } from '../../../utils/utils'
+
 Page({
 
     /**
@@ -19,41 +19,43 @@ Page({
     },
     addHabit(){
         const that = this
-        if (!this.data.clicked && this.data.name.length>0 && this.data.name.length<=9) {
-            Buttonclicked(this)
-            var dates = milisecondLast(new Date());
-            GROUPHABITS.add({
-                data:{
-                    name:that.data.name,
-                    memberIds:[]
-                },
-                success:function(re)
-                {
-                    HABITS.add
-                    ({
+        if (this.data.name.length>0 && this.data.name.length<=9) {
+            wx.showModal({
+              title:'提示',
+              content:'您准备好培养该习惯了吗？',
+              cancelColor: '#CDF46E',
+              confirmColor:'#fc5959',
+              success(res){
+                  if(res.confirm){
+                    var dates = milisecondLast(new Date());
+                    GROUPHABITS.add({
                         data:{
                             name:that.data.name,
-                            lastDaka:dates,
-                            groupHabitId:re._id,
-                            day:0,
-                            state:"培养中",
-                            stage:"观察期"
+                            // memberIds:[]
                         },
-                        success:function(res){
-                            app.globalData.habits.push({"name":that.data.name,"day":0,"lastDaka":dates,"groupHabitId":re._id,"_id":res._id,"state":"培养中","stage":"观察期"});
-                            GROUPHABITS.doc(re._id).update({
+                        success:function(re)
+                        {
+                            HABITS.add
+                            ({
                                 data:{
-                                     memberIds: wx.cloud.database().command.push(res._id)
-                                }
-                            }),
-                            wx.navigateBack({
-                                delta:1
+                                    name:that.data.name,
+                                    lastDaka:dates,
+                                    groupHabitId:re._id,
+                                    day:0,
+                                    state:"培养中",
+                                    stage:"观察期"
+                                },
+                                success:function(res){
+                                    wx.navigateBack({
+                                        delta:1
+                                    })
+                                }             
                             })
-                        }             
+                        }
                     })
-                }
-            })
-            
+                  }
+              }
+            })      
         }
         else if(this.data.name.length==0){
             wx.showToast({

@@ -9,7 +9,6 @@ Page({
         habits: [],
         openId:"",
         index:"",
-        // Mstart:0,
     },
 
     tonewHabit:function(){
@@ -22,45 +21,22 @@ Page({
     toHabitDetail:function(e){
         var temp = e.currentTarget.dataset.index
         wx.navigateTo({
-            url: '../habitDetail/habitDetail?index='+temp,
+            url: '../habitDetail/habitDetail?id='+this.data.habits[temp]._id,
             success:function(res){}
         })
     },
-
-    // touchStart:function(e){
-    //     this.setData({
-    //         index: e.currentTarget.dataset.index,
-    //         Mstart: e.changedTouches[0].pageX
-    //     })
-    // },
-    // touchMove:function(e){
-    //     let list = this.data.habits;
-    //     let move = this.data.Mstart-e.changedTouches[0].pageX;
-    //     list[this.data.index].offset = move > 0 ? -move : 0;
-    //     this.setData({
-    //         habits:list
-    //     })
-    // },
-    // touchEnd:function(e){
-    //     let list = this.data.habits;
-    //     let move = this.data.Mstart-e.changedTouches[0].pageX;
-    //     list[this.data.index].offset = move >100 ? -180:0;
-    //     this.setData({
-    //         habits:list
-    //     })
-    // },
 
     getHabits(){
         const that = this
         return new Promise(function(resolve,reject){
             wx.cloud.database().collection('habits').where({
-                _openid:app.globalData.openId
+                _openid:app.globalData.openId,
+                state:"培养中"
             }).get({
                 success(res){
                     that.setData({
                         habits:res.data,
                     })
-                    app.globalData.habits = res.data
                     resolve('success')
                 }
             })
@@ -101,9 +77,7 @@ Page({
                 this.onLoad()
             }
             else{
-                this.setData({
-                    habits:app.globalData.habits
-                })
+                this.getHabits()
             }
         }
         else{

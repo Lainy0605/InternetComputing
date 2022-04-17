@@ -9,8 +9,6 @@ Page({
   data: {
     habitDetail:"", 
     openId:"",
-    index:"",
-    groupHabitId:"",
   },
 
   daka: function(){
@@ -22,7 +20,7 @@ Page({
     wx.showModal({
         title:"提示",
         content:"确定打卡？",
-        cancelColor: '#005959',
+        cancelColor: '#CDF46E',
         confirmColor:'#fc5959',
         success(res){
             if(res.confirm&&canDaka){
@@ -30,7 +28,7 @@ Page({
                 var creditPlus
                 var temp = that.data.habitDetail
                 var tempStage = that.data.habitDetail.stage
-                var tempDay = app.globalData.habits[that.data.index].day+1
+                var tempDay = that.data.habitDetail.day+1
                 if(tempDay>=0 && tempDay<=3){temp2="观察期"}
                 else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
                 else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
@@ -58,12 +56,14 @@ Page({
                       ["habitDetail.day"] : tempDay,
                       ["habitDetail.stage"] : temp2
                     })
-                    app.globalData.habits[that.data.index].lastDaka = dates;
-                    app.globalData.habits[that.data.index].day = app.globalData.habits[that.data.index].day+1;
-                    app.globalData.habits[that.data.index].stage = temp2;
                     wx.showToast({
-                      title: '打卡成功',
+                      title: '打卡成功！',
                     })
+                    if(tempDay==90){
+                      wx.showToast({
+                        title: '习惯培养成功！',
+                      })
+                    }
                   }
                 })
             }
@@ -80,18 +80,50 @@ Page({
 
   delete:function(){
     const that = this
+    var creditsMinus
+    var stage = that.data.habitDetail.stage
+    if(stage=="观察期"){creditsMinus=0}
+    else if(stage="起步期")(creditsMinus=10)
+    else if(stage="养成期")(creditsMinus=20)
+    else if(stage="稳定期")(creditsMinus=40)
     wx.showModal({
       title:"提示",
-      content:"确定删除？",
-      cancelColor: 'cancelColor',
+      content:"需扣除"+creditsMinus+"积分,确定放弃？",
+      cancelColor: '#CDF46E',
       confirmColor:'#fc5959',
       success(res){
         if(res.confirm){
           var temp = that.data.habitDetail
           wx.cloud.database().collection('habits').where({
             _id:temp._id
-          }).remove()    
-          app.globalData.habits.splice(that.data.index,1)        
+          }).update({
+            data:{
+              state:"培养失败"
+            }
+          })
+          wx.cloud.database().collection('userInfos').where({
+            _openid:that.data.openId
+          }).update({
+            data:{
+              credits:wx.cloud.database().command.inc(-creditsMinus)
+            },
+          })   
+          wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).get({
+                success(res){
+                  if(res.data._openid==that.data.openId){
+                    wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).remove()
+                  }
+                  else{
+                    var index = res.data.memberIds.indexOf(temp._id)
+                    res.data.memberIds.splice(index,1)
+                    wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).update({
+                      data:{
+                        memberIds:res.data.memberIds
+                      }
+                    })
+                  }
+                }
+          })    
           wx.showToast({
             title: '删除成功',
           })
@@ -107,13 +139,11 @@ Page({
  */
 onLoad: function (options) {
   const that = this
-  wx.cloud.database().collection('habits').doc(app.globalData.habits[options.index]._id).get({
+  wx.cloud.database().collection('habits').doc(options.id).get({
     success(res){
       that.setData({
         habitDetail:res.data,
         openId:app.globalData.openId,
-        index:options.index,
-        groupHabitId:res.data.groupHabitId
       })
     }
   })
@@ -170,7 +200,7 @@ onLoad: function (options) {
     var that = this;
     return{
         title:'快来一起养成好习惯吧！',//todo
-        path:'/pages/habits/invite/invite?groupHabitId='+that.data.groupHabitId,
+        path:'/pages/habits/invite/invite?groupHabitId='+that.data.habitDetail.groupHabitId,
     }
   }
 })
