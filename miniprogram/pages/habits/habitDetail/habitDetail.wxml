@@ -21,9 +21,7 @@
 
     <view wx:if='{{groupHabitId!=""}}'>
         <view class="textBeforeInvite">
-            <text>您正在与{{100}}个好友一起培养该习惯，加油哦~</text>
-            <!-- todo：我想显示好友个数，能做到下面的应该这个也可以吧。要是很麻烦就换成下面这行 -->
-            <!-- <text>您正在与好友一起培养该习惯，加油哦~</text> -->
+            <text>您正在与{{memberNum}}个好友一起培养该习惯，加油哦~</text>
         </view>
         <block wx:if="{{memberIds.length!=0}}">
             <view class="member-area">
@@ -32,20 +30,22 @@
                 </view>
                 <view class="member-right">
                 <!-- todo: 把群组习惯的用户和各种信息导进来，我这里写的不对，是乱写的 -->
-                    <block wx:for="{{habitDetail.memberIds}}" wx:key="this">
+                    <block wx:for="{{memberHabitDetail}}" wx:key="this">
                         <view class="member" data-index="{{index}}">
                             <image src="{{item.avatar}}" class="member-avator"></image>
                             <view>
                                 <view class="membernickname">{{item.nickName}}</view>
                                 <view class="state-day-points">
-                                    <view class="member-info">{{item.state}}</view>
-                                    <view class="member-info">{{item.day}}</view>
-                                    <view class="member-info">{{item.points}}</view>
+                                    <block wx:if="{{openId!=item._openid}}">
+                                        <view class="member-info" wx:if="{{item.dakaOrNot}}">已打卡</view>
+                                        <view class="member-info" wx:else>提醒</view>
+                                    </block>
+                                    <view class="member-info">{{item.day}}天</view>
+                                    <view class="member-info">积分：{{item.credits}}</view>
                                 </view>
                             </view>
                         </view>
                     </block>
-
                     <block>
                         <view class="member">
                             <image src="../../../images/guest.png" class="member-avator"></image>
@@ -82,9 +82,9 @@
     </view>
 
 
-    <view open-type="share" class="invite">
+    <button open-type="share" class="invite">
         邀请
-    </view>
+    </button>
     <br></br>
     <view bindtap="setRemindTime" class="setRemindTime">
         <image src="../../../images/clock.png" class="littleIcon"></image>

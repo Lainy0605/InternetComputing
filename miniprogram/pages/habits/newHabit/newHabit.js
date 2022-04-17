@@ -31,7 +31,6 @@ Page({
                     GROUPHABITS.add({
                         data:{
                             name:that.data.name,
-                            // memberIds:[]
                         },
                         success:function(re)
                         {
@@ -43,7 +42,9 @@ Page({
                                     groupHabitId:re._id,
                                     day:0,
                                     state:"培养中",
-                                    stage:"观察期"
+                                    stage:"观察期",
+                                    nickName:app.globalData.userInfo.nickName,
+                                    avatar:app.globalData.userInfo.avatarUrl
                                 },
                                 success:function(res){
                                     wx.navigateBack({

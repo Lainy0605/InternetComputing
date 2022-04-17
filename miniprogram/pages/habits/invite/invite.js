@@ -41,10 +41,11 @@ Page({
                   })
                 }
               })
-            app.globalData.openId = re.result.openid,
-            app.globalData.userInfo = res.userInfo
-            wx.setStorageSync('openId', that.data.openId)
-            wx.setStorageSync('userInfo', that.data.userInfo)
+              console.log(re.result.openid,res.userInfo)
+            // app.globalData.openId = re.result.openid,
+            // app.globalData.userInfo = res.userInfo
+            // wx.setStorageSync('openId', that.data.openId)
+            // wx.setStorageSync('userInfo', that.data.userInfo)
             wx.cloud.callFunction({
               name: "updateInfo",
               data: {
@@ -80,15 +81,6 @@ Page({
         state:"培养中"
       },
       success(res) {
-        app.globalData.habits.push({
-          "name": self.data.currHabitName,
-          "day": 0,
-          "lastDaka": date,
-          "groupHabitId": self.data.groupHabitId,
-          "_id": res._id,
-          "stage":"观察期",
-          "state":"培养中"
-        })
         GROUPHABITS.doc(self.data.groupHabitId).update({
           data: {
             memberIds: wx.cloud.database().command.push(res._id)
@@ -96,7 +88,12 @@ Page({
         })
         wx.showToast({
           title: '添加成功',
-          icon:"success"
+          icon:"success",
+          success(){
+            // wx.switchTab({
+            //   url: '../../my/login/login',
+            // })
+          }
         })
       }
     })

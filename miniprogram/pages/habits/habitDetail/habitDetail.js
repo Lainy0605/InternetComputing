@@ -8,8 +8,9 @@ Page({
    */
   data: {
     habitDetail:"", 
-    openId:"",
-    
+    openId:"", 
+    memberHabitDetail:[],
+    memberNum:0,
   },
 
   daka: function(){
@@ -128,7 +129,6 @@ Page({
     })
   },
 
-  //   todo: 跳转到该习惯对应的动态发送页
   toPagenewPost:function(){
       wx.switchTab({
         url: '../../posts/showPosts/showPosts',
@@ -145,16 +145,37 @@ Page({
    */
   onLoad: function (options) {
     const that = this
+    var dates = milisecond(new Date());
     wx.cloud.database().collection('habits').doc(options.id).get({
       success(res){
-        var dates = milisecond(new Date());
-        var canDaka = false;
-        if (res.data.lastDaka<dates)
-          canDaka = true;
         that.setData({
-          canDaka:canDaka,
           habitDetail:res.data,
           openId:app.globalData.openId,
+          canDaka:res.data.lastDaka<dates ? true : false,
+        })
+        wx.cloud.database().collection('habits').where({
+          groupHabitId:res.data.groupHabitId
+        }).get({
+          success(re){
+            that.setData({
+              memberNum:re.data.length-1,
+            })
+            for(var temp of re.data){
+              temp.dakaOrNot = temp.lastDaka < dates ? "false":"true"
+              wx.cloud.database().collection('userInfos').where({
+                _openid:temp._openid
+              }).get({
+                success(r){
+                  temp.credits = r.data[0].credits
+                  var t = that.data.memberHabitDetail
+                  t.push(temp)
+                  that.setData({
+                    memberHabitDetail:t
+                  })
+                }
+              })
+            }
+          }
         })
       }
     })

@@ -147,12 +147,11 @@ Page({
                         }
                     },
             })          
-            wx.cloud.database().collection('habits').where({
-                _openid:app.globalData.openId
-            }).get({
+            wx.cloud.callFunction({
+                name:"getHabits",
                 success(res){
                     var temp1=0;var temp2=0;var temp3=0
-                    for(var habit of res.data){
+                    for(var habit of res.result.data){
                         if(habit.state=="培养中"){temp1++}
                         else if(habit.state=="培养成功"){temp2++}
                         else if(habit.state=="培养失败"){temp3++}
@@ -161,9 +160,29 @@ Page({
                         developingNumber:temp1,
                         successNumber:temp2,
                         failureNumber:temp3
-                    })
+                    })      
+                },
+                fail(e){
+                    console.log(e)
                 }
             })
+            // wx.cloud.database().collection('habits').where({
+            //     _openid:app.globalData.openId
+            // }).get({
+            //     success(res){
+            //         var temp1=0;var temp2=0;var temp3=0
+            //         for(var habit of res.data){
+            //             if(habit.state=="培养中"){temp1++}
+            //             else if(habit.state=="培养成功"){temp2++}
+            //             else if(habit.state=="培养失败"){temp3++}
+            //         } 
+            //         that.setData({
+            //             developingNumber:temp1,
+            //             successNumber:temp2,
+            //             failureNumber:temp3
+            //         })
+            //     }
+            // })
         }
     },
 

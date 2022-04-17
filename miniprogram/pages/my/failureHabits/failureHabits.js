@@ -1,4 +1,5 @@
 // pages/my/failureHabits/failureHabits.js
+const app=getApp()
 Page({
 
     /**
@@ -12,7 +13,17 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        const that = this
+        wx.cloud.database().collection('habits').where({
+            _openid:app.globalData.openId,
+            state:"培养失败"
+        }).get({
+            success(res){
+                that.setData({
+                    failureHabits:res.data
+                })
+            }
+        })
     },
 
     /**
