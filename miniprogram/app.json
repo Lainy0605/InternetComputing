@@ -1,50 +1,52 @@
 {
-  "pages": [
-    "pages/my/login/login",
-    "pages/my/rules/rules",
-    "pages/posts/newPost/newPost",
-    "pages/posts/showPosts/showPosts",
-    "pages/posts/postDetail/postDetail",
-    "pages/habits/showHabits/showHabits",
-    "pages/habits/newHabit/newHabit",
-    "pages/habits/habitDetail/habitDetail",
-    "pages/habits/invite/invite"
-  ],
-  "window": {
-    "backgroundColor": "#CDF46E",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#CDF46E",
-    "navigationBarTitleText": "HabitsDeveloper",
-    "navigationBarTextStyle": "black",
-    "onReachBottomDistance": 50
-  },
-  "tabBar": {
-    "backgroundColor": "#CDF46E",
-    "selectedColor": "#EBA13E",
-    "list": [
-      {
-        "pagePath": "pages/habits/showHabits/showHabits",
-        "text": "习惯",
-        "iconPath": "images/习惯.png",
-        "selectedIconPath": "images/习惯-选中.png"
-      },
-      {
-        "pagePath": "pages/posts/showPosts/showPosts",
-        "text": "圈子",
-        "iconPath": "images/圈子.png",
-        "selectedIconPath": "images/圈子-选中.png"
-      },
-      {
-        "pagePath": "pages/my/login/login",
-        "text": "我的",
-        "iconPath": "images/我的.png",
-        "selectedIconPath": "images/我的-选中.png"
-      }
-    ]
-  },
-  "sitemapLocation": "sitemap.json",
-  "style": "v2",
-  "useExtendedLib": {
-    "weui": true
-  }
+    "pages": [
+        "pages/my/login/login",
+        "pages/my/rules/rules",
+        "pages/posts/newPost/newPost",
+        "pages/posts/showPosts/showPosts",
+        "pages/posts/postDetail/postDetail",
+        "pages/habits/showHabits/showHabits",
+        "pages/habits/newHabit/newHabit",
+        "pages/habits/habitDetail/habitDetail",
+        "pages/habits/invite/invite",
+        "pages/my/successHabits/successHabits",
+        "pages/my/failureHabits/failureHabits"
+    ],
+    "window": {
+        "backgroundColor": "#CDF46E",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#CDF46E",
+        "navigationBarTitleText": "HabitsDeveloper",
+        "navigationBarTextStyle": "black",
+        "onReachBottomDistance": 50
+    },
+    "tabBar": {
+        "backgroundColor": "#CDF46E",
+        "selectedColor": "#EBA13E",
+        "list": [
+            {
+                "pagePath": "pages/habits/showHabits/showHabits",
+                "text": "习惯",
+                "iconPath": "images/习惯.png",
+                "selectedIconPath": "images/习惯-选中.png"
+            },
+            {
+                "pagePath": "pages/posts/showPosts/showPosts",
+                "text": "圈子",
+                "iconPath": "images/圈子.png",
+                "selectedIconPath": "images/圈子-选中.png"
+            },
+            {
+                "pagePath": "pages/my/login/login",
+                "text": "我的",
+                "iconPath": "images/我的.png",
+                "selectedIconPath": "images/我的-选中.png"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json",
+    "style": "v2",
+    "useExtendedLib": {
+        "weui": true
+    }
 }

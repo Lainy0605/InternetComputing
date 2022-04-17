@@ -16,10 +16,7 @@
                 <view class="wrap">
                     <view class="Big">你坚持<habits> {{item.name}} </habits>已经</view>
                     <text class="dayCount">{{item.day}}天
-                        <text wx:if="{{item.day}}>=0&&{{item.day}}<=3" style="background-color: #EBA13E; border-radius: 10rpx;">（观察期）</text>
-                        <text wx:elif="{{item.day}}>=4&&{{item.day}}<=7" style="background-color: #EBA13E; border-radius: 10rpx;">（起步期）</text>
-                        <text wx:elif="{{item.day}}>=8&&{{item.day}}<=21" style="background-color: #EBA13E; border-radius: 10rpx;">（养成期）</text>
-                        <text wx:elif="{{item.day}}>=22&&{{item.day}}<=90" style="background-color: #EBA13E; border-radius: 10rpx;">（稳定期）</text>
+                        <text style="background-color: #EBA13E; border-radius: 10rpx;">({{item.stage}})</text>
                     </text>
                 </view>
             </view>
@@ -34,14 +31,4 @@
         </view>
     </view>
 </block>
-<!-- <wxs module="func">
-    module.exports={
-        getFirst5:function(name){
-            if (name.length>=6)
-                return name[0]+name[1]+name[2]+name[3]+"...";
-            else
-                return name;
-        }
-    }
-</wxs> -->
 
