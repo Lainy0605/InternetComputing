@@ -3,6 +3,10 @@ page {
     background-color: #f8f8f8; 
 } 
 
+text{
+    text-align: center;
+}
+
 image{
     width: 50px;
     height: 50px;
@@ -15,6 +19,7 @@ image{
 .name{
     text-align: center;
     padding-top: 10px;
+    
 }
 
 .userInformation {
@@ -27,4 +32,6 @@ button{
     width: 60%;
     margin-top: 100px;
     color: #ffffff;
+    
+    
 }

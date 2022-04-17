@@ -84,6 +84,10 @@ Page({
 
         if (self.data.isUserInGroup) {
           console.log("用户已经在群组中")
+          wx.showToast({
+            title: '你已添加该习惯',
+            icon: 'error'
+            })
         } else {
           console.log("用户不在群组中")
           var date = milisecondLast(new Date())
