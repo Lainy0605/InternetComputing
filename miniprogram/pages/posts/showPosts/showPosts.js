@@ -100,6 +100,14 @@ Page({
         const that = this
         var index = e.currentTarget.dataset.index
         var temp = this.data.postList[index]
+        that.setData({
+            ['postList['+index+'].likeClicked']:true
+        })
+        setTimeout(function(){
+            that.setData({
+                ['postList['+index+'].likeClicked']:false
+            })
+        },600)
         temp.likeList.push(app.globalData.openId)
         wx.cloud.database().collection('dongtai').doc(temp._id).update({
             data:{
@@ -118,6 +126,14 @@ Page({
         const that = this
         var index = e.currentTarget.dataset.index
         var temp = this.data.postList[index]
+        that.setData({
+            ['postList['+index+'].dislikeClicked']:true
+        })
+        setTimeout(function(){
+            that.setData({
+                ['postList['+index+'].dislikeClicked']:false
+            })
+        },600)
         var i = temp.likeList.indexOf(app.globalData.openId)
         temp.likeList.splice(i,1)
         wx.cloud.database().collection('dongtai').doc(temp._id).update({
@@ -142,6 +158,8 @@ Page({
                 success(res){
                     for(var i of res.data){
                         i.like = i.likeList.includes(app.globalData.openId) ? true : false
+                        i.likeClicked = false
+                        i.dislikeClicked = false
                     }
                     var temp = [{"name":"我的"}]
                     temp = temp.concat(app.globalData.habits)
@@ -180,6 +198,8 @@ Page({
                 success(res){
                     for(var i of res.data){
                         i.like = i.likeList.includes(app.globalData.openId) ? true : false
+                        i.likeClicked = false
+                        i.dislikeClicked = false
                     }
                     var temp = [{"name":"我的"}]
                     temp = temp.concat(app.globalData.habits)

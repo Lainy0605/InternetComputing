@@ -57,11 +57,12 @@ const formatNumber = n => {
 }
 
 const Buttonclicked = self =>{
-    self.setData({
+    const that=self
+    that.setData({
         clicked:true
     })
     setTimeout(function(){
-        self.setData({
+        that.setData({
             clicked:false
         })
     },600)

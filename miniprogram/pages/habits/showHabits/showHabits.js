@@ -10,7 +10,7 @@ Page({
         habits: [],
         openId:"",
         index:"",
-        Mstart:0
+        Mstart:0,
     },
 
     tonewHabit:function(){
@@ -50,17 +50,6 @@ Page({
             habits:list
         })
     },
-    // delete:function(e){
-    //     var index=e.currentTarget.dataset.index
-    //     HABITS.where({
-    //         _id:this.data.habits[index]._id
-    //     }).remove({})
-    //     this.data.habits.splice(index,1)
-    //     this.setData({
-    //         habits:this.data.habits
-    //     })
-    //     app.globalData.habits=this.data.habits
-    // },
 
     getHabits(){
         const that = this
@@ -69,6 +58,15 @@ Page({
                 _openid:app.globalData.openId
             }).get({
                 success(res){
+                    // for(var habit of res.data){
+                    //     var temp = habit.day
+                    //     var temp2 = "";    
+                    //     if(temp>=0 && temp<=3){temp2="观察期"}
+                    //     else if(temp>=4 && temp<=7){temp2="起步期"}
+                    //     else if(temp>=8 && temp<=21){temp2="养成期"}
+                    //     else if(temp>=22 && temp<=90){temp2="稳定期"}
+                    //     habit.stage=temp2
+                    // }
                     that.setData({
                         habits:res.data,
                     })

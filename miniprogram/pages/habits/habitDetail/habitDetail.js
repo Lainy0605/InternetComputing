@@ -10,7 +10,8 @@ Page({
     habitDetail:"", 
     openId:"",
     index:"",
-    groupHabitId:""
+    groupHabitId:"",
+    stage:""
   },
 
   daka: function(){
@@ -27,22 +28,30 @@ Page({
         success(res){
             if(res.confirm&&canDaka){
                 var temp = that.data.habitDetail
+                var temp2
                 var tempDay = app.globalData.habits[that.data.index].day+1
+                if(tempDay>=0 && tempDay<=3){temp2="观察期"}
+                else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
+                else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
+                else if(tempDay>=22 && tempDay<=90){temp2="稳定期"}
                 wx.cloud.database().collection('habits').doc(temp._id).update({
                   data:{
                       lastDaka:dates,
-                      day:tempDay
+                      day:tempDay,
+                      stage:temp2
                   },
                   success(re){
                     that.setData({
                       ["habitDetail.lastDaka"]:dates,
                       ["habitDetail.day"] : tempDay,
+                      ["habitDetail.stage"] : temp2
                     })
                     app.globalData.habits[that.data.index].lastDaka = dates;
                     app.globalData.habits[that.data.index].day = app.globalData.habits[that.data.index].day+1;
+                    app.globalData.habits[that.data.index].stage = temp2;
                     wx.showToast({
                       title: '打卡成功',
-                      })
+                    })
                   }
                 })
             }
@@ -53,7 +62,6 @@ Page({
                 icon: 'error'
                 })
             }
-
         }
     })
   },

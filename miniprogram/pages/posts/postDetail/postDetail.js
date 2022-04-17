@@ -1,4 +1,5 @@
 import { formatTime } from "../../../utils/utils"
+import { Buttonclicked } from "../../../utils/utils"
 var app = getApp()
 Page({
 
@@ -9,7 +10,10 @@ Page({
         postDetail:"",
         inputValue:"",  
         openId:"",
-        id:""
+        id:"",
+        clicked:false,
+        likeClicked:false,
+        dislikeClicked:false,
     },
 
     // oneImageLoad(e){
@@ -87,6 +91,14 @@ Page({
 
     like:function(){
         const that = this
+        that.setData({
+            likeClicked:true
+        })
+        setTimeout(function(){
+            that.setData({
+                likeClicked:false
+            })
+        },600)
         var temp = this.data.postDetail
         temp.likeList.push(app.globalData.openId)
         wx.cloud.database().collection('dongtai').doc(temp._id).update({
@@ -104,6 +116,14 @@ Page({
 
     dislike:function(){
         const that = this
+        that.setData({
+            dislikeClicked:true
+        })
+        setTimeout(function(){
+            that.setData({
+                dislikeClicked:false
+            })
+        },600)
         var temp = this.data.postDetail
         var i = temp.likeList.indexOf(app.globalData.openId)
         temp.likeList.splice(i,1)
@@ -127,6 +147,7 @@ Page({
     send(){
         const that = this
         if(this.data.inputValue){
+            Buttonclicked(that)
             wx.cloud.database().collection('dongtai').doc(that.data.id).get({
                 success(res){
                     var comment = {}

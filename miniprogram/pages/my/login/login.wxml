@@ -1,17 +1,17 @@
 <view class="top">
-    <image class="rules" bindtap="toRules" src="../../images/1.png"></image>
+    <image class="rules" bindtap="toRules" src="../../../images/1.png"></image>
     <block wx:if="{{openId}}">
         <view class="avatar">
             <image class="image" src="{{userInfo.avatarUrl}}"></image>
         </view>
         <view class="info">
-            <view class="level">Lv 0 : 习惯小白</view>
-            <view class="credits">我的积分 : 10000</view>
+            <view class="level">Lv {{level}} : {{levelValue}}</view>
+            <view class="credits">我的积分 : {{credits}}</view>
         </view>
     </block>
     <block wx:else>
         <view class="avatar">
-            <image class="image" src="../../images/1.png"></image>
+            <image class="image" src="../../../images/1.png"></image>
         </view>
         <view class="login" bindtap="getUserInfo">点击登录</view>
     </block>
@@ -19,21 +19,21 @@
 
 <view class="show-area">
     <view class="item" bindtap="toING">
-        <view class="number">1</view>
+        <view class="number">{{developingNumber}}</view>
         <view class="text">个习惯</view>
         <view class="ing">培养中</view>
-        <image class="more" src="../../images/1.png"></image>
+        <image class="more" src="../../../images/1.png"></image>
     </view>
     <view class="item" bindtap="toSUCCESS">
-        <view class="number">0</view>
+        <view class="number">{{successNumber}}</view>
         <view class="text">个习惯</view>
         <view class="success">培养成功</view>
-        <image class="more" src="../../images/1.png"></image>
+        <image class="more" src="../../../images/1.png"></image>
     </view>
     <view class="item" bindtap="toFAILURE">
-        <view class="number">100</view>
+        <view class="number">{{failureNumber}}</view>
         <view class="text">个习惯</view>
         <view class="failure">培养失败</view>
-        <image class="more" src="../../images/1.png"></image>
+        <image class="more" src="../../../images/1.png"></image>
     </view>
 </view>
