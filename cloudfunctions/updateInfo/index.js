@@ -18,6 +18,14 @@ exports.main = async (event, context) => {
                 avatar:event.avatarUrl
             },
         })
+        await db.collection('habits').where({
+          _openid:cloud.getWXContext().OPENID
+        }).update({
+          data:{
+            nickName:event.nickName,
+            avatar:event.avatarUrl
+          }
+        })
         return {
           success: true,
         };

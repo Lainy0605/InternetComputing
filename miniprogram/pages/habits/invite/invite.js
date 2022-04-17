@@ -16,9 +16,7 @@ Page({
     groupHabitId: "",
     userInfo: {},
     openId: "",
-    habits: [],
     currHabitName: "",
-    isUserInGroup: false,
     hasLoginIn: false
   },
 
@@ -35,20 +33,16 @@ Page({
               })
               .get({
                 success(r) {
-                  app.globalData.habits = r.data
                   that.setData({
                     habits: r.data,
-                    hasLoginIn: true
+                    hasLoginIn: true,
+                    openId: re.result.openid,
+                    userInfo: res.userInfo
                   })
-                  console.log("用户登录成功")
                 }
               })
             app.globalData.openId = re.result.openid,
             app.globalData.userInfo = res.userInfo
-            that.setData({
-              openId: re.result.openid,
-              userInfo: res.userInfo
-            })
             wx.setStorageSync('openId', that.data.openId)
             wx.setStorageSync('userInfo', that.data.userInfo)
             wx.cloud.callFunction({
@@ -66,15 +60,15 @@ Page({
 
   acceptInvitation: function () {
     const self = this
-    // for(var temp of this.data.habits){
-    //   if(temp.groupHabitId==self.data.groupHabitId){
-    //     wx.showToast({
-    //       title: '你已添加该习惯',
-    //       icon: 'error'
-    //       })
-    //     return
-    //   }
-    // }
+    for(var temp of this.data.habits){
+      if(temp.groupHabitId==self.data.groupHabitId){
+        wx.showToast({
+          title: '你已添加该习惯',
+          icon: 'error'
+          })
+        return
+      }
+    }
     var date = milisecondLast(new Date())
     HABITS.add({
       data: {
@@ -171,15 +165,10 @@ Page({
     }) //获取分享页来源的groupHabitID
     wx.cloud.database().collection('groupHabits').doc(options.groupHabitId).get({
       success: function (res) {
-        console.log(res.data.name)
         that.setData({
           currHabitName: res.data.name
         })
-        console.log(that.data.name)
       },
-      fail: function (res) {
-        console.log(res)
-      }
     })
   },
 
