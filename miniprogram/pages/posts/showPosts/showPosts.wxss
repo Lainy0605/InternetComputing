@@ -65,6 +65,7 @@ page{
     width: 100rpx;
     height: 100rpx;
     margin-top: 10rpx;
+    border-radius: 15rpx;
 }
 .left{
     margin-right: 15rpx;

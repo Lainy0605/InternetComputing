@@ -63,8 +63,8 @@
                         <view wx:if="{{item.commentList.length}}" class="numbers">{{item.commentList.length}}</view> <!--评论-->
                     </view>
                     <view class="interaction-like">
-                        <image wx:if="{{!item.like}}" src="../../../images/点赞.png" class="interaction-icon" catchtap="like" data-index="{{index}}"></image>
-                        <image wx:else src="../../../images/已点赞.png" class="interaction-icon" catchtap="dislike" data-index="{{index}}"></image>
+                        <image wx:if="{{!item.like}}" src="../../../images/点赞.png" class="interaction-icon" catchtap="{{!item.likeClicked ? 'like':''}}" data-index="{{index}}"></image>
+                        <image wx:else src="../../../images/已点赞.png" class="interaction-icon" catchtap="{{!item.dislikeClicked ? 'dislike':''}}" data-index="{{index}}"></image>
                         <view wx:if="{{item.likeList.length}}" class="numbers">{{item.likeList.length}}</view><!--点赞-->
                     </view>
                 </view>

@@ -39,8 +39,8 @@
                     <view wx:if="{{postDetail.commentList.length}}" class="numbers">{{postDetail.commentList.length}}</view> <!--评论-->
                 </view>
                 <view class="interaction-like">
-                    <image wx:if="{{!postDetail.like}}" src="../../../images/点赞.png" class="interaction-icon" bindtap="like"></image>
-                    <image wx:else src="../../../images/已点赞.png" class="interaction-icon" bindtap="dislike"></image>
+                    <image wx:if="{{!postDetail.like}}" src="../../../images/点赞.png" class="interaction-icon" bindtap="{{!likeClicked ? 'like':''}}"></image>
+                    <image wx:else src="../../../images/已点赞.png" class="interaction-icon" bindtap="{{!dislikeClicked ? 'dislike':''}}"></image>
                     <view wx:if="{{postDetail.likeList.length}}" class="numbers">{{postDetail.likeList.length}}</view><!--点赞-->
                 </view>
         </view>
@@ -48,7 +48,7 @@
 </view>
 <block wx:if="{{postDetail.commentList.length!=0}}">
     <view class="separate-area">
-        <image src="../../../images/地址分隔线.png" class="separate"></image>
+        <image src="../../../images/分割线.png" class="separate"></image>
     </view>
 <view class="comment-area">
     <view class="comment-left">
@@ -76,5 +76,5 @@
     <view class="take-comment-left">
         <input class="input-comment" placeholder="评论" bindinput="getValue" value="{{nothing}}"/>
     </view>
-    <view class="send-comment" bindtap="send">发送</view>
+    <view class="send-comment" bindtap="{{!clicked ? 'send':''}}">发送</view>
 </view>
