@@ -8,7 +8,7 @@
 </block>
 <block wx:if="{{openId}}">
     <view class="new-habit"> 
-        <image src="../../../images/新建.png" class="new-habit-icon" bindtap="tonewHabit"></image> 
+        <image src="../../../images/newHabit.png" class="new-habit-icon" bindtap="tonewHabit"></image> 
     </view>
     <view wx:if="{{habits.length!=0}}">
         <view wx:for="{{habits}}" wx:key="this" >

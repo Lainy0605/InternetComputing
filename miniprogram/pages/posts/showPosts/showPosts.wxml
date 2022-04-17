@@ -14,7 +14,7 @@
             </block>
         </view>
         <view wx:if="{{currentTab!=0}}" class="new-post" >
-            <image src="../../../images/发布.png" class="new-post-icon" bindtap="toPagenewPost"></image>
+            <image src="../../../images/newPost.png" class="new-post-icon" bindtap="toPagenewPost"></image>
         </view>
     </view>
     <view style="height:45rpx"></view>
@@ -56,22 +56,22 @@
                 </view>
                 <view class="interaction">
                     <view> <!--不能删-->
-                        <button open-type="share" size="mini" data-index="{{index}}"><image src="../../../images/分享.png" class="interaction-icon"></image></button>
+                        <button open-type="share" size="mini" data-index="{{index}}"><image src="../../../images/share.png" class="interaction-icon"></image></button>
                     </view>
                     <view class="interaction-comment">
-                        <image src="../../../images/评论.png" class="interaction-icon" catchtap="toDetail" data-id="{{item._id}}"></image>
+                        <image src="../../../images/comment.png" class="interaction-icon" catchtap="toDetail" data-id="{{item._id}}"></image>
                         <view wx:if="{{item.commentList.length}}" class="numbers">{{item.commentList.length}}</view> <!--评论-->
                     </view>
                     <view class="interaction-like">
-                        <image wx:if="{{!item.like}}" src="../../../images/点赞.png" class="interaction-icon" catchtap="{{!item.likeClicked ? 'like':''}}" data-index="{{index}}"></image>
-                        <image wx:else src="../../../images/已点赞.png" class="interaction-icon" catchtap="{{!item.dislikeClicked ? 'dislike':''}}" data-index="{{index}}"></image>
+                        <image wx:if="{{!item.like}}" src="../../../images/like.png" class="interaction-icon" catchtap="{{!item.likeClicked ? 'like':''}}" data-index="{{index}}"></image>
+                        <image wx:else src="../../../images/liked.png" class="interaction-icon" catchtap="{{!item.dislikeClicked ? 'dislike':''}}" data-index="{{index}}"></image>
                         <view wx:if="{{item.likeList.length}}" class="numbers">{{item.likeList.length}}</view><!--点赞-->
                     </view>
                 </view>
             </view>
         </view>
         <view class="separate-area">
-            <image src="../../../images/分割线.png" class="separate"></image>
+            <image src="../../../images/division.png" class="separate"></image>
         </view>
     </block>
 </block>

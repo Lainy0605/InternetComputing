@@ -1,16 +1,32 @@
 /* pages/habits/habitDetail/habitDetail.wxss */
+page{
+    background-color: white;
+}
 .setHabitName{
   font: bolder;
-  width: 690rpx;
-  padding: 30rpx 30rpx 20rpx;
-  margin: 7rpx 0 6rpx 0;
-  background: #ffffff;
+  padding: 30rpx 30rpx 30rpx 30rpx;
+  margin: 40rpx 40rpx 40rpx 40rpx;
+  background: #e8f7b942;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
+  border-style: dotted;
+  border-width: medium;
+  border-color: #A4C257;
   box-shadow: 0 2px 5px rgb(214, 240, 236);
 }
 .setHabitName days{
   color: blueviolet;
+  margin: 0 7rpx 0 7rpx;
+  font-weight: 900;
+}
+.HabitInfoText{
+    margin: 10rpx 20rpx 10rpx 20rpx;
+    font-weight: 900rpx;
+    font-size: medium;
+}
+.littleIcon{
+    width: 42rpx;
+    height: 42rpx;
 }
 .wrap{
   position: relative;
@@ -20,4 +36,115 @@
   background-color: #fff;
   width: 100%;
   height: 100%;
+}
+.daka{
+    display: flex;
+    position: relative;
+    padding: 20rpx;
+    font-size: large;
+    color:white;
+    height: 30rpx;
+    width: 130rpx;
+    font-weight: 900;
+    justify-content: center;
+    align-items: center;
+    background-color:#46C244;
+    border-radius: 20rpx;
+    margin: 20rpx 20rpx 20rpx 20rpx;
+}
+.yidaka{
+    display: flex;
+    position: relative;
+    padding: 20rpx;
+    border-width: 5rpx;
+    border-style: solid;
+    border-radius: 20rpx;
+    border-color: #A4C257;
+    font-size: large;
+    color:#A4C257;
+    height: 30rpx;
+    width: 520rpx;
+    font-weight: 900;
+    justify-content: left;
+    align-items: center;
+    margin: 20rpx 20rpx 20rpx 20rpx;
+}
+.textBeforeInvite{
+    margin: 20rpx;
+    font-size: small;
+    /* color: rgb(120, 120, 120); */
+    color: #7A8F79;
+}
+.member-area{
+    display: flex;
+    flex-direction: row;
+    background-color: #87e8f548;
+    border-radius: 40rpx;
+    border-style: dashed;
+    border-width: medium;
+    border-color: lightsteelblue;
+    padding: 20rpx 20rpx;
+    margin: 0rpx 20rpx;
+}
+.member-icon{
+    width: 33rpx;
+    height: 33rpx;
+    margin-right: 15rpx;
+    margin-top: 23rpx;
+}
+.member{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10rpx;
+}
+.member-avator{
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 100%;
+    margin-right: 20rpx;
+    margin-top: 5rpx;
+}
+.state-day-points{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 360rpx;
+    flex:1;
+}
+.member-nickname{
+    color: #586894;
+}
+.member-info{
+    /* color: #7A8F79; */
+    color: #2D3618;
+    font-size: 25rpx;
+}
+.invite{
+    color:white;
+    display: flex;
+    width: 110rpx;
+    font-weight: 900;
+    justify-content: center;
+    background-color:#9987F5;
+    border-radius: 60rpx;
+    margin: 20rpx 20rpx 30rpx 20rpx;
+}
+.setRemindTime{
+    color:white;
+    display: flex;
+    width: 280rpx;
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
+    background-color:#eba13e;
+    border-radius: 20rpx;
+    padding: 10rpx 5rpx 10rpx 0rpx;
+    margin: 20rpx 20rpx 20rpx 20rpx;
+}
+.delete{
+    color:cornflowerblue;
+    display: flex;
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
 }
