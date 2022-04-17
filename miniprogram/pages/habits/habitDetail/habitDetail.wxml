@@ -5,12 +5,12 @@
         习惯名称：<text style="background-color: #FAF35C; padding: 1rpx 6rpx 0 6rpx;border-bottom: 11rpx #eba13e double;">{{habitDetail.name}}</text>
     </view>
     <view class="HabitInfoText">
-        已进行<days>{{habitDetail.day}}</days>天（{{func.period(habitDetail.day)}}）
+        已进行<days>{{habitDetail.day}}</days>天（{{habitDetail.stage}}）
     </view>
 
     <!--打卡-->
     <!-- todo: 判断用户今天打卡了吗，我这里乱写的 -->
-    <view wx:if="{{habitDetail.daka}}" class="yidaka" bindtap="toPagenewPost">
+    <view wx:if="{{!canDaka}}" class="yidaka" bindtap="toPagenewPost">
         已打卡，发布今天的动态吧~
         <image  src="../../../images/clickToNewPost.png" class="littleIcon" ></image>
     </view>
@@ -94,26 +94,3 @@
         放弃
     </view>
 </view>
-
-<wxs module="func">
-    module.exports = {
-        period: function (day) {
-            console.log(day);
-            if (day <= 3)
-                return "观察期";
-            if (day <= 7)
-                return "起步期";
-            if (day <= 21)
-                return "养成期";
-            if (day <= 90)
-                return "稳定期";
-            return "已完成";
-        },
-        getFirst5: function (name) {
-            if (name.length >= 6)
-                return name[0] + name[1] + name[2] + name[3] + "...";
-            else
-                return name;
-        }
-    }
-</wxs>

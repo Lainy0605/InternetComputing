@@ -24,13 +24,13 @@
         <view class="ing">培养中</view>
         <image class="more" src="../../../images/more.png"></image>
     </view>
-    <view class="item" bindtap="toSUCCESS">
+    <view class="item" bindtap="toSuccessHabits">
         <view class="number">{{successNumber}}</view>
         <view class="text">个习惯</view>
         <view class="success">培养成功</view>
         <image class="more" src="../../../images/more.png"></image>
     </view>
-    <view class="item" bindtap="toFAILURE">
+    <view class="item" bindtap="toFailureHabits">
         <view class="number">{{failureNumber}}</view>
         <view class="text">个习惯</view>
         <view class="failure">培养失败</view>

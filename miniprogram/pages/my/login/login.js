@@ -76,6 +76,25 @@ Page({
         })
     },
     
+    toING(){
+        wx.navigateTo({
+            url: '../../my/successHabits/successHabits',
+            success:function(res){}
+          })
+    },
+    toSuccessHabits(){
+        wx.navigateTo({
+          url: '../../my/successHabits/successHabits',
+          success:function(res){}
+        })
+    },
+
+    toFailureHabits(){
+        wx.navigateTo({
+            url: '../../my/failureHabits/failureHabits',
+            success:function(res){}
+          })
+    },
     /**
      * 生命周期函数--监听页面加载
      */

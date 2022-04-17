@@ -9,26 +9,24 @@ Page({
   data: {
     habitDetail:"", 
     openId:"",
+    
   },
 
   daka: function(){
     const that = this
-    var dates = milisecond(new Date());
-    var canDaka = false;
-    if (that.data.habitDetail.lastDaka<dates)
-      canDaka = true;
     wx.showModal({
         title:"提示",
         content:"确定打卡？",
         cancelColor: '#CDF46E',
         confirmColor:'#fc5959',
         success(res){
-            if(res.confirm&&canDaka){
+            if(res.confirm){
                 var temp2
                 var creditPlus
                 var temp = that.data.habitDetail
                 var tempStage = that.data.habitDetail.stage
                 var tempDay = that.data.habitDetail.day+1
+                var dates = milisecond(new Date());
                 if(tempDay>=0 && tempDay<=3){temp2="观察期"}
                 else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
                 else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
@@ -55,7 +53,8 @@ Page({
                       ["habitDetail.lastDaka"]:dates,
                       ["habitDetail.day"] : tempDay,
                       ["habitDetail.stage"] : temp2,
-                      ["habitDetail.daka"] : true
+                      ["habitDetail.daka"] : true,
+                      canDaka:false
                     })
                     wx.showToast({
                       title: '打卡成功！',
@@ -66,13 +65,6 @@ Page({
                       })
                     }
                   }
-                })
-            }
-            else if ((!canDaka)&&(res.confirm))
-            {
-              wx.showToast({
-                title: '您今日已打卡',
-                icon: 'error'
                 })
             }
         }
@@ -89,7 +81,7 @@ Page({
     else if(stage="稳定期")(creditsMinus=40)
     wx.showModal({
       title:"提示",
-      content:"需扣除"+creditsMinus+"积分,确定放弃？",
+      content:"需扣除"+creditsMinus+"积分,确定放弃吗？",
       cancelColor: '#CDF46E',
       confirmColor:'#fc5959',
       success(res){
@@ -126,7 +118,7 @@ Page({
                 }
           })    
           wx.showToast({
-            title: '删除成功',
+            title: '习惯培养失败，请再接再厉！',
           })
           wx.navigateBack({
            delta:1
@@ -136,30 +128,37 @@ Page({
     })
   },
 
-//   todo: 跳转到该习惯对应的动态发送页
-toPagenewPost:function(){
-
-},
-
-//   todo: 设置提醒时间
-setRemindTime:function(){
-
-},
-
-/**
- * 生命周期函数--监听页面加载
- */
-onLoad: function (options) {
-  const that = this
-  wx.cloud.database().collection('habits').doc(options.id).get({
-    success(res){
-      that.setData({
-        habitDetail:res.data,
-        openId:app.globalData.openId,
+  //   todo: 跳转到该习惯对应的动态发送页
+  toPagenewPost:function(){
+      wx.switchTab({
+        url: '../../posts/showPosts/showPosts',
       })
-    }
-  })
-},
+  },
+
+  //   todo: 设置提醒时间
+  setRemindTime:function(){
+
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    const that = this
+    wx.cloud.database().collection('habits').doc(options.id).get({
+      success(res){
+        var dates = milisecond(new Date());
+        var canDaka = false;
+        if (res.data.lastDaka<dates)
+          canDaka = true;
+        that.setData({
+          canDaka:canDaka,
+          habitDetail:res.data,
+          openId:app.globalData.openId,
+        })
+      }
+    })
+  },
 
 
 
