@@ -22,7 +22,7 @@ const htmlSnip = `
 
     </ol>
     <p>四：连续打卡 90 天，即认为培养成功，将该习惯纳入培养成功系列</p>
-    <p>五：可花费 100 积分烧出一条培养失败的习惯记录</p>
+    <p>五：可花费 100 积分删除一条培养失败的习惯记录</p>
     <p>六：组队习惯可以设置积分池，当天未打卡的成员将扣除 <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg
                 xmlns="http://www.w3.org/2000/svg" width="15.528ex" height="2.262ex" role="img" focusable="false"
                 viewBox="0 -750 6863.2 1000" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"

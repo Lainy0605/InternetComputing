@@ -13,7 +13,7 @@
                 <view class="{{index==currentTab ? 'selected':'notselected'}}"  bindtap="ChangeTab" data-index="{{index}}">{{item.name}}</view>
             </block>
         </view>
-        <view class="new-post" >
+        <view wx:if="{{currentTab!=0}}" class="new-post" >
             <image src="../../../images/发布.png" class="new-post-icon" bindtap="toPagenewPost"></image>
         </view>
     </view>

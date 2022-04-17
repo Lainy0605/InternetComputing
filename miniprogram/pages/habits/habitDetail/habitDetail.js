@@ -11,7 +11,6 @@ Page({
     openId:"",
     index:"",
     groupHabitId:"",
-    stage:""
   },
 
   daka: function(){
@@ -27,13 +26,26 @@ Page({
         confirmColor:'#fc5959',
         success(res){
             if(res.confirm&&canDaka){
-                var temp = that.data.habitDetail
                 var temp2
+                var creditPlus
+                var temp = that.data.habitDetail
+                var tempStage = that.data.habitDetail.stage
                 var tempDay = app.globalData.habits[that.data.index].day+1
                 if(tempDay>=0 && tempDay<=3){temp2="观察期"}
                 else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
                 else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
                 else if(tempDay>=22 && tempDay<=90){temp2="稳定期"}
+                if(tempStage=="观察期"){creditPlus=1}
+                else if(tempStage=="起步期"){creditPlus=3}
+                else if(tempStage=="养成期"){creditPlus=5}
+                else if(tempStage=="稳定期"){creditPlus=8}
+                wx.cloud.database().collection('userInfos').where({
+                    _openid:app.globalData.openId
+                }).update({
+                  data:{
+                    credits:wx.cloud.database().command.inc(creditPlus)
+                  }
+                })
                 wx.cloud.database().collection('habits').doc(temp._id).update({
                   data:{
                       lastDaka:dates,
@@ -65,14 +77,6 @@ Page({
         }
     })
   },
-
-  // invite: function(e){
-  //   var temp = e.currentTarget.dataset.index;
-  //       wx.navigateTo({
-  //           url: '../invite/invite?index='+temp,
-  //           success:function(res){}
-  //       })
-  // },
 
   delete:function(){
     const that = this
@@ -168,5 +172,5 @@ onLoad: function (options) {
         title:'快来一起养成好习惯吧！',//todo
         path:'/pages/habits/invite/invite?groupHabitId='+that.data.groupHabitId,
     }
-}
+  }
 })

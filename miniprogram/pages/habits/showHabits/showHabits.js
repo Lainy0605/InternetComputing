@@ -1,6 +1,5 @@
 const HABITS = wx.cloud.database().collection('habits')
 var app = getApp()
-var period;
 Page({
     
     /**
@@ -58,15 +57,6 @@ Page({
                 _openid:app.globalData.openId
             }).get({
                 success(res){
-                    // for(var habit of res.data){
-                    //     var temp = habit.day
-                    //     var temp2 = "";    
-                    //     if(temp>=0 && temp<=3){temp2="观察期"}
-                    //     else if(temp>=4 && temp<=7){temp2="起步期"}
-                    //     else if(temp>=8 && temp<=21){temp2="养成期"}
-                    //     else if(temp>=22 && temp<=90){temp2="稳定期"}
-                    //     habit.stage=temp2
-                    // }
                     that.setData({
                         habits:res.data,
                     })
