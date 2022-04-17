@@ -60,11 +60,13 @@ page {
     font-size: 30rpx;
 }
 .show-area{
+    align-self: center;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 50rpx;
     font-size: 30rpx;
+    width: 80%;
 }
 .item{
     display: flex;
