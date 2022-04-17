@@ -27,20 +27,20 @@
             {
                 "pagePath": "pages/habits/showHabits/showHabits",
                 "text": "习惯",
-                "iconPath": "images/习惯.png",
-                "selectedIconPath": "images/习惯-选中.png"
+                "iconPath": "images/habit.png",
+                "selectedIconPath": "images/habitSelected.png"
             },
             {
                 "pagePath": "pages/posts/showPosts/showPosts",
                 "text": "圈子",
-                "iconPath": "images/圈子.png",
-                "selectedIconPath": "images/圈子-选中.png"
+                "iconPath": "images/circle.png",
+                "selectedIconPath": "images/circleSelected.png"
             },
             {
                 "pagePath": "pages/my/login/login",
                 "text": "我的",
-                "iconPath": "images/我的.png",
-                "selectedIconPath": "images/我的-选中.png"
+                "iconPath": "images/my.png",
+                "selectedIconPath": "images/mySelected.png"
             }
         ]
     },

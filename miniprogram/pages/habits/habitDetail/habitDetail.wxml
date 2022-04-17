@@ -1,20 +1,119 @@
 <!--pages/habits/habitDetail/habitDetail.wxml-->
 <!-- <view>{{habitDetail.name}}</view> -->
 <view class="setHabitName">
-    <view>
-        习惯名称：{{habitDetail.name}}
+    <view class="HabitInfoText">
+        习惯名称：<text style="background-color: #FAF35C; padding: 1rpx 6rpx 0 6rpx;border-bottom: 11rpx #eba13e double;">{{habitDetail.name}}</text>
     </view>
-    <view>
-        已进行<days>{{habitDetail.day}}</days>天（{{habitDetail.stage}}）
+    <view class="HabitInfoText">
+        已进行<days>{{habitDetail.day}}</days>天（{{func.period(habitDetail.day)}}）
     </view>
-    <view bindtap="daka" class="wrap">
+
+    <!--打卡-->
+    <!-- todo: 判断用户今天打卡了吗，我这里乱写的 -->
+    <view wx:if="{{habitDetail.daka}}" class="yidaka" bindtap="toPagenewPost">
+        已打卡，发布今天的动态吧~
+        <image  src="../../../images/clickToNewPost.png" class="littleIcon" ></image>
+    </view>
+    <view wx:else class="daka" bindtap="daka">
+        <image  src="../../../images/clickToDaka.png" class="littleIcon"></image>
         打卡
     </view>
-    <button open-type="share" class="wrap">
+
+    <view wx:if='{{groupHabitId!=""}}'>
+        <view class="textBeforeInvite">
+            <text>您正在与{{100}}个好友一起培养该习惯，加油哦~</text>
+            <!-- todo：我想显示好友个数，能做到下面的应该这个也可以吧。要是很麻烦就换成下面这行 -->
+            <!-- <text>您正在与好友一起培养该习惯，加油哦~</text> -->
+        </view>
+        <block wx:if="{{memberIds.length!=0}}">
+            <view class="member-area">
+                <view class="member-left">
+                    <image src="../../../images/memberLeft.png" class="member-icon"></image>
+                </view>
+                <view class="member-right">
+                <!-- todo: 把群组习惯的用户和各种信息导进来，我这里写的不对，是乱写的 -->
+                    <block wx:for="{{habitDetail.memberIds}}" wx:key="this">
+                        <view class="member" data-index="{{index}}">
+                            <image src="{{item.avatar}}" class="member-avator"></image>
+                            <view>
+                                <view class="membernickname">{{item.nickName}}</view>
+                                <view class="state-day-points">
+                                    <view class="member-info">{{item.state}}</view>
+                                    <view class="member-info">{{item.day}}</view>
+                                    <view class="member-info">{{item.points}}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+
+                    <block>
+                        <view class="member">
+                            <image src="../../../images/guest.png" class="member-avator"></image>
+                            <view>
+                                <view class="member-nickname">guest</view>
+                                <view class="state-day-points">
+                                    <view class="member-info">已打卡</view>
+                                    <view class="member-info">99天</view>
+                                    <view class="member-info">积分：100000</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="member">
+                            <image src="../../../images/guest.png" class="member-avator"></image>
+                            <view>
+                                <view class="member-nickname">test</view>
+                                <view class="state-day-points">
+                                    <view class="member-info">已打卡</view>
+                                    <view class="member-info">1天</view>
+                                    <view class="member-info">积分：800</view>
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </block>
+    </view>
+    <view wx:else>
+        <view class="textBeforeInvite">
+            <text>您正在独自培养习惯，邀请好友来与你一起前进吧~
+            </text>
+        </view>
+    </view>
+
+
+    <view open-type="share" class="invite">
         邀请
-    </button>
+    </view>
     <br></br>
-    <view bindtap="delete" class="wrap">
+    <view bindtap="setRemindTime" class="setRemindTime">
+        <image src="../../../images/clock.png" class="littleIcon"></image>
+        <text>设置提醒时间</text>
+    </view>
+    <view bindtap="delete" class="delete">
         删除
     </view>
 </view>
+
+<wxs module="func">
+    module.exports = {
+        period: function (day) {
+            console.log(day);
+            if (day <= 3)
+                return "观察期";
+            if (day <= 7)
+                return "起步期";
+            if (day <= 21)
+                return "养成期";
+            if (day <= 90)
+                return "稳定期";
+            return "已完成";
+        },
+        getFirst5: function (name) {
+            if (name.length >= 6)
+                return name[0] + name[1] + name[2] + name[3] + "...";
+            else
+                return name;
+        }
+    }
+</wxs>

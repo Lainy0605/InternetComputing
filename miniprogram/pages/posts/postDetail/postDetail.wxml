@@ -31,16 +31,16 @@
         <view class="interaction">
                 <view class="interaction-share"> <!--不能删-->
                     <button open-type="share" size="mini" class="button-1">
-                        <image src="../../../images/分享.png" class="interaction-icon"></image>
+                        <image src="../../../images/share.png" class="interaction-icon"></image>
                     </button>
                 </view>
                 <view class="interaction-comment">
-                    <image src="../../../images/评论.png" class="interaction-icon"></image>
+                    <image src="../../../images/comment.png" class="interaction-icon"></image>
                     <view wx:if="{{postDetail.commentList.length}}" class="numbers">{{postDetail.commentList.length}}</view> <!--评论-->
                 </view>
                 <view class="interaction-like">
-                    <image wx:if="{{!postDetail.like}}" src="../../../images/点赞.png" class="interaction-icon" bindtap="{{!likeClicked ? 'like':''}}"></image>
-                    <image wx:else src="../../../images/已点赞.png" class="interaction-icon" bindtap="{{!dislikeClicked ? 'dislike':''}}"></image>
+                    <image wx:if="{{!postDetail.like}}" src="../../../images/like.png" class="interaction-icon" bindtap="{{!likeClicked ? 'like':''}}"></image>
+                    <image wx:else src="../../../images/liked.png" class="interaction-icon" bindtap="{{!dislikeClicked ? 'dislike':''}}"></image>
                     <view wx:if="{{postDetail.likeList.length}}" class="numbers">{{postDetail.likeList.length}}</view><!--点赞-->
                 </view>
         </view>
@@ -52,7 +52,7 @@
     </view>
 <view class="comment-area">
     <view class="comment-left">
-        <image src="../../../images/1.png" class="comment-icon"></image>
+        <image src="../../../images/commentLeft.png" class="comment-icon"></image>
     </view>
     <view class="comment-right">
         <block wx:for="{{postDetail.commentList}}" wx:key="this">

@@ -44,7 +44,8 @@ Page({
                     that.setData({
                       ["habitDetail.lastDaka"]:dates,
                       ["habitDetail.day"] : tempDay,
-                      ["habitDetail.stage"] : temp2
+                      ["habitDetail.stage"] : temp2,
+                      ["habitDetail.daka"] : true
                     })
                     app.globalData.habits[that.data.index].lastDaka = dates;
                     app.globalData.habits[that.data.index].day = app.globalData.habits[that.data.index].day+1;
@@ -98,6 +99,17 @@ Page({
       }
     })
   },
+
+//   todo: 跳转到该习惯对应的动态发送页
+toPagenewPost:function(){
+
+},
+
+//   todo: 设置提醒时间
+setRemindTime:function(){
+
+},
+
 /**
  * 生命周期函数--监听页面加载
  */
