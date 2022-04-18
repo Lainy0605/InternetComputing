@@ -12,7 +12,6 @@
     <view wx:if="{{!canDaka}}" class="yidaka" bindtap="daka">
         逛逛好友的打卡动态吧~
         <image  src="../../../images/clickToNewPost.png" class="littleIcon" ></image>
-
     </view>
     <view wx:else class="daka" bindtap="daka">
         <image src="../../../images/clickToDaka.png" class="littleIcon"></image>
@@ -22,7 +21,7 @@
     <view class="buqianText">本月剩余补签次数：{{habitDetail.buqian}}</view>
     <view bindtap="buqian" wx:if="{{(skipOne || skipTwo) && habitDetail.buqian!=0}}" class="dianjibuqianText">昨日没有打卡哦，点击补签</view>
     
-    <view wx:if='{{groupHabitId!=""}}'>
+    <view wx:if='{{memberNum!=0}}'>
         <view class="textBeforeInvite">
             <text>您正在与{{memberNum}}个好友一起培养该习惯，加油哦~</text>
         </view>
@@ -49,7 +48,7 @@
                             </view>
                         </view>
                     </block>
-                    <block>
+                    <!-- <block>
                         <view class="member">
                             <image src="../../../images/guest.png" class="member-avator"></image>
                             <view>
@@ -72,7 +71,7 @@
                                 </view>
                             </view>
                         </view>
-                    </block>
+                    </block> -->
                 </view>
             </view>
         </block>

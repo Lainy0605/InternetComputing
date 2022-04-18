@@ -56,7 +56,9 @@ Page({
 
   acceptInvitation: function () {
     const self = this
+    console.log(self.data.groupHabitId)
     for(var temp of this.data.habits){
+      console.log(temp.groupHabitId)
       if(temp.groupHabitId==self.data.groupHabitId){
         wx.showToast({
           title: '您已添加该习惯',

@@ -96,6 +96,14 @@ Page({
         }
       })
     }
+    else{
+        app.globalData.fromHabit = true,
+        app.globalData.groupHabitId = that.data.habitDetail.groupHabitId
+        wx.switchTab({
+          url: '../../posts/showPosts/showPosts',
+        })
+    }
+  
 
     // const that = this
     // wx.showModal({
@@ -202,8 +210,7 @@ Page({
           wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).remove()
           wx.cloud.callFunction({
             name:"dissolutionGroup",
-            data:{groupHabitId:temp.groupHabitId
-            }
+            data:{groupHabitId:temp.groupHabitId}
           })
         }
         else{wx.cloud.database().collection('habits').doc(temp._id).update({data:{groupHabitId:""}})}
