@@ -10,16 +10,16 @@
     </view>
 
     <view wx:if="{{!canDaka}}" class="yidaka" bindtap="toPagenewPost">
-        已打卡，发布今天的动态吧~
+        逛逛好友的打卡动态吧~ 
         <image src="../../../images/clickToNewPost.png" class="littleIcon"></image>
     </view>
     <view wx:else class="daka" bindtap="daka">
         <image src="../../../images/clickToDaka.png" class="littleIcon"></image>
         打卡
     </view>
-<!-- wx:if="{{(skipOne || skipTwo) && habitDetail.buqian!=0}}"  -->
+
     <view class="buqianText">本月剩余补签次数：{{habitDetail.buqian}}</view>
-    <view bindtap="buqian" class="dianjibuqianText">昨日没有打卡哦，点击补签</view>
+    <view bindtap="buqian" wx:if="{{(skipOne || skipTwo) && habitDetail.buqian!=0}}" class="dianjibuqianText">昨日没有打卡哦，点击补签</view>
     
     <view wx:if='{{groupHabitId!=""}}'>
         <view class="textBeforeInvite">

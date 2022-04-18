@@ -66,7 +66,7 @@ page{
     height: 30rpx;
     width: 510rpx;
     font-weight: 900;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     margin: 20rpx 20rpx 15rpx 20rpx;
 }
@@ -92,7 +92,7 @@ page{
 .textBeforeInvite{
     margin: 10rpx 0 20rpx 20rpx;
     font-size: small;
-    color: #4c7070;
+    color: #46616e;
 }
 .member-area{
     display: flex;
