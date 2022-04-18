@@ -50,9 +50,10 @@ page{
     align-items: center;
     background-color:#46C244;
     border-radius: 20rpx;
-    margin: 20rpx 20rpx 20rpx 20rpx;
+    margin: 20rpx 20rpx 17rpx 20rpx;
 }
 .yidaka{
+    white-space: nowrap;
     display: flex;
     position: relative;
     padding: 20rpx;
@@ -63,17 +64,35 @@ page{
     font-size: large;
     color:#A4C257;
     height: 30rpx;
-    width: 520rpx;
+    width: 510rpx;
     font-weight: 900;
     justify-content: left;
     align-items: center;
-    margin: 20rpx 20rpx 20rpx 20rpx;
+    margin: 20rpx 20rpx 15rpx 20rpx;
+}
+.buqianText{
+    margin: 0 0 5rpx 23rpx;
+    font-size: small;
+    font-weight: 500;
+    /* color: #ACCC5C; 对比度低，便是不好么*/
+    color:seagreen;
+}
+.dianjibuqianText{
+    margin: 0 0 5rpx 20rpx;
+    font-size: small;
+    font-weight: 600;
+    color: #F5A162;
+    padding: 1rpx 3rpx 0 4rpx;
+    /* 白给，用不了捏 */
+    /* text-decoration: underline wavy #F5A162;
+    text-underline-offset: 4rpx; */
+    border-bottom: 4rpx #F5A162 solid;
+    width: 320rpx;
 }
 .textBeforeInvite{
-    margin: 20rpx;
+    margin: 10rpx 0 20rpx 20rpx;
     font-size: small;
-    /* color: rgb(120, 120, 120); */
-    color: #7A8F79;
+    color: #4c7070;
 }
 .member-area{
     display: flex;
@@ -105,6 +124,9 @@ page{
     margin-top: 5rpx;
 }
 .state-day-points{
+    color: darkgreen;
+    /* color: #2D3618; */
+    font-size: 25rpx;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -112,22 +134,34 @@ page{
     flex:1;
 }
 .member-nickname{
-    color: #586894;
+    color: darkslateblue;
+    /* color: #586894; */
 }
-.member-info{
-    /* color: #7A8F79; */
-    color: #2D3618;
-    font-size: 25rpx;
+.member-status{
+    width: 110rpx;
+}
+.member-day{
+    width: 110rpx;
+}
+.member-credit{
+    width: 140rpx;
+}
+.invite-view{
+    height: 60rpx;
+    display: block;
+    justify-content: left;
+    align-items: flex-start;
+    align-content: flex-start;
+    margin: 25rpx 20rpx 30rpx 20rpx;
 }
 .invite{
+    float: left;
     color:white;
     display: flex;
-    width: 110rpx;
     font-weight: 900;
     justify-content: center;
     background-color:#9987F5;
     border-radius: 60rpx;
-    margin: 20rpx 20rpx 30rpx 20rpx;
 }
 .setRemindTime{
     color:white;
