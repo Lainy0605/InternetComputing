@@ -1,5 +1,5 @@
 // pages/habits/habitDetail/habitDetail.jsvar 
-import { milisecond } from "../../../utils/utils"
+import { newMonth, Daka, DakaMinusOne } from "../../../utils/utils"
 var app=getApp()
 Page({
 
@@ -11,8 +11,43 @@ Page({
     openId:"", 
     memberHabitDetail:[],
     memberNum:0,
+    skipOne:false,
+    skipTwo:false
   },
 
+  buqian:function(){
+    const that = this
+    var temp
+    var buqianNum = that.data.habitDetail.buqian-1
+      if(that.data.skipOne==true){
+        wx.cloud.database().collection('habits').doc(that.data.habitDetail._id).update({
+          data:{
+            day:wx.cloud.database().command.inc(that.data.habitDetail.tempDay+1),
+            buqian:wx.cloud.database().command.inc(-1),
+            tempDay:0,
+            // lastDaka:DakaMinusOne(new Date())
+          }
+        })
+        temp = that.data.habitDetail.tempDay+that.data.habitDetail.day+1
+      }
+      else if(that.data.skipTwo==true){
+        wx.cloud.database().collection('habits').doc(that.data.habitDetail._id).update({
+          data:{
+            day:wx.cloud.database().command.inc(1),
+            buqian:wx.cloud.database().command.inc(-1),
+            tempDay:0
+          }
+        })
+        temp = that.data.habitDetail.day+1
+      }
+      that.setData({
+        ["habitDetail.day"]:temp,
+        ["habitDetail.tempDay"]:0,
+        ["habitDetail.buqian"]:buqianNum,
+        skipOne:false,
+        skipTwo:false
+      })
+  },
   daka: function(){
     const that = this
     wx.showModal({
@@ -27,7 +62,7 @@ Page({
                 var temp = that.data.habitDetail
                 var tempStage = that.data.habitDetail.stage
                 var tempDay = that.data.habitDetail.day+1
-                var dates = milisecond(new Date());
+                var dates = Daka(new Date());
                 if(tempDay>=0 && tempDay<=3){temp2="观察期"}
                 else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
                 else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
@@ -54,7 +89,7 @@ Page({
                       ["habitDetail.lastDaka"]:dates,
                       ["habitDetail.day"] : tempDay,
                       ["habitDetail.stage"] : temp2,
-                      ["habitDetail.daka"] : true,
+                      // ["habitDetail.daka"] : true,
                       canDaka:false
                     })
                     wx.showToast({
@@ -62,7 +97,19 @@ Page({
                     })
                     if(tempDay==90){
                       wx.showToast({
-                        title: '习惯培养成功！',
+                        title: '习惯培养成功！积分+100',
+                      })
+                      wx.cloud.database().collection('habits').doc(temp._id).update({
+                        data:{
+                            state:"培养成功"
+                        },
+                      })
+                      wx.cloud.database.collection('userInfos').where({
+                        _openid:that.data.openId
+                      }).update({
+                        data:{
+                          credits:wx.cloud.database().command.inc(100)
+                        }
                       })
                     }
                   }
@@ -77,9 +124,9 @@ Page({
     var creditsMinus
     var stage = that.data.habitDetail.stage
     if(stage=="观察期"){creditsMinus=0}
-    else if(stage="起步期")(creditsMinus=10)
-    else if(stage="养成期")(creditsMinus=20)
-    else if(stage="稳定期")(creditsMinus=40)
+    else if(stage=="起步期"){creditsMinus=10}
+    else if(stage=="养成期"){creditsMinus=20}
+    else if(stage=="稳定期"){creditsMinus=40}
     wx.showModal({
       title:"提示",
       content:"需扣除"+creditsMinus+"积分,确定放弃吗？",
@@ -145,18 +192,57 @@ Page({
    */
   onLoad: function (options) {
     const that = this
-    var dates = milisecond(new Date());
+    var dates = Daka(new Date());
+    if(newMonth(new Date())){
+      wx.cloud.database().collection('habits').doc(options.id).update({
+        data:{
+          buqian:2
+        },
+        success(res){
+          that.setData({
+            buqian:2
+          })
+        }
+      })
+    }
     wx.cloud.database().collection('habits').doc(options.id).get({
       success(res){
         that.setData({
           habitDetail:res.data,
           openId:app.globalData.openId,
-          canDaka:res.data.lastDaka<dates ? true : false,
+          canDaka:res.data.lastDaka < dates ? true : false,
         })
+        var d = Daka(new Date())
+        if(d-2==res.data.lastDaka){
+            that.setData({
+              skipOne:true
+            })
+        }
+        else if(d-3==res.data.lastDaka){
+          that.setData({
+            skipTwo:true
+          })
+        }
+        if(that.data.skipOne || that.data.skipTwo){
+          wx.cloud.database().collection('habits').doc(options.id).update({
+            data:{
+              tempDay:res.data.day,
+              day:0
+            },
+            success(re){
+              that.setData({
+                ["habitDetail.tempDay"]:res.data.day,
+                ["habitDetail.day"]:0
+              })
+            }
+          })
+        }
+        console.log(111)
         wx.cloud.database().collection('habits').where({
           groupHabitId:res.data.groupHabitId
         }).get({
           success(re){
+            console.log(re)
             that.setData({
               memberNum:re.data.length-1,
             })

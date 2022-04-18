@@ -68,10 +68,29 @@ const Buttonclicked = self =>{
     },600)
 }
 
+const newMonth = date =>{
+    const day=date.getDate()
+    if(day==1){return true}
+    else {return false}
+}
 
+const Daka = date =>{
+    const month = date.getMonth()+1
+    const day = date.getDate()
+    return month*100+day
+}
+
+const DakaMinusOne = date =>{
+    const month = date.getMonth()+1
+    const day = date.getDate()-2
+    return month*100+day
+}
 module.exports = {
     formatTime:formatTime,
     Buttonclicked:Buttonclicked,
     milisecond:milisecond,
-    milisecondLast:milisecondLast
+    milisecondLast:milisecondLast,
+    newMonth:newMonth,
+    Daka:Daka,
+    DakaMinusOne:DakaMinusOne
 }

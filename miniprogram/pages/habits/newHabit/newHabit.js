@@ -1,7 +1,7 @@
 const HABITS = wx.cloud.database().collection('habits')
 const GROUPHABITS = wx.cloud.database().collection('groupHabits')
 var app = getApp()
-import { milisecondLast } from "../../../utils/utils"
+import { DakaMinusOne } from "../../../utils/utils"
 
 Page({
 
@@ -27,7 +27,6 @@ Page({
               confirmColor:'#fc5959',
               success(res){
                   if(res.confirm){
-                    var dates = milisecondLast(new Date());
                     GROUPHABITS.add({
                         data:{
                             name:that.data.name,
@@ -38,13 +37,15 @@ Page({
                             ({
                                 data:{
                                     name:that.data.name,
-                                    lastDaka:dates,
+                                    lastDaka:DakaMinusOne(new Date()),
                                     groupHabitId:re._id,
                                     day:0,
                                     state:"培养中",
                                     stage:"观察期",
                                     nickName:app.globalData.userInfo.nickName,
-                                    avatar:app.globalData.userInfo.avatarUrl
+                                    avatar:app.globalData.userInfo.avatarUrl,
+                                    buqian:2,
+                                    tempDay:0
                                 },
                                 success:function(res){
                                     wx.navigateBack({

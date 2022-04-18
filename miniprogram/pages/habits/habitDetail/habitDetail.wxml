@@ -1,5 +1,8 @@
 <!--pages/habits/habitDetail/habitDetail.wxml-->
 <!-- <view>{{habitDetail.name}}</view> -->
+<view>本月补签次数：{{habitDetail.buqian}}</view>
+<view bindtap="buqian" wx:if="{{skipOne && habitDetail.buqian!=0}}">补签昨日</view>
+<view bindtap="buqian" wx:if="{{skipTwo && habitDetail.buqian!=0}}">补签昨日</view>
 <view class="setHabitName">
     <view class="HabitInfoText">
         习惯名称：<text style="background-color: #FAF35C; padding: 1rpx 6rpx 0 6rpx;border-bottom: 11rpx #eba13e double;">{{habitDetail.name}}</text>

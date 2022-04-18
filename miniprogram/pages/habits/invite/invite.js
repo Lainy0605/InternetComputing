@@ -2,7 +2,7 @@
 // 邀请界面，向好友发送习惯组队邀请所展示的界面，数据包括习惯的id，要求打开该页面能够获取用户星系，并成功添加该习惯
 var app = getApp()
 import {
-  milisecondLast
+  DakaMinusOne
 } from "../../../utils/utils"
 const HABITS = wx.cloud.database().collection('habits')
 const GROUPHABITS = wx.cloud.database().collection('groupHabits')
@@ -70,15 +70,18 @@ Page({
         return
       }
     }
-    var date = milisecondLast(new Date())
     HABITS.add({
       data: {
         name: self.data.currHabitName,
-        lastDaka: date,
+        lastDaka: DakaMinusOne(new Date()),
         groupHabitId: self.data.groupHabitId,
         day: 0,
         stage:"观察期",
-        state:"培养中"
+        state:"培养中",
+        nickName:app.globalData.userInfo.nickName,
+        avatar:app.globalData.userInfo.avatarUrl,
+        buqian:2,
+        tempDay:0
       },
       success(res) {
         GROUPHABITS.doc(self.data.groupHabitId).update({
@@ -97,58 +100,6 @@ Page({
         })
       }
     })
-    // HABITS.where({
-    //   _openid: self.data.openid
-    // }).get({
-    //   success(res) {
-    //     currUserHabits = res.data
-    //     console.log(currUserHabits)
-    //     console.log(currUserHabits.length)
-    //     for (let i in currUserHabits) {
-    //       console.log(currUserHabits[i].groupHabitId, self.data.groupHabitId)
-    //       if (currUserHabits[i].groupHabitId == self.data.groupHabitId) {
-    //         self.data.isUserInGroup = true
-    //         break
-    //       }
-    //     }
-    //     if (self.data.isUserInGroup) {
-    //       console.log("用户已经在群组中")
-    //       wx.showToast({
-    //         title: '你已添加该习惯',
-    //         icon: 'error'
-    //         })
-    //     } else {
-    //       console.log("用户不在群组中")
-    //       var date = milisecondLast(new Date())
-    //       HABITS.add({
-    //         data: {
-    //           name: self.data.currHabitName,
-    //           lastDaka: date,
-    //           groupHabitId: self.data.groupHabitId,
-    //           day: 0
-    //         },
-    //         success(res) {
-    //           app.globalData.habits.push({
-    //             "name": self.data.currHabitName,
-    //             "day": 0,
-    //             "offset": 0,
-    //             "lastDaka": date,
-    //             "groupHabitId": self.data.groupHabitId,
-    //             "_id": res._id
-    //           })
-    //           GROUPHABITS.doc(self.data.groupHabitId).update({
-    //             data: {
-    //               memberIds: wx.cloud.database().command.push(res._id)
-    //             }
-    //           })
-    //         },
-    //         fail (res) {
-    //           console.log("用户添加习惯失败")
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
   },
 
   /**
