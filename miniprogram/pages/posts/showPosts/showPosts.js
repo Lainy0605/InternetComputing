@@ -85,6 +85,7 @@ Page({
                         success(res){
                             wx.showToast({
                             title: '删除成功',
+                            mask:true,
                             })
                             that.setData({
                                 postList:that.data.postList
@@ -165,7 +166,8 @@ Page({
                         if(res.data.length==0){
                             wx.showToast({
                               title: '已经没有更多啦~',
-                              icon:'error'
+                              icon:'none',
+                              mask:true
                             })
                         }
                         else{
@@ -201,7 +203,8 @@ Page({
                         if(res.data.length==0){
                             wx.showToast({
                               title: '已经没有更多啦~',
-                              icon:'error'
+                              icon:'none',
+                              mask:true
                             })
                         }
                         else{
@@ -227,7 +230,8 @@ Page({
         const that = this
         wx.showToast({
             title: '加载中',
-            icon:'loading'
+            icon:'loading',
+            mask:true
           })
         if(app.globalData.openId){
             wx.cloud.database().collection('habits').where({
@@ -293,7 +297,8 @@ Page({
         else{
             wx.showToast({
               title: '未登录',
-              icon:'error'
+              icon:'error',
+              mask:true
             })
         }
     },

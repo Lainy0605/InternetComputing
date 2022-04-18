@@ -69,6 +69,7 @@ Page({
           else{
             wx.showToast({
               title: '积分不足！',
+              mask:true
             })
           }
         }
@@ -124,10 +125,12 @@ Page({
                     })
                     wx.showToast({
                       title: '打卡成功！',
+                      mask:true
                     })
                     if(tempDay==90){
                       wx.showToast({
                         title: '习惯培养成功！积分+100',
+                        mask:true
                       })
                       wx.cloud.database().collection('habits').doc(temp._id).update({
                         data:{
@@ -190,6 +193,19 @@ Page({
           })
         }
       }
+    })
+    wx.showToast({
+      title: '培养失败！',
+      icon:'none',
+      duration:1500,
+      mask:true,
+      success(){
+        setTimeout(function(){
+          wx.navigateBack({
+            delta:1
+           })  
+        },1000)
+      }
     })  
   },
   delete:function(){
@@ -208,18 +224,6 @@ Page({
       success(res){
         if(res.confirm){
           that.deleteUpdateDatabase()
-          wx.showToast({
-            title: '请再接再厉！',
-            icon:'none',
-            duration:2000,
-            success(){
-              setTimeout(function(){
-                wx.navigateBack({
-                  delta:1
-                 })  
-              },1500)
-            }
-          })       
         }
       }
     })
@@ -244,7 +248,8 @@ Page({
     var dates = Daka(new Date());
     wx.showToast({
       title: '加载中',
-      icon:'loading'
+      icon:'loading',
+      mask:true
     })
     wx.cloud.database().collection('habits').doc(options.id).get({
       success(res){
@@ -278,12 +283,18 @@ Page({
             skipTwo:true
           })
         }
-        else if(dates-4==res.data.lastDaka){
+        else if(dates-4>=res.data.lastDaka){
           wx.showToast({
-            title: '连续三天未打卡，培养失败！',
+            title: '连续三天未打卡',
+            icon:'none',
+            duration:2000,
+            mask:true,
+            success(){
+              setTimeout(function(){
+                that.deleteUpdateDatabase()
+              },800)
+            }
           })
-          that.deleteUpdateDatabase()
-          return 
         }
         if(that.data.skipOne || that.data.skipTwo){
           wx.cloud.database().collection('habits').doc(options.id).update({

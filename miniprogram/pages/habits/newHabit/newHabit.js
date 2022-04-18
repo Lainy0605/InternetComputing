@@ -64,13 +64,15 @@ Page({
         else if(this.data.name.length==0){
             wx.showToast({
                 title: '没有空习惯哦~',
-                icon:'error'
+                icon:'error',
+                mask:true
               })
         }
         else{
             wx.showToast({
               title: '太长啦~',
-              icon:'error'
+              icon:'error',
+              mask:true
             })
         }
     },

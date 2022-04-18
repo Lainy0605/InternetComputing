@@ -92,12 +92,14 @@ Page({
             })
             wx.showToast({
               title: '发布成功',
+              mask:true
             })
         }
         else{
             wx.showToast({
               title: '输入不能为空',
-              icon:'error'
+              icon:'error',
+              mask:true
             })
         }
     },

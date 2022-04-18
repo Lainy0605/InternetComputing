@@ -46,6 +46,7 @@ Page({
                         success(res){
                             wx.showToast({
                             title: '删除成功',
+                            mask:true
                             })
                             wx.navigateBack({
                                 delta:1
@@ -79,7 +80,8 @@ Page({
                             })
                             wx.showToast({
                               title: '删除成功',
-                              icon:"success"
+                              icon:"success",
+                              mask:true
                             })
                         }
                     })
@@ -164,6 +166,7 @@ Page({
                         success(re){       
                             wx.showToast({
                               title: '评论成功',
+                              mask:true
                             })
                             that.setData({
                                 nothing:"",
@@ -177,7 +180,8 @@ Page({
         else{
             wx.showToast({
               title: '输入不能为空',
-              icon:'error'
+              icon:'error',
+              mask:true
             })
         }
     },
