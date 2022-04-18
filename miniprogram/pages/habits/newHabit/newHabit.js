@@ -45,6 +45,7 @@ Page({
                                     nickName:app.globalData.userInfo.nickName,
                                     avatar:app.globalData.userInfo.avatarUrl,
                                     buqian:2,
+                                    buqianDay:[],
                                     tempDay:0
                                 },
                                 success:function(res){

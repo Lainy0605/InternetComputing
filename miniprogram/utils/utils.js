@@ -82,7 +82,7 @@ const Daka = date =>{
 
 const DakaMinusOne = date =>{
     const month = date.getMonth()+1
-    const day = date.getDate()-2
+    const day = date.getDate()-1
     return month*100+day
 }
 module.exports = {

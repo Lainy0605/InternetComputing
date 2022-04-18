@@ -25,6 +25,7 @@ Page({
             day:wx.cloud.database().command.inc(that.data.habitDetail.tempDay+1),
             buqian:wx.cloud.database().command.inc(-1),
             tempDay:0,
+            buqianDay:wx.cloud.database().command.push(DakaMinusOne(new Date()))
             // lastDaka:DakaMinusOne(new Date())
           }
         })
@@ -35,7 +36,8 @@ Page({
           data:{
             day:wx.cloud.database().command.inc(1),
             buqian:wx.cloud.database().command.inc(-1),
-            tempDay:0
+            tempDay:0,
+            buqianDay:wx.cloud.database().command.push(DakaMinusOne(new Date()))
           }
         })
         temp = that.data.habitDetail.day+1
@@ -193,18 +195,6 @@ Page({
   onLoad: function (options) {
     const that = this
     var dates = Daka(new Date());
-    if(newMonth(new Date())){
-      wx.cloud.database().collection('habits').doc(options.id).update({
-        data:{
-          buqian:2
-        },
-        success(res){
-          that.setData({
-            buqian:2
-          })
-        }
-      })
-    }
     wx.cloud.database().collection('habits').doc(options.id).get({
       success(res){
         that.setData({
@@ -212,13 +202,28 @@ Page({
           openId:app.globalData.openId,
           canDaka:res.data.lastDaka < dates ? true : false,
         })
-        var d = Daka(new Date())
-        if(d-2==res.data.lastDaka){
+        if(newMonth(new Date())){
+          wx.cloud.database().collection('habits').doc(options.id).update({
+            data:{
+              buqian:2,
+              buqianDay:[]
+            },
+            success(res){
+              that.setData({
+                ["habitDetail.buqian"]:2,
+                ["habitDetail.buqianDay"]:[]
+              })
+            }
+          })
+        }
+        if(res.data.buqianDay.indexOf(DakaMinusOne(new Date()))==-1){
+          console.log(4)
+          if(dates-2==res.data.lastDaka){
             that.setData({
               skipOne:true
             })
         }
-        else if(d-3==res.data.lastDaka){
+        else if(dates-3==res.data.lastDaka){
           that.setData({
             skipTwo:true
           })
@@ -237,12 +242,11 @@ Page({
             }
           })
         }
-        console.log(111)
+        }
         wx.cloud.database().collection('habits').where({
           groupHabitId:res.data.groupHabitId
         }).get({
           success(re){
-            console.log(re)
             that.setData({
               memberNum:re.data.length-1,
             })
@@ -255,6 +259,7 @@ Page({
                   temp.credits = r.data[0].credits
                   var t = that.data.memberHabitDetail
                   t.push(temp)
+                  console.log(t)
                   that.setData({
                     memberHabitDetail:t
                   })
