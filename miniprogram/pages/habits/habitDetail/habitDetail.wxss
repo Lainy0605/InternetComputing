@@ -65,7 +65,7 @@ page{
     height: 30rpx;
     width: 520rpx;
     font-weight: 900;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     margin: 20rpx 20rpx 20rpx 20rpx;
 }

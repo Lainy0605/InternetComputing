@@ -87,11 +87,6 @@ Page({
         startTime:formatTime(new Date())
       },
       success(res) {
-        GROUPHABITS.doc(self.data.groupHabitId).update({
-          data: {
-            memberIds: wx.cloud.database().command.push(res._id)
-          },
-        })
         wx.showToast({
           title: '添加成功',
           icon:"success",
