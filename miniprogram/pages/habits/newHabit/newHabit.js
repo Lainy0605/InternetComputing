@@ -1,7 +1,7 @@
 const HABITS = wx.cloud.database().collection('habits')
 const GROUPHABITS = wx.cloud.database().collection('groupHabits')
 var app = getApp()
-import { DakaMinusOne } from "../../../utils/utils"
+import { DakaMinusOne, formatTime } from "../../../utils/utils"
 
 Page({
 
@@ -46,7 +46,8 @@ Page({
                                     avatar:app.globalData.userInfo.avatarUrl,
                                     buqian:2,
                                     buqianDay:[],
-                                    tempDay:0
+                                    tempDay:0,
+                                    startTime:formatTime(new Date())
                                 },
                                 success:function(res){
                                     wx.navigateBack({

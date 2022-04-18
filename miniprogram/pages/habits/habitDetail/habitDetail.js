@@ -1,5 +1,5 @@
 // pages/habits/habitDetail/habitDetail.jsvar 
-import { newMonth, Daka, DakaMinusOne } from "../../../utils/utils"
+import { newMonth, Daka, DakaMinusOne, formatTime } from "../../../utils/utils"
 var app=getApp()
 Page({
 
@@ -19,37 +19,64 @@ Page({
     const that = this
     var temp
     var buqianNum = that.data.habitDetail.buqian-1
-      if(that.data.skipOne==true){
-        wx.cloud.database().collection('habits').doc(that.data.habitDetail._id).update({
-          data:{
-            day:wx.cloud.database().command.inc(that.data.habitDetail.tempDay+1),
-            buqian:wx.cloud.database().command.inc(-1),
-            tempDay:0,
-            buqianDay:wx.cloud.database().command.push(DakaMinusOne(new Date()))
-            // lastDaka:DakaMinusOne(new Date())
+    wx.showModal({
+      title:"提示",
+      content:"本次补签需扣除20积分,确认补签吗？",
+      cancelColor: '#CDF46E',
+      confirmColor:"#fc5959",
+      success(res){
+        if(res.confirm){
+          if(that.data.memberHabitDetail[0].credits>=20){
+            if(that.data.skipOne==true){
+              wx.cloud.database().collection('habits').doc(that.data.habitDetail._id).update({
+                data:{
+                  day:wx.cloud.database().command.inc(that.data.habitDetail.tempDay+1),
+                  buqian:wx.cloud.database().command.inc(-1),
+                  tempDay:0,
+                  buqianDay:wx.cloud.database().command.push(DakaMinusOne(new Date()))
+                }
+              })
+              temp = that.data.habitDetail.tempDay+that.data.habitDetail.day+1
+            }
+            else if(that.data.skipTwo==true){
+              wx.cloud.database().collection('habits').doc(that.data.habitDetail._id).update({
+                data:{
+                  day:wx.cloud.database().command.inc(1),
+                  buqian:wx.cloud.database().command.inc(-1),
+                  tempDay:0,
+                  buqianDay:wx.cloud.database().command.push(DakaMinusOne(new Date()))
+                }
+              })
+              temp = that.data.habitDetail.day+1
+            }
+            that.setData({
+              skipOne:false,
+              skipTwo:false,
+              ["habitDetail.day"]:temp,
+              ["habitDetail.tempDay"]:0,
+              ["habitDetail.buqian"]:buqianNum,
+              ["memberHabitDetail[0].day"]:temp,
+              ["memberHabitDetail[0].credits"]:that.data.memberHabitDetail[0].credits-20
+            })
+            wx.cloud.database().collection('userInfos').where({
+              _openid:that.data.openId
+            }).update({
+              data:{
+                credits:wx.cloud.database().command.inc(-20)
+              }
+            })
           }
-        })
-        temp = that.data.habitDetail.tempDay+that.data.habitDetail.day+1
-      }
-      else if(that.data.skipTwo==true){
-        wx.cloud.database().collection('habits').doc(that.data.habitDetail._id).update({
-          data:{
-            day:wx.cloud.database().command.inc(1),
-            buqian:wx.cloud.database().command.inc(-1),
-            tempDay:0,
-            buqianDay:wx.cloud.database().command.push(DakaMinusOne(new Date()))
+          else{
+            wx.showToast({
+              title: '积分不足！',
+            })
           }
-        })
-        temp = that.data.habitDetail.day+1
-      }
-      that.setData({
-        ["habitDetail.day"]:temp,
-        ["habitDetail.tempDay"]:0,
-        ["habitDetail.buqian"]:buqianNum,
-        skipOne:false,
-        skipTwo:false
-      })
+        }
+      }   
+    })
   },
+
+
   daka: function(){
     const that = this
     wx.showModal({
@@ -91,7 +118,8 @@ Page({
                       ["habitDetail.lastDaka"]:dates,
                       ["habitDetail.day"] : tempDay,
                       ["habitDetail.stage"] : temp2,
-                      // ["habitDetail.daka"] : true,
+                      ["memberHabitDetail[0].day"]:tempDay,
+                      ["memberHabitDetail[0].credits"]:that.data.memberHabitDetail[0].credits+creditPlus,
                       canDaka:false
                     })
                     wx.showToast({
@@ -103,14 +131,16 @@ Page({
                       })
                       wx.cloud.database().collection('habits').doc(temp._id).update({
                         data:{
-                            state:"培养成功"
+                            state:"培养成功",
+                            endTime:formatTime(new Date())
                         },
                       })
                       wx.cloud.database.collection('userInfos').where({
                         _openid:that.data.openId
                       }).update({
                         data:{
-                          credits:wx.cloud.database().command.inc(100)
+                          credits:wx.cloud.database().command.inc(100),
+                          successNumber:wx.cloud.database().command.inc(1)
                         }
                       })
                     }
@@ -121,6 +151,47 @@ Page({
     })
   },
 
+  deleteUpdateDatabase(){
+    const that=this
+    var creditsMinus
+    var stage = that.data.habitDetail.stage
+    if(stage=="观察期"){creditsMinus=0}
+    else if(stage=="起步期"){creditsMinus=10}
+    else if(stage=="养成期"){creditsMinus=20}
+    else if(stage=="稳定期"){creditsMinus=40}
+    var temp = that.data.habitDetail
+    wx.cloud.database().collection('habits').where({
+      _id:temp._id
+    }).update({
+      data:{
+        state:"培养失败",
+        endTime:formatTime(new Date())
+      }
+    })
+    wx.cloud.database().collection('userInfos').where({
+      _openid:that.data.openId
+    }).update({
+      data:{
+        credits:wx.cloud.database().command.inc(-creditsMinus)
+      },
+    }) 
+    wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).get({
+      success(res){
+        if(res.data._openid==that.data.openId){
+          wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).remove()
+        }
+        else{
+          var index = res.data.memberIds.indexOf(temp._id)
+          res.data.memberIds.splice(index,1)
+          wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).update({
+            data:{
+              memberIds:res.data.memberIds
+            }
+          })
+        }
+      }
+    })  
+  },
   delete:function(){
     const that = this
     var creditsMinus
@@ -136,43 +207,19 @@ Page({
       confirmColor:'#fc5959',
       success(res){
         if(res.confirm){
-          var temp = that.data.habitDetail
-          wx.cloud.database().collection('habits').where({
-            _id:temp._id
-          }).update({
-            data:{
-              state:"培养失败"
-            }
-          })
-          wx.cloud.database().collection('userInfos').where({
-            _openid:that.data.openId
-          }).update({
-            data:{
-              credits:wx.cloud.database().command.inc(-creditsMinus)
-            },
-          })   
-          wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).get({
-                success(res){
-                  if(res.data._openid==that.data.openId){
-                    wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).remove()
-                  }
-                  else{
-                    var index = res.data.memberIds.indexOf(temp._id)
-                    res.data.memberIds.splice(index,1)
-                    wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).update({
-                      data:{
-                        memberIds:res.data.memberIds
-                      }
-                    })
-                  }
-                }
-          })    
+          that.deleteUpdateDatabase()
           wx.showToast({
-            title: '习惯培养失败，请再接再厉！',
-          })
-          wx.navigateBack({
-           delta:1
-          })                  
+            title: '请再接再厉！',
+            icon:'none',
+            duration:2000,
+            success(){
+              setTimeout(function(){
+                wx.navigateBack({
+                  delta:1
+                 })  
+              },1500)
+            }
+          })       
         }
       }
     })
@@ -195,6 +242,10 @@ Page({
   onLoad: function (options) {
     const that = this
     var dates = Daka(new Date());
+    wx.showToast({
+      title: '加载中',
+      icon:'loading'
+    })
     wx.cloud.database().collection('habits').doc(options.id).get({
       success(res){
         that.setData({
@@ -217,7 +268,6 @@ Page({
           })
         }
         if(res.data.buqianDay.indexOf(DakaMinusOne(new Date()))==-1){
-          console.log(4)
           if(dates-2==res.data.lastDaka){
             that.setData({
               skipOne:true
@@ -227,6 +277,13 @@ Page({
           that.setData({
             skipTwo:true
           })
+        }
+        else if(dates-4==res.data.lastDaka){
+          wx.showToast({
+            title: '连续三天未打卡，培养失败！',
+          })
+          that.deleteUpdateDatabase()
+          return 
         }
         if(that.data.skipOne || that.data.skipTwo){
           wx.cloud.database().collection('habits').doc(options.id).update({
@@ -259,9 +316,11 @@ Page({
                   temp.credits = r.data[0].credits
                   var t = that.data.memberHabitDetail
                   t.push(temp)
-                  console.log(t)
                   that.setData({
                     memberHabitDetail:t
+                  })
+                  wx.hideToast({
+                    success: (res) => {},
                   })
                 }
               })

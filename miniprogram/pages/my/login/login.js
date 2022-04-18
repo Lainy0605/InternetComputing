@@ -16,29 +16,17 @@ Page({
         levelValue:""
     },
 
-    setlevelValue(level){
-        switch(level){
-            case 0:
-                this.data.levelValue="习惯小白"
-                break;
-            case 1:
-                this.data.levelValue="习惯？？"
-                break;
-            case 2:
-                this.data.levelValue="习惯？？"
-                break;
-            case 3:
-                this.data.levelValue="习惯精英"
-                break;
-            case 4:
-                this.data.levelValue="习惯大师"
-                break;
-            case 5:
-                this.data.levelValue="习惯王者"
-                break;
-        }
+    setlevelValue(successNumber){
+        console.log(successNumber)
+        if(successNumber==0){this.data.levelValue="习惯小白",this.data.level = 0}
+        else if(1<=successNumber && successNumber<5){this.data.levelValue="习惯新手",this.data.level = 1}
+        else if(5<=successNumber && successNumber<10){this.data.levelValue="习惯？？",this.data.level = 2}
+        else if(10<=successNumber && successNumber<20){this.data.levelValue="习惯精英",this.data.level = 3}
+        else if(20<=successNumber && successNumber<50){this.data.levelValue="习惯大师",this.data.level = 4}
+        else if(50<=successNumber){this.data.levelValue="习惯王者",this.data.level = 5}
         this.setData({
-            levelValue:this.data.levelValue
+            levelValue:this.data.levelValue,
+            level:this.data.level
         })
     },
 
@@ -123,29 +111,26 @@ Page({
             wx.cloud.database().collection('userInfos').where({
                 _openid:app.globalData.openId
             }).get({
-                    success(res){
-                        if(res.data.length==0){
-                             wx.cloud.database().collection('userInfos').add({
-                                data:{
+                success(res){
+                    if(res.data.length==0){
+                         wx.cloud.database().collection('userInfos').add({
+                            data:{
+                                credits:0,
+                                successNumber:0
+                            },
+                            success(t){
+                                that.setData({
                                     credits:0,
-                                    level:0
-                                },
-                                success(t){
-                                    that.setData({
-                                        credits:0,
-                                        level:0
-                                    })
-                                }
-                            })
-                        }
-                        else{
-                            that.setData({
-                                credits:res.data[0].credits,
-                                level:res.data[0].level
-                            })
-                            that.setlevelValue(res.data[0].level)
-                        }
-                    },
+                                    successNumber:0
+                                })
+                            }
+                        })
+                    }
+                    else{
+                        that.setData({credits:res.data[0].credits})
+                        that.setlevelValue(res.data[0].successNumber)
+                    }
+                },
             })          
             wx.cloud.callFunction({
                 name:"getHabits",
@@ -166,23 +151,6 @@ Page({
                     console.log(e)
                 }
             })
-            // wx.cloud.database().collection('habits').where({
-            //     _openid:app.globalData.openId
-            // }).get({
-            //     success(res){
-            //         var temp1=0;var temp2=0;var temp3=0
-            //         for(var habit of res.data){
-            //             if(habit.state=="培养中"){temp1++}
-            //             else if(habit.state=="培养成功"){temp2++}
-            //             else if(habit.state=="培养失败"){temp3++}
-            //         } 
-            //         that.setData({
-            //             developingNumber:temp1,
-            //             successNumber:temp2,
-            //             failureNumber:temp3
-            //         })
-            //     }
-            // })
         }
     },
 
