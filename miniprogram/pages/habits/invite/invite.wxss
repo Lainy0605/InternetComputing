@@ -30,14 +30,17 @@ image{
 
 .habit {
     font-size: large;
+    margin-top: 15%;
     text-align: center;
     position: relative;
-    top: 10px;
+    top: 15%;
 }
 
 button{
     background: #EA5149;
     width: 60%;
-    margin-top: 100px;
+    margin-top: 5%;
+    align-self:center;
+    justify-self: center;
     color: #ffffff;
 }

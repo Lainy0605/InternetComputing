@@ -1,9 +1,11 @@
 <!--pages/habits/invite/invite.wxml-->
-<view wx:if="{{!hasLoginIn}}">
-    <button lang="zh_CN" bindtap="getUserInfo" style="position: relative; left: 0rpx; top: 300rpx">请先登录</button>
-</view>
 
 <view class="habit">是否添加#{{currHabitName}}#习惯并培养</view>
+<view wx:if="{{!hasLoginIn}}">
+    <button lang="zh_CN" bindtap="getUserInfo" >请先登录</button>
+</view>
+
+
 <view wx:if="{{hasLoginIn}}">
     <div class="userInfomation">
         <image class="image" src="{{userInfo.avatarUrl}}"></image>
