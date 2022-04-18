@@ -28,19 +28,30 @@ Page({
         wx.cloud.callFunction({
           name: "getOpenId",
           success(re) {
-            wx.cloud.database().collection('habits').where({
-                _openid: re.result.openid
-              })
-              .get({
-                success(r) {
-                  that.setData({
-                    habits: r.data,
-                    hasLoginIn: true,
-                    openId: re.result.openid,
-                    userInfo: res.userInfo
-                  })
-                }
-              })
+            wx.cloud.callFunction({
+              name:"getIngHabits",
+              success(r){
+                that.setData({
+                  habits: r.result.data,
+                  hasLoginIn: true,
+                  openId: re.result.openid,
+                  userInfo: res.userInfo
+                })                
+              }
+            })
+            // wx.cloud.database().collection('habits').where({
+            //     _openid: re.result.openid
+            //   })
+            //   .get({
+            //     success(r) {
+            //       that.setData({
+            //         habits: r.data,
+            //         hasLoginIn: true,
+            //         openId: re.result.openid,
+            //         userInfo: res.userInfo
+            //       })
+            //     }
+            //   })
             wx.cloud.callFunction({
               name: "updateInfo",
               data: {
@@ -56,9 +67,8 @@ Page({
 
   acceptInvitation: function () {
     const self = this
-    console.log(self.data.groupHabitId)
+    console.log(this.data.habits)
     for(var temp of this.data.habits){
-      console.log(temp.groupHabitId)
       if(temp.groupHabitId==self.data.groupHabitId){
         wx.showToast({
           title: '您已添加该习惯',
@@ -76,8 +86,8 @@ Page({
         day: 0,
         stage:"观察期",
         state:"培养中",
-        nickName:app.globalData.userInfo.nickName,
-        avatar:app.globalData.userInfo.avatarUrl,
+        nickName:self.data.userInfo.nickName,
+        avatar:self.data.userInfo.avatarUrl,
         buqian:2,
         buqianDay:[],
         tempDay:0,
