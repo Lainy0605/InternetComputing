@@ -7,6 +7,7 @@
 .send-text{
     background-color: #07c160;
     color: #ffffff;
+    margin-top: 1%;
     width: 120rpx;
     height: 60rpx;
     border-radius: 10rpx;

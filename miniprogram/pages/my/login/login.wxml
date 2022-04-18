@@ -15,7 +15,7 @@
         </view>
         <view class="login" bindtap="getUserInfo">点击登录</view>
     </block>
-    </view>
+</view>
 
 <view class="show-area">
     <view class="item" bindtap="toING">

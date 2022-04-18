@@ -61,16 +61,19 @@ page {
 }
 .show-area{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     margin-top: 50rpx;
     font-size: 30rpx;
+    width: 94%;
+    align-self: center;
 }
+
 .item{
     display: flex;
-    width: 100%;
+    width: 99%;
     height: 80rpx;
-    margin-bottom: 10rpx;
+    margin-bottom: 20rpx;
     align-items: center;
     border-color: #EBA13E;
     border-width: 5rpx;
@@ -124,5 +127,5 @@ page {
     width: 40rpx;
     height: 40rpx;
     position: absolute;
-    right: 10rpx;
+    right: 4%;
 }
