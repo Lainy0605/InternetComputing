@@ -79,11 +79,24 @@ Page({
 
 
   daka: function(){
-    app.globalData.fromHabit = true,
-    app.globalData.groupHabitId = this.data.habitDetail.groupHabitId
-    wx.switchTab({
-      url: '../../posts/showPosts/showPosts',
-    })
+    const that = this
+    if(this.data.skipOne || this.data.skipTwo){
+      wx.showModal({
+        cancelColor: '#CDF46E',
+        confirmColor:'#fc5959',
+        content:"打卡成功将不可补签，确认打卡吗？",
+        success(res){
+          if(res.confirm){
+            app.globalData.fromHabit = true,
+            app.globalData.groupHabitId = that.data.habitDetail.groupHabitId
+            wx.switchTab({
+              url: '../../posts/showPosts/showPosts',
+            })
+          }
+        }
+      })
+    }
+
     // const that = this
     // wx.showModal({
     //     title:"提示",
@@ -189,8 +202,7 @@ Page({
           wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).remove()
           wx.cloud.callFunction({
             name:"dissolutionGroup",
-            data:{
-              groupHabitId:temp.groupHabitId
+            data:{groupHabitId:temp.groupHabitId
             }
           })
         }
