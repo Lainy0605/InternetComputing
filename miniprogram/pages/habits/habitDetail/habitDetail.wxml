@@ -9,9 +9,10 @@
         已进行<days>{{habitDetail.day}}</days>天（{{habitDetail.stage}}）
     </view>
 
-    <view wx:if="{{!canDaka}}" class="yidaka" bindtap="toPagenewPost">
-        逛逛好友的打卡动态吧~ 
-        <image src="../../../images/clickToNewPost.png" class="littleIcon"></image>
+    <view wx:if="{{!canDaka}}" class="yidaka" bindtap="daka">
+        逛逛好友的打卡动态吧~
+        <image  src="../../../images/clickToNewPost.png" class="littleIcon" ></image>
+
     </view>
     <view wx:else class="daka" bindtap="daka">
         <image src="../../../images/clickToDaka.png" class="littleIcon"></image>
