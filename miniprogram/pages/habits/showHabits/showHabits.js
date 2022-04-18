@@ -12,9 +12,26 @@ Page({
     },
 
     tonewHabit:function(){
-        wx.navigateTo({
-          url: '../newHabit/newHabit',
-          success:function(res){}
+        const that = this
+        wx.cloud.database().collection('habits').where({
+            _openid:that.data.openId,
+            state:"培养中"
+        }).get({
+            success(res){
+                if(res.data.length>=20){ //判断当前培养中的习惯是否超过20条
+                    wx.showToast({
+                      title: '超过上限啦~',
+                      icon:'none',
+                      mask:true
+                    })
+                }
+                else{
+                    wx.navigateTo({
+                        url: '../newHabit/newHabit',
+                        success:function(res){}
+                    })
+                }
+            }
         })
     },
     
@@ -48,7 +65,8 @@ Page({
    async  onLoad() {
         wx.showToast({
           title: '加载中',
-          icon:'loading'
+          icon:'loading',
+          mask:true
         })
         if(app.globalData.openId){
             await this.getHabits()
@@ -83,7 +101,8 @@ Page({
         else{
             wx.showToast({
               title: '未登录',
-              icon:'error'
+              icon:'error',
+              mask:true
             })
         }
     },

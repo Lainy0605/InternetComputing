@@ -69,6 +69,7 @@ Page({
           else{
             wx.showToast({
               title: '积分不足！',
+              mask:true
             })
           }
         }
@@ -78,77 +79,84 @@ Page({
 
 
   daka: function(){
-    const that = this
-    wx.showModal({
-        title:"提示",
-        content:"确定打卡？",
-        cancelColor: '#CDF46E',
-        confirmColor:'#fc5959',
-        success(res){
-            if(res.confirm){
-                var temp2
-                var creditPlus
-                var temp = that.data.habitDetail
-                var tempStage = that.data.habitDetail.stage
-                var tempDay = that.data.habitDetail.day+1
-                var dates = Daka(new Date());
-                if(tempDay>=0 && tempDay<=3){temp2="观察期"}
-                else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
-                else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
-                else if(tempDay>=22 && tempDay<=90){temp2="稳定期"}
-                if(tempStage=="观察期"){creditPlus=1}
-                else if(tempStage=="起步期"){creditPlus=3}
-                else if(tempStage=="养成期"){creditPlus=5}
-                else if(tempStage=="稳定期"){creditPlus=8}
-                wx.cloud.database().collection('userInfos').where({
-                    _openid:app.globalData.openId
-                }).update({
-                  data:{
-                    credits:wx.cloud.database().command.inc(creditPlus)
-                  }
-                })
-                wx.cloud.database().collection('habits').doc(temp._id).update({
-                  data:{
-                      lastDaka:dates,
-                      day:tempDay,
-                      stage:temp2
-                  },
-                  success(re){
-                    that.setData({
-                      ["habitDetail.lastDaka"]:dates,
-                      ["habitDetail.day"] : tempDay,
-                      ["habitDetail.stage"] : temp2,
-                      ["memberHabitDetail[0].day"]:tempDay,
-                      ["memberHabitDetail[0].credits"]:that.data.memberHabitDetail[0].credits+creditPlus,
-                      canDaka:false
-                    })
-                    wx.showToast({
-                      title: '打卡成功！',
-                    })
-                    if(tempDay==90){
-                      wx.showToast({
-                        title: '习惯培养成功！积分+100',
-                      })
-                      wx.cloud.database().collection('habits').doc(temp._id).update({
-                        data:{
-                            state:"培养成功",
-                            endTime:formatTime(new Date())
-                        },
-                      })
-                      wx.cloud.database.collection('userInfos').where({
-                        _openid:that.data.openId
-                      }).update({
-                        data:{
-                          credits:wx.cloud.database().command.inc(100),
-                          successNumber:wx.cloud.database().command.inc(1)
-                        }
-                      })
-                    }
-                  }
-                })
-            }
-        }
+    app.globalData.fromHabit = true,
+    app.globalData.groupHabitId = this.data.habitDetail.groupHabitId
+    wx.switchTab({
+      url: '../../posts/showPosts/showPosts',
     })
+    // const that = this
+    // wx.showModal({
+    //     title:"提示",
+    //     content:"确定打卡？",
+    //     cancelColor: '#CDF46E',
+    //     confirmColor:'#fc5959',
+    //     success(res){
+    //         if(res.confirm){
+    //             var temp2
+    //             var creditPlus
+    //             var temp = that.data.habitDetail
+    //             var tempStage = that.data.habitDetail.stage
+    //             var tempDay = that.data.habitDetail.day+1
+    //             var dates = Daka(new Date());
+    //             if(tempDay>=0 && tempDay<=3){temp2="观察期"}
+    //             else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
+    //             else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
+    //             else if(tempDay>=22 && tempDay<=90){temp2="稳定期"}
+    //             if(tempStage=="观察期"){creditPlus=1}
+    //             else if(tempStage=="起步期"){creditPlus=3}
+    //             else if(tempStage=="养成期"){creditPlus=5}
+    //             else if(tempStage=="稳定期"){creditPlus=8}
+    //             wx.cloud.database().collection('userInfos').where({
+    //                 _openid:app.globalData.openId
+    //             }).update({
+    //               data:{
+    //                 credits:wx.cloud.database().command.inc(creditPlus)
+    //               }
+    //             })
+    //             wx.cloud.database().collection('habits').doc(temp._id).update({
+    //               data:{
+    //                   lastDaka:dates,
+    //                   day:tempDay,
+    //                   stage:temp2
+    //               },
+    //               success(re){
+    //                 that.setData({
+    //                   ["habitDetail.lastDaka"]:dates,
+    //                   ["habitDetail.day"] : tempDay,
+    //                   ["habitDetail.stage"] : temp2,
+    //                   ["memberHabitDetail[0].day"]:tempDay,
+    //                   ["memberHabitDetail[0].credits"]:that.data.memberHabitDetail[0].credits+creditPlus,
+    //                   canDaka:false
+    //                 })
+    //                 wx.showToast({
+    //                   title: '打卡成功！',
+    //                   mask:true
+    //                 })
+    //                 if(tempDay==90){
+    //                   wx.showToast({
+    //                     title: '习惯培养成功！积分+100',
+    //                     mask:true
+    //                   })
+    //                   wx.cloud.database().collection('habits').doc(temp._id).update({
+    //                     data:{
+    //                         state:"培养成功",
+    //                         endTime:formatTime(new Date())
+    //                     },
+    //                   })
+    //                   wx.cloud.database.collection('userInfos').where({
+    //                     _openid:that.data.openId
+    //                   }).update({
+    //                     data:{
+    //                       credits:wx.cloud.database().command.inc(100),
+    //                       successNumber:wx.cloud.database().command.inc(1)
+    //                     }
+    //                   })
+    //                 }
+    //               }
+    //             })
+    //         }
+    //     }
+    // })
   },
 
   deleteUpdateDatabase(){
@@ -190,6 +198,19 @@ Page({
           })
         }
       }
+    })
+    wx.showToast({
+      title: '培养失败！',
+      icon:'none',
+      duration:1500,
+      mask:true,
+      success(){
+        setTimeout(function(){
+          wx.navigateBack({
+            delta:1
+           })  
+        },1000)
+      }
     })  
   },
   delete:function(){
@@ -208,18 +229,6 @@ Page({
       success(res){
         if(res.confirm){
           that.deleteUpdateDatabase()
-          wx.showToast({
-            title: '请再接再厉！',
-            icon:'none',
-            duration:2000,
-            success(){
-              setTimeout(function(){
-                wx.navigateBack({
-                  delta:1
-                 })  
-              },1500)
-            }
-          })       
         }
       }
     })
@@ -236,15 +245,47 @@ Page({
 
   },
 
+  getCredits(openId){
+    const that = this
+    return new Promise(function(resolve,reject){
+      wx.cloud.database().collection('userInfos').where({
+        _openid:openId
+      }).get({
+        success(res){
+          that.setData({
+            credits:res.data[0].credits
+          })
+          resolve(res.data[0].credits)
+        }
+      })
+    }) 
+  },
+  
+  async getAllCredits(data,dates){
+    const that =this
+    for(var temp of data){
+      temp.dakaOrNot = temp.lastDaka < dates ? false:true
+      await that.getCredits(temp._openid).then(function(credits){
+        temp.credits = credits
+      })
+    }
+    that.setData({
+      memberHabitDetail:data
+    })
+    wx.hideToast({
+      success: (res) => {},
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  async onLoad(options) {
     const that = this
     var dates = Daka(new Date());
     wx.showToast({
       title: '加载中',
-      icon:'loading'
+      icon:'loading',
+      mask:true
     })
     wx.cloud.database().collection('habits').doc(options.id).get({
       success(res){
@@ -278,12 +319,18 @@ Page({
             skipTwo:true
           })
         }
-        else if(dates-4==res.data.lastDaka){
+        else if(dates-4>=res.data.lastDaka){
           wx.showToast({
-            title: '连续三天未打卡，培养失败！',
+            title: '连续三天未打卡',
+            icon:'none',
+            duration:2000,
+            mask:true,
+            success(){
+              setTimeout(function(){
+                that.deleteUpdateDatabase()
+              },800)
+            }
           })
-          that.deleteUpdateDatabase()
-          return 
         }
         if(that.data.skipOne || that.data.skipTwo){
           wx.cloud.database().collection('habits').doc(options.id).update({
@@ -307,24 +354,7 @@ Page({
             that.setData({
               memberNum:re.data.length-1,
             })
-            for(var temp of re.data){
-              temp.dakaOrNot = temp.lastDaka < dates ? "false":"true"
-              wx.cloud.database().collection('userInfos').where({
-                _openid:temp._openid
-              }).get({
-                success(r){
-                  temp.credits = r.data[0].credits
-                  var t = that.data.memberHabitDetail
-                  t.push(temp)
-                  that.setData({
-                    memberHabitDetail:t
-                  })
-                  wx.hideToast({
-                    success: (res) => {},
-                  })
-                }
-              })
-            }
+            that.getAllCredits(re.data,dates)
           }
         })
       }

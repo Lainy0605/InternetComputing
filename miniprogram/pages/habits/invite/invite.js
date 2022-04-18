@@ -64,8 +64,9 @@ Page({
     for(var temp of this.data.habits){
       if(temp.groupHabitId==self.data.groupHabitId){
         wx.showToast({
-          title: '你已添加该习惯',
-          icon: 'error'
+          title: '您已添加该习惯',
+          icon: 'error',
+          mask:true
           })
         return
       }
@@ -86,18 +87,14 @@ Page({
         startTime:formatTime(new Date())
       },
       success(res) {
-        GROUPHABITS.doc(self.data.groupHabitId).update({
-          data: {
-            memberIds: wx.cloud.database().command.push(res._id)
-          },
-        })
         wx.showToast({
           title: '添加成功',
           icon:"success",
+          mask:true,
           success(){
-            // wx.switchTab({
-            //   url: '../../my/login/login',
-            // })
+            wx.switchTab({
+              url: '../../my/login/login',
+            })
           }
         })
       }

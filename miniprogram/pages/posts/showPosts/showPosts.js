@@ -85,6 +85,7 @@ Page({
                         success(res){
                             wx.showToast({
                             title: '删除成功',
+                            mask:true,
                             })
                             that.setData({
                                 postList:that.data.postList
@@ -165,7 +166,8 @@ Page({
                         if(res.data.length==0){
                             wx.showToast({
                               title: '已经没有更多啦~',
-                              icon:'error'
+                              icon:'none',
+                              mask:true
                             })
                         }
                         else{
@@ -201,7 +203,8 @@ Page({
                         if(res.data.length==0){
                             wx.showToast({
                               title: '已经没有更多啦~',
-                              icon:'error'
+                              icon:'none',
+                              mask:true
                             })
                         }
                         else{
@@ -224,33 +227,53 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad() {
-        const that = this
-        wx.showToast({
-            title: '加载中',
-            icon:'loading'
-          })
-        if(app.globalData.openId){
-            wx.cloud.database().collection('habits').where({
-                _openid:app.globalData.openId,
-                state:"培养中"
-            }).get({
-                success(re){
-                    var temp = [{"name":"我的"}]
-                    temp = temp.concat(re.data)
-                    that.setData({
-                        habitsList:temp
+            const that = this
+            wx.showToast({
+                title: '加载中',
+                icon:'loading',
+                mask:true
+              })
+            if(app.globalData.openId){
+                    wx.cloud.database().collection('habits').where({
+                        _openid:app.globalData.openId,
+                        state:"培养中"
+                    }).get({
+                        success(res){
+                            var temp = [{"name":"我的"}]
+                            temp = temp.concat(res.data)
+                            that.setData({
+                                habitsList:temp
+                            })
+                            if(app.globalData.fromHabit){
+                            var index = 1
+                            for(var habit of res.data){
+                                if(habit.groupHabitId==app.globalData.groupHabitId){
+                                    that.setData({
+                                        currentTab:index,
+                                        current_groupHabitId:app.globalData.groupHabitId,
+                                        skipNumber:0
+                                    })
+                                    that.getPosts(that.data.current_groupHabitId)
+                                }
+                                else{
+                                    index++;
+                                }
+                            }
+                            app.globalData.fromHabit=false
+                        }
+                    }
+                    })
+                    if(!app.globalData.fromHabit){
+                        await this.getMyPosts()
+                    }
+                    this.setData({
+                        login:true,
+                        openId:app.globalData.openId,
                     })
                 }
+            wx.hideToast({
+                success: (res) => {},
             })
-            await this.getMyPosts()
-            this.setData({
-                login:true,
-                openId:app.globalData.openId,
-            })
-        }
-        wx.hideToast({
-            success: (res) => {},
-          })
     },
 
     /**
@@ -280,20 +303,40 @@ Page({
                         that.setData({
                             habitsList:temp
                         })
+                        if(app.globalData.fromHabit){
+                            var index = 1
+                            for(var habit of re.data){
+                                if(habit.groupHabitId==app.globalData.groupHabitId){
+                                    that.setData({
+                                        currentTab:index,
+                                        current_groupHabitId:app.globalData.groupHabitId,
+                                        skipNumber:0
+                                    })
+                                    that.getPosts(that.data.current_groupHabitId)
+                                }
+                                else{
+                                    index++;
+                                }
+                            }
+                            app.globalData.fromHabit=false
+                        }
                     }
                 })
-                if(this.data.currentTab==0){
-                    this.getMyPosts()
-                }
-                else{
-                    this.getPosts(this.data.current_groupHabitId)
+                if(!app.globalData.fromHabit){
+                    if(this.data.currentTab==0){
+                        this.getMyPosts()
+                    }
+                    else{
+                        this.getPosts(this.data.current_groupHabitId)
+                    }
                 }
             }
         }
         else{
             wx.showToast({
               title: '未登录',
-              icon:'error'
+              icon:'error',
+              mask:true
             })
         }
     },

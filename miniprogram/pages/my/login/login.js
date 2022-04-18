@@ -17,7 +17,6 @@ Page({
     },
 
     setlevelValue(successNumber){
-        console.log(successNumber)
         if(successNumber==0){this.data.levelValue="习惯小白",this.data.level = 0}
         else if(1<=successNumber && successNumber<5){this.data.levelValue="习惯新手",this.data.level = 1}
         else if(5<=successNumber && successNumber<10){this.data.levelValue="习惯？？",this.data.level = 2}
