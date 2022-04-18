@@ -6,7 +6,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        failureHabits:[],
+        nums: 0
     },
 
     /**
@@ -20,8 +21,12 @@ Page({
         }).get({
             success(res){
                 that.setData({
-                    failureHabits:res.data
+                    failureHabits:res.data,
                 })
+                that.setData({
+                    nums: that.data.failureHabits.length,
+                })
+                console.log(res.data[0])
             }
         })
     },

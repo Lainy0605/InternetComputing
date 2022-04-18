@@ -1,4 +1,3 @@
 <!--pages/my/failureHabits/failureHabits.wxml-->
-<view wx:for="{{failureHabits}}" wx:key="this">
-    <view>{{item.name}}</view>
-</view>
+<text>pages/my/failureHabits/failureHabits</text>
+<text>{{nums}}</text>

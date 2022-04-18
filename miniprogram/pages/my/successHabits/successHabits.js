@@ -6,7 +6,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        successHabits:[],
+        nums: 0,
     },
 
     /**
@@ -20,8 +21,13 @@ Page({
         }).get({
             success(res){
                 that.setData({
-                    failureHabits:res.data
+                    successHabits: res.data,
+                    nums: that.data.successHabits.length
                 })
+                console.log(res)
+            },
+            fail (res) {
+                console.log("获取培养失败的习惯失败")
             }
         })
     },
