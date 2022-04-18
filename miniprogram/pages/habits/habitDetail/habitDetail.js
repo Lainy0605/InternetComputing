@@ -187,16 +187,14 @@ Page({
       success(res){
         if(res.data._openid==that.data.openId){
           wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).remove()
-        }
-        else{
-          var index = res.data.memberIds.indexOf(temp._id)
-          res.data.memberIds.splice(index,1)
-          wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).update({
+          wx.cloud.callFunction({
+            name:"dissolutionGroup",
             data:{
-              memberIds:res.data.memberIds
+              groupHabitId:temp.groupHabitId
             }
           })
         }
+        else{wx.cloud.database().collection('habits').doc(temp._id).update({data:{groupHabitId:""}})}
       }
     })
     wx.showToast({
