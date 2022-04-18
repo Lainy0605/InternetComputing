@@ -41,11 +41,6 @@ Page({
                   })
                 }
               })
-              console.log(re.result.openid,res.userInfo)
-            // app.globalData.openId = re.result.openid,
-            // app.globalData.userInfo = res.userInfo
-            // wx.setStorageSync('openId', that.data.openId)
-            // wx.setStorageSync('userInfo', that.data.userInfo)
             wx.cloud.callFunction({
               name: "updateInfo",
               data: {
@@ -87,11 +82,6 @@ Page({
         startTime:formatTime(new Date())
       },
       success(res) {
-        GROUPHABITS.doc(self.data.groupHabitId).update({
-          data: {
-            memberIds: wx.cloud.database().command.push(res._id)
-          },
-        })
         wx.showToast({
           title: '添加成功',
           icon:"success",
@@ -111,7 +101,6 @@ Page({
    */
   onLoad: function (options) {
     const that = this
-    console.log(options.groupHabitId)
     this.setData({
       groupHabitId: options.groupHabitId
     }) //获取分享页来源的groupHabitID
