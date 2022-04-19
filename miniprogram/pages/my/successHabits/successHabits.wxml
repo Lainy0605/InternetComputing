@@ -1,3 +1,13 @@
 <!--pages/my/successHabits/successHabits.wxml-->
-<text>pages/my/successHabits/successHabits.wxml</text>
-<text>{{nums}}</text>
+<view class="head">您已经成功培养 {{nums}} 个习惯</view>
+<view class="display-area">
+    <view wx:for="{{successHabits}}">
+        <div class="medal">
+            <image src='../../../images/medal-without-star.png' style="height: 264rpx; width: 244rpx;"></image>
+            <span class="habitsTitle">
+                <text style="height: auto; text-align: center;">{{item.name}}</text>
+            </span>
+            <view class="time">{{item.endTime}}</view>
+        </div>
+    </view>
+</view>

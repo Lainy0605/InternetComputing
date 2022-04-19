@@ -10,6 +10,10 @@ Page({
         nums: 0,
     },
 
+    getItemTime(item) {
+        return item.endTime.substr(0, 10)
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
@@ -21,7 +25,9 @@ Page({
         }).get({
             success(res){
                 that.setData({
-                    successHabits: res.data,
+                    successHabits: res.data,  
+                })
+                that.setData ({
                     nums: that.data.successHabits.length
                 })
                 console.log(res)

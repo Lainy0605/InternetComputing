@@ -1,1 +1,57 @@
 /* pages/my/successHabits/successHabits.wxss */
+
+Page {
+    width: 100%;
+    height: 100%;
+    background-color: #CDF46E;
+}
+
+.head {
+    font-size: large;
+    background-color: #eba13e double;
+    text-align: center;
+}
+
+.display-area {
+    margin-top: 10rpx;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 98%;
+    height: auto;
+    border-color: #EBA13E;
+    border-width: 5rpx;
+    border-style: solid;
+    border-radius: 15rpx;
+}
+
+
+.medal {
+    position: relative;
+    width: 244rpx;
+    height: 284rpx;
+}
+
+.habitsTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -200rpx;
+    left: 50rpx;
+    width: 150rpx;
+    right: 44rpx;
+    height: 80rpx;
+    font-size: small;
+    font-family:inherit;
+}
+
+.time {
+    text-align: center;
+    width: 244rpx;
+    position: relative;
+    top: -90rpx;
+    left: 0rpx;
+    font-size: xx-small;
+}
