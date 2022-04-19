@@ -5,7 +5,6 @@ import {
   DakaMinusOne, formatTime
 } from "../../../utils/utils"
 const HABITS = wx.cloud.database().collection('habits')
-const GROUPHABITS = wx.cloud.database().collection('groupHabits')
 
 Page({
 
@@ -36,22 +35,13 @@ Page({
                   hasLoginIn: true,
                   openId: re.result.openid,
                   userInfo: res.userInfo
-                })                
+                })
+                app.globalData.openId = re.result.openid
+                app.globalData.userInfo = res.userInfo 
+                wx.setStorageSync('openId', re.result.openid)
+                wx.setStorageSync('userInfo', res.userInfo)                          
               }
             })
-            // wx.cloud.database().collection('habits').where({
-            //     _openid: re.result.openid
-            //   })
-            //   .get({
-            //     success(r) {
-            //       that.setData({
-            //         habits: r.data,
-            //         hasLoginIn: true,
-            //         openId: re.result.openid,
-            //         userInfo: res.userInfo
-            //       })
-            //     }
-            //   })
             wx.cloud.callFunction({
               name: "updateInfo",
               data: {
