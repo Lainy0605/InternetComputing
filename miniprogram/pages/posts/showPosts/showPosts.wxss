@@ -29,13 +29,13 @@ page{
     /* justify-content: space-between; */
 }
 .selected{
-    color: #F5E952;
+    color: #EBA13E;
     display: flex;
     height: 100%;
     margin: 10rpx;
     font-size: 30rpx;
     font-weight: 700;
-    border-bottom: solid 8rpx #F5E952;
+    border-bottom: solid 8rpx #EBA13E;
     align-items: center;
     justify-content: center;
 }

@@ -43,15 +43,22 @@ page {
     flex-direction: column;
     position: relative;
 }
+.nickName{
+    position: absolute;
+    left: 0;
+    top: 35%;
+    font-size: 30rpx;
+    color: black;
+}
 .level{
     position: absolute;
     left: 0;
-    top: 40%;
+    top: 50%;
 }
 .credits{
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 60%;
 }
 .login{
     display: flex;
