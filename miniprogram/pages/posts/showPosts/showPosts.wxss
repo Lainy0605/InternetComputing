@@ -82,6 +82,12 @@ page{
     font-size: 30rpx;
     margin-bottom: 10rpx;
 }
+.text{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 600rpx;
+}
 .time-delete{
     display: flex;
     flex-direction: row;

@@ -69,6 +69,7 @@ Page({
           else{
             wx.showToast({
               title: '积分不足！',
+              icon:'none',
               mask:true
             })
           }
@@ -364,6 +365,7 @@ Page({
           })
         }
         }
+        //todo
         wx.cloud.database().collection('habits').where({
           groupHabitId:res.data.groupHabitId
         }).get({
