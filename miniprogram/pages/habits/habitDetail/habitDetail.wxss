@@ -38,6 +38,7 @@ page{
   height: 100%;
 }
 .daka{
+    white-space: nowrap;
     display: flex;
     position: relative;
     padding: 20rpx;
@@ -71,7 +72,7 @@ page{
     margin: 20rpx 20rpx 15rpx 20rpx;
 }
 .buqianText{
-    margin: 0 0 5rpx 23rpx;
+    margin: 0 0 5rpx 20rpx;
     font-size: small;
     font-weight: 500;
     /* color: #ACCC5C; 对比度低，便是不好么*/
@@ -80,13 +81,14 @@ page{
 .dianjibuqianText{
     margin: 0 0 5rpx 20rpx;
     font-size: small;
-    font-weight: 600;
+    font-weight: bold;
     color: #F5A162;
-    padding: 1rpx 3rpx 0 4rpx;
+    padding: 1rpx 0rpx 0 0rpx;
     /* 白给，用不了捏 */
     /* text-decoration: underline wavy #F5A162;
     text-underline-offset: 4rpx; */
     border-bottom: 4rpx #F5A162 solid;
+    white-space: nowrap;
     width: 320rpx;
 }
 .textBeforeInvite{
@@ -155,6 +157,7 @@ page{
     margin: 25rpx 20rpx 30rpx 20rpx;
 }
 .invite{
+    white-space: nowrap;
     float: left;
     color:white;
     display: flex;
@@ -164,6 +167,7 @@ page{
     border-radius: 60rpx;
 }
 .setRemindTime{
+    white-space: nowrap;
     color:white;
     display: flex;
     width: 280rpx;

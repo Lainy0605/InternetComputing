@@ -5,6 +5,7 @@
             <image class="image" src="{{userInfo.avatarUrl}}"></image>
         </view>
         <view class="info">
+            <view class="nickName">{{userInfo.nickName}}</view>
             <view class="level">Lv {{level}} : {{levelValue}}</view>
             <view class="credits">我的积分 : {{credits}}</view>
         </view>

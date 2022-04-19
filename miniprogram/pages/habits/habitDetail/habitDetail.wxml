@@ -19,7 +19,7 @@
     </view>
 
     <view class="buqianText">本月剩余补签次数：{{habitDetail.buqian}}</view>
-    <view bindtap="buqian" wx:if="{{(skipOne || skipTwo) && habitDetail.buqian!=0}}" class="dianjibuqianText">昨日没有打卡哦，点击补签</view>
+    <view bindtap="buqian" wx:if="{{(skipOne || skipTwo) && habitDetail.buqian!=0}}" class="dianjibuqianText">昨日没有打卡哦，点击补签~</view>
     
     <view wx:if='{{memberNum!=0}}'>
         <view class="textBeforeInvite">
@@ -31,7 +31,6 @@
                     <image src="../../../images/memberLeft.png" class="member-icon"></image>
                 </view>
                 <view class="member-right">
-                    <!-- todo: 把群组习惯的用户和各种信息导进来，我这里写的不对，是乱写的 -->
                     <block wx:for="{{memberHabitDetail}}" wx:key="this">
                         <view class="member" data-index="{{index}}">
                             <image src="{{item.avatar}}" class="member-avator"></image>
@@ -42,36 +41,15 @@
                                         <view class="member-status" wx:if="{{item.dakaOrNot}}">已打卡</view>
                                         <view class="member-status" wx:else style="color: royalblue; text-decoration: underline royalblue;">提醒</view>
                                     </block>
+                                    <block wx:else>
+                                        <view class="member-status"></view>
+                                    </block>
                                     <view class="member-day">{{item.day}}天</view>
                                     <view class="member-credit">积分：{{item.credits}}</view>
                                 </view>
                             </view>
                         </view>
                     </block>
-                    <!-- <block>
-                        <view class="member">
-                            <image src="../../../images/guest.png" class="member-avator"></image>
-                            <view>
-                                <view class="member-nickname">guest</view>
-                                <view class="state-day-points">
-                                    <view class="member-status">已打卡</view>
-                                    <view class="member-day">99天</view>
-                                    <view class="member-credit">积分：1000</view>
-                                </view>
-                            </view>
-                        </view>
-                        <view class="member">
-                            <image src="../../../images/guest.png" class="member-avator"></image>
-                            <view>
-                                <view class="member-nickname">test</view>
-                                <view class="state-day-points">
-                                    <view class="member-status" style="text-decoration: underline royalblue;color: royalblue;">提醒</view>
-                                    <view class="member-day">1天</view>
-                                    <view class="member-credit">积分：9</view>
-                                </view>
-                            </view>
-                        </view>
-                    </block> -->
                 </view>
             </view>
         </block>

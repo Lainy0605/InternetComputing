@@ -1,2 +1,43 @@
-<text>管家指南</text>
-<rich-text nodes="{{htmlSnip}}"></rich-text>
+<view class="page"><view class="title">助手指南</view>
+<view class="bigtitle">1.习惯创建
+</view>
+<view class="middletitle">1.1 习惯名称支持0~9个字符</view>
+<view class="middletitle">1.2 同时培养中的习惯上限为20</view>
+<view class="bigtitle">2.习惯培养</view>
+<view class="middletitle">2.1 培养中的习惯按照打卡天数划分如下阶段
+        <view class="content">0~3天  观察期</view>
+        <view class="content">4~7天  起步期</view>
+        <view class="content">8~21天  养成期</view>
+        <view class="content">22~90天 稳定期</view>
+</view>
+
+<view class="middletitle">2.2 每日首次在当前习惯的圈子中发布动态，即可打卡成功，获得积分如下
+    <view class="content">观察期：积分+1</view>
+    <view class="content">起步期：积分+3</view>
+    <view class="content">养成期：积分+5</view>
+    <view class="content">稳定期：积分+8</view>
+</view>
+
+<view class="middletitle">2.3 每月每习惯可补打卡两次，每次补打卡成功需扣除20积分，且仅能补当前日期前一天，补打卡成功后培养天数即可恢复</view>
+<view class="middletitle">2.4 若连续三天未打卡，即认定放弃培养该习惯，参照下3</view>
+<view class="middletitle">2.5 打卡天数达到90天，该习惯认定培养成功，纳入培养成功记录，并获得积分奖励+100</view>
+<view class="bigtitle">3.放弃培养</view>
+<view class="middletitle">3.1 若确定放弃培养习惯，需扣除积分如下
+    <view class="content">观察期：积分-0</view>
+    <view class="content">起步期：积分-10</view>
+    <view class="content">养成期：积分-20</view>
+    <view class="content">稳定期：积分-40</view>
+</view>
+<view class="middletitle">3.2 所有放弃培养的习惯将会计入习惯培养失败记录中</view>
+<view class="bigtitle">4.习惯展示</view>
+<view class="middletitle">4.1 删除一条培养失败习惯记录需扣除50积分</view>
+<view class="bigtitle">5.好友组队</view>
+<view class="middletitle">5.1 在当前习惯中向好友发送邀请链接，好友接受后即可加入</view>
+    <view class="middletitle">5.2 同一习惯下所有成员可在圈子中看到其他成员的打卡动态</view>
+    <view class="middletitle">5.3 若好友当天未打卡，则可点击提醒好友</view>
+
+<view class="name-time">开发者团队</view>
+<view class="name-time">2022.4.19</view>
+</view>
+
+
