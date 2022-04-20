@@ -19,7 +19,8 @@
     </view>
 
     <view class="buqianText">本月剩余补签次数：{{habitDetail.buqian}}</view>
-    <view bindtap="buqian" wx:if="{{(skipOne || skipTwo) && habitDetail.buqian!=0}}" class="dianjibuqianText">昨日没有打卡哦，点击补签~</view>
+    <view bindtap="buqian" wx:if="{{skipOne && habitDetail.buqian!=0}}" class="dianjibuqianText">昨日未打卡哦，点击补签~</view>
+    <view bindtap="buqian" wx:if="{{skipTwo && habitDetail.buqian!=0}}" class="dianjibuqianText">连续两日未打卡哦，点击补签~</view>
     
     <view wx:if='{{memberNum!=0}}'>
         <view class="textBeforeInvite">

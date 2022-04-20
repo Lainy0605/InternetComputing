@@ -91,9 +91,6 @@ Page({
             var dates = Daka(new Date())
             if(that.data.habitDetail.lastDaka < dates){
                 that.daka(dates)
-                wx.navigateBack({
-                    delta:1
-                })
             }else{
                 wx.showToast({
                     title: '发布成功',
@@ -121,22 +118,22 @@ Page({
     daka: function(dates){
         const that = this
         var temp2
-        var creditPlus
         var temp = that.data.habitDetail
         var tempStage = that.data.habitDetail.stage
         var tempDay = that.data.habitDetail.day+1
-        console.log(111)
         if(tempDay>=0 && tempDay<=3){temp2="观察期"}
         else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
         else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
         else if(tempDay>=22 && tempDay<=90){temp2="稳定期"}
-        if(tempStage=="观察期"){creditPlus=1}
-        else if(tempStage=="起步期"){creditPlus=3}
-        else if(tempStage=="养成期"){creditPlus=5}
-        else if(tempStage=="稳定期"){creditPlus=8}
+        var creditPlus= tempDay==90 ? 100 : 0
+        var successNumberPlus = tempDay==90 ? 1 : 0
+        if(tempStage=="观察期"){creditPlus+=1}
+        else if(tempStage=="起步期"){creditPlus+=3}
+        else if(tempStage=="养成期"){creditPlus+=5}
+        else if(tempStage=="稳定期"){creditPlus+=8}
         wx.cloud.database().collection('userInfos').where({
             _openid:app.globalData.openId
-        }).update({data:{credits:wx.cloud.database().command.inc(creditPlus)}})
+        }).update({data:{credits:wx.cloud.database().command.inc(creditPlus),successNumber:wx.cloud.database().command.inc(successNumberPlus)}})
         wx.cloud.database().collection('habits').doc(temp._id).update({
             data:{
                 lastDaka:dates,
@@ -144,27 +141,35 @@ Page({
                 stage:temp2
             },
             success(re){
-                wx.showToast({
-                    title: '打卡成功！',
-                    mask:true
-                })
                 if(tempDay==90){
-                    wx.showToast({
-                    title: '习惯培养成功！积分+100',
-                    mask:true
-                    })
                     wx.cloud.database().collection('habits').doc(temp._id).update({
                     data:{
                         state:"培养成功",
                         endTime:formatTime(new Date())
                         },
                     })
-                    wx.cloud.database.collection('userInfos').where({
-                        _openid:that.data.openId
-                    }).update({
-                        data:{
-                            credits:wx.cloud.database().command.inc(100),
-                            successNumber:wx.cloud.database().command.inc(1)
+                    wx.showToast({
+                        title: '习惯培养成功！',
+                        mask:true,
+                        success(){
+                            setTimeout(function(){
+                                wx.navigateBack({
+                                    delta:1
+                                })
+                            },500)
+                        }
+                    })
+                }
+                else{
+                    wx.showToast({
+                        title: '打卡成功！',
+                        mask:true,
+                        success(){
+                            setTimeout(function(){
+                                wx.navigateBack({
+                                    delta:1
+                                })
+                            },500)
                         }
                     })
                 }

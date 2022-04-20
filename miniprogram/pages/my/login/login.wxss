@@ -27,8 +27,8 @@ page {
 }
 .image{
     display: flex;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 100%;
     position: absolute;
     right: 0;
@@ -37,7 +37,7 @@ page {
     display: flex;
     flex-wrap: wrap;
     font-size: 25rpx;
-    width: 200rpx;
+    width: 350rpx;
     color: white;
     align-items: center;
     flex-direction: column;
@@ -46,19 +46,30 @@ page {
 .nickName{
     position: absolute;
     left: 0;
-    top: 35%;
+    top: 30%;
     font-size: 30rpx;
-    color: black;
+    color: black;font-weight: 700;
+}
+.need{
+    position: absolute;
+    font-size: 18rpx;
+    left: 0;
+    top: 48%;
 }
 .level{
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 55%;
+    font-style: oblique;
+    font-size: 25rpx;
 }
+
 .credits{
     position: absolute;
     left: 0;
-    top: 60%;
+    top: 65%;
+    font-style: oblique;
+    font-size: 25rpx;
 }
 .login{
     display: flex;

@@ -6,7 +6,15 @@
         </view>
         <view class="info">
             <view class="nickName">{{userInfo.nickName}}</view>
-            <view class="level">Lv {{level}} : {{levelValue}}</view>
+            <view class="need">
+                <block wx:if="{{needNumber!=-1}}">
+                    下一等级还需培养成功{{needNumber}}个习惯
+                </block>
+                <block wx:else>
+                    恭喜您，当前已是最高等级！
+                </block>
+            </view>
+            <view class="level">Lv.{{level}} {{levelValue}}</view>
             <view class="credits">我的积分 : {{credits}}</view>
         </view>
     </block>
@@ -36,5 +44,8 @@
         <view class="text">个习惯</view>
         <view class="failure">培养失败</view>
         <image class="more" src="../../../images/more.png"></image>
+    </view>
+    <view class="item" bindtap="toMyfarm">
+        <view class="text">积分农场</view>
     </view>
 </view>

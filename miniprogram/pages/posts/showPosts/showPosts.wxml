@@ -34,7 +34,7 @@
             <view class="right">
                 <view bindtap="toDetail" data-id="{{item._id}}">
                 <view class="nickname">{{item.nickName}}</view>
-                <text style="white-space: pre-wrap;text-overflow: ellipsis;word-wrap: break-word;">{{item.text}}</text>
+                <text user-select style="white-space: pre-wrap;text-overflow: ellipsis;word-wrap: break-word;">{{item.text}}</text>
                 <view class="images-wrap">
                     <!--一张图-->
                     <block wx:if="{{item.imgList.length == 1}}" wx:for="{{item.imgList}}" wx:key="this" wx:for-item="imgItem" wx:for-index="innerIndex">
