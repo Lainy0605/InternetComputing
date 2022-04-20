@@ -6,6 +6,7 @@
         </text>
     </view>
 </block>
+
 <block wx:if="{{openId}}">
     <view class="new-habit"> 
         <image src="../../../images/newHabit.png" class="new-habit-icon" bindtap="tonewHabit"></image> 

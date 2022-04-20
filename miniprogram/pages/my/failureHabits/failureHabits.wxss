@@ -1,1 +1,64 @@
 /* pages/my/failureHabits/failureHabits.wxss */
+
+Page {
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5E9;
+}
+
+.head {
+    font-size: large;
+    background-color: #eba13e double;
+    text-align: center;
+}
+
+.title {
+    margin-top: 20rpx;
+    position: relative;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background-color: burlywood;
+    border-width: 5rpx;
+    border-bottom-left-radius: 20%;
+    border-top-right-radius: 20%;
+    border-style: solid;
+    width: 96%;
+    height: auto;
+    color: #ff000f;
+    font-size: large;
+}
+
+.display-area {
+    margin: 30rpx;
+    width: 96%;
+    height: auto;
+    align-self: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background: #e8f7b942;
+    border-width: medium;
+    border-color: #a4c257;
+    box-shadow: 0 2px 5px rgb(214, 240, 236);
+    border-style: dotted;
+}
+
+.item {
+    width: 96%;
+    height: 140rpx;
+    border-width: thin;
+    border-radius: 10%, 25%;
+    border-color: burlywood;
+    border-style: solid;
+    margin-bottom: 5rpx;
+    margin-top: 5rpx;
+}
+
+.restart{
+    background-color: rgba(255, 0, 0, 0.555);
+    color: wheat;
+    border-radius: 25%;
+    border-style: solid;
+    border-width: thin;
+}

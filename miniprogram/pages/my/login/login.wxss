@@ -80,7 +80,7 @@ page {
 .show-area{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-top: 50rpx;
     font-size: 30rpx;
     width: 94%;
@@ -111,6 +111,7 @@ page {
     justify-content: center;
     align-items: center;
 }
+
 .ing{
     color:white;
     display: flex;
@@ -121,6 +122,7 @@ page {
     background-color:#F5E952;
     border-radius: 10rpx;
 }
+
 .success{
     color:white;
     display: flex;
