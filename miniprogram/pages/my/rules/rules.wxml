@@ -31,13 +31,14 @@
 <view class="middletitle">3.2 所有放弃培养的习惯将会计入习惯培养失败记录中</view>
 <view class="bigtitle">4.习惯展示</view>
 <view class="middletitle">4.1 删除一条培养失败习惯记录需扣除50积分</view>
+<view class="middletitle">4.2 重新开始培养失败的习惯无需消耗积分</view>
 <view class="bigtitle">5.好友组队</view>
 <view class="middletitle">5.1 在当前习惯中向好友发送邀请链接，好友接受后即可加入</view>
     <view class="middletitle">5.2 同一习惯下所有成员可在圈子中看到其他成员的打卡动态</view>
     <view class="middletitle">5.3 若好友当天未打卡，则可点击提醒好友</view>
 
 <view class="name-time">开发者团队</view>
-<view class="name-time">2022.4.19</view>
+<view class="name-time">2022.4.20</view>
 </view>
 
 

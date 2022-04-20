@@ -100,8 +100,8 @@ Page({
         }
         else{
             wx.showToast({
-              title: '未登录',
-              icon:'error',
+              title: '未登录!',
+              icon:'none',
               mask:true
             })
         }

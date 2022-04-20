@@ -11,9 +11,17 @@ Page({
     },
 
     getItemTime(item) {
-        return item.endTime.substr(0, 10)
+        return item.substr(0, 10)
     },
 
+    toPosts(e){
+        var index= e.currentTarget.dataset.index
+        app.globalData.fromSuccessHabit = true
+        app.globalData.groupHabitId = this.data.successHabits[index].groupHabitId
+        wx.switchTab({
+          url: '../../posts/showPosts/showPosts',
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -25,13 +33,13 @@ Page({
             state:"培养成功"
         }).get({
             success(res){
+                for(var item of res.data){
+                    item.endTime = that.getItemTime(item.endTime)
+                }
                 that.setData({
                     successHabits: res.data,  
+                    nums: res.data.length
                 })
-                that.setData ({
-                    nums: that.data.successHabits.length
-                })
-                console.log(res)
             },
             fail (res) {
                 console.log("获取培养失败的习惯失败")

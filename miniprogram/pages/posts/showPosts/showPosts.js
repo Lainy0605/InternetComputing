@@ -151,6 +151,9 @@ Page({
     },
 
     getMyPosts(){
+        wx.showLoading({
+          title: '加载中',
+        })
         const that = this
         return new Promise(function(resolve,reject){
             wx.cloud.database().collection('dongtai').where({
@@ -164,6 +167,9 @@ Page({
                     }
                     if(that.data.skipNumber!=0){
                         if(res.data.length==0){
+                            wx.hideLoading({
+                              success: (res) => {},
+                            })
                             wx.showToast({
                               title: '已经没有更多啦~',
                               icon:'none',
@@ -181,6 +187,9 @@ Page({
                             postList:res.data,   
                         })
                     }
+                    wx.hideLoading({
+                      success: (res) => {},
+                    })
                   resolve('success')
                 }
             })
@@ -189,6 +198,9 @@ Page({
 
     getPosts(groupHabitId){
         const that = this
+        wx.showLoading({
+          title: '加载中',
+        })
         return new Promise(function(resolve,reject){
             wx.cloud.database().collection('dongtai').where({
                 groupHabitId:groupHabitId
@@ -201,6 +213,9 @@ Page({
                     }
                     if(that.data.skipNumber!=0){
                         if(res.data.length==0){
+                            wx.hideLoading({
+                              success: (res) => {},
+                            })
                             wx.showToast({
                               title: '已经没有更多啦~',
                               icon:'none',
@@ -218,6 +233,9 @@ Page({
                             postList:res.data,   
                         })
                     }
+                    wx.hideLoading({
+                      success: (res) => {},
+                    })
                     resolve('success')
                 }
             })
@@ -227,53 +245,61 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad() {
-            const that = this
-            wx.showToast({
-                title: '加载中',
-                icon:'loading',
-                mask:true
-              })
-            if(app.globalData.openId){
-                    wx.cloud.database().collection('habits').where({
-                        _openid:app.globalData.openId,
-                        state:"培养中"
-                    }).get({
-                        success(res){
-                            var temp = [{"name":"我的"}]
-                            temp = temp.concat(res.data)
-                            that.setData({
-                                habitsList:temp
-                            })
-                            if(app.globalData.fromHabit){
-                            var index = 1
-                            for(var habit of res.data){
-                                if(habit.groupHabitId==app.globalData.groupHabitId){
-                                    that.setData({
-                                        currentTab:index,
-                                        current_groupHabitId:app.globalData.groupHabitId,
-                                        skipNumber:0
-                                    })
-                                    that.getPosts(that.data.current_groupHabitId)
-                                }
-                                else{
-                                    index++;
-                                }
-                            }
-                            app.globalData.fromHabit=false
-                        }
-                    }
-                    })
-                    if(!app.globalData.fromHabit){
-                        await this.getMyPosts()
-                    }
-                    this.setData({
-                        login:true,
-                        openId:app.globalData.openId,
-                    })
-                }
-            wx.hideToast({
-                success: (res) => {},
-            })
+            // const that = this
+            // wx.showToast({
+            //     title: '加载中',
+            //     icon:'loading',
+            //     mask:true
+            //   })
+            // if(app.globalData.openId){
+            //         wx.cloud.database().collection('habits').where({
+            //             _openid:app.globalData.openId,
+            //             state:"培养中"
+            //         }).get({
+            //             success(res){
+            //                 var temp = [{"name":"我的"}]
+            //                 temp = temp.concat(res.data)
+            //                 that.setData({
+            //                     habitsList:temp
+            //                 })
+            //                 if(app.globalData.fromHabit){
+            //                     var index = 1
+            //                     for(var habit of res.data){
+            //                         if(habit.groupHabitId==app.globalData.groupHabitId){
+            //                             that.setData({
+            //                                 currentTab:index,
+            //                                 current_groupHabitId:app.globalData.groupHabitId,
+            //                                 skipNumber:0
+            //                             })
+            //                             that.getPosts(that.data.current_groupHabitId)
+            //                         }
+            //                         else{
+            //                             index++;
+            //                         }
+            //                     }
+            //                     app.globalData.fromHabit=false
+            //                 }
+            //                 else if(app.globalData.fromSuccessHabit){
+            //                     that.setData({
+            //                         current_groupHabitId:app.globalData.groupHabitId,
+            //                         skipNumber:0
+            //                     })
+            //                     that.getPosts(that.data.current_groupHabitId)
+            //                     app.globalData.fromSuccessHabit = false
+            //                 }
+            //             }
+            //         })
+            //         if(!app.globalData.fromHabit && !app.globalData.fromSuccessHabit){
+            //             await this.getMyPosts()
+            //         } 
+            //         this.setData({
+            //             login:true,
+            //             openId:app.globalData.openId,
+            //         })
+            //     }
+            // wx.hideToast({
+            //     success: (res) => {},
+            // })
     },
 
     /**
@@ -290,9 +316,11 @@ Page({
         const that = this
         if(app.globalData.openId){
             if(!this.data.login){
-                this.onLoad()
+                this.setData({
+                    login:true,
+                    openId:app.globalData.openId,
+                })
             }
-            else{
                 wx.cloud.database().collection('habits').where({
                     _openid:app.globalData.openId,
                     state:"培养中"
@@ -320,9 +348,18 @@ Page({
                             }
                             app.globalData.fromHabit=false
                         }
+                        else if(app.globalData.fromSuccessHabit){
+                            that.setData({
+                                currentTab:0,
+                                current_groupHabitId:app.globalData.groupHabitId,
+                                skipNumber:0
+                            })
+                            that.getPosts(that.data.current_groupHabitId)
+                            app.globalData.fromSuccessHabit = false
+                        }
                     }
                 })
-                if(!app.globalData.fromHabit){
+                if(!app.globalData.fromHabit && !app.globalData.fromSuccessHabit){
                     if(this.data.currentTab==0){
                         this.getMyPosts()
                     }
@@ -330,12 +367,11 @@ Page({
                         this.getPosts(this.data.current_groupHabitId)
                     }
                 }
-            }
         }
         else{
             wx.showToast({
-              title: '未登录',
-              icon:'error',
+              title: '未登录!',
+              icon:'none',
               mask:true
             })
         }
