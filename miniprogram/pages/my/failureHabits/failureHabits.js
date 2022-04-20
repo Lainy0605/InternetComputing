@@ -1,5 +1,10 @@
 // pages/my/failureHabits/failureHabits.js
 const app=getApp()
+const HABITS = wx.cloud.database().collection('habits')
+import {
+    DakaMinusOne, formatTime
+  } from "../../../utils/utils"
+  
 Page({
 
     /**
@@ -8,6 +13,37 @@ Page({
     data: {
         failureHabits:[],
         nums: 0
+    },
+
+    restart(e) {
+        console.log(e.currentTarget.dataset.id)
+
+        HABITS.doc(e.currentTarget.dataset.id).update({
+            data: {
+                state: "培养中",
+                buqian: 2,
+                buqianDay: [],
+                endTime:"",
+                day:0,
+                startTime: formatTime(new Date()),
+                tempDay:0,
+            },
+            success(res) {
+                console.log("更新成功")
+            },
+            fail(res) {
+                console.log("更新失败")
+            }
+        })
+        wx.switchTab({
+            url: "/pages/habits/showHabits/showHabits",
+            success: function (res) {
+                console.log("载入第一页成功")
+            },
+            fail(res) {
+                console.log("载入第一页失败")
+            }
+        })
     },
 
     /**
@@ -30,6 +66,7 @@ Page({
                 console.log(res.data[0])
             }
         })
+        
     },
 
     /**

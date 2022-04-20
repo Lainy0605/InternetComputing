@@ -30,7 +30,7 @@ Page {
 .medal {
     position: relative;
     width: 244rpx;
-    height: 284rpx;
+    height: 304rpx;
 }
 
 .habitsTitle {
