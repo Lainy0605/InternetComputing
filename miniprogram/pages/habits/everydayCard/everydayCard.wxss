@@ -1,0 +1,82 @@
+/* pages/habits/everydayCard/everydayCard.wxss */
+
+.bg-image{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
+}
+
+.card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 1200rpx;
+  position: relative;
+}
+
+.textImg{
+  justify-content: center;
+  position: absolute;
+  width: 600rpx;
+  height: 600rpx;
+}
+
+.note{
+  justify-content: center;
+  position: relative;
+  height: 400rpx;
+  width: 400rpx;
+  z-index: 2;
+}
+
+.date{
+  position: relative; 
+  left: -70rpx; 
+  top: -60rpx; 
+  width: 300rpx; 
+  height: 70rpx; 
+  display: block; 
+  box-sizing: border-box;
+  color: black;
+  font-size: x-large;
+  font-weight: bolder;
+  text-decoration: underline;
+}
+
+.quotation{
+  height: 100rpx;
+  width: 100rpx;
+  font-size: xx-large;
+  font-weight: bolder;
+  color: #2A5B96;
+}
+
+.text{
+  color: #D74840;
+  font-style: italic;
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.grass{
+  position: relative; 
+  width: 165rpx; 
+  height: 145rpx; 
+  display: block; 
+  box-sizing: border-box
+}
+
+.tip{
+  color: grey;
+  font-size: smaller;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  position: relative; 
+  left: 0rpx; 
+  top: -285rpx
+}

@@ -1,4 +1,12 @@
 <!--pages/my/failureHabits/failureHabits.wxml-->
+<block wx:if="{{nums==0}}">
+    <view class="initial">
+        <text>您当前暂无培养失败的习惯，
+        请继续保持！
+        </text>
+    </view>
+</block>
+<block wx:else>
 <view class="head">您一共放弃了 {{nums}} 个习惯</view>
 <view class="title">
     <text>我们最大的弱点在于放弃,</text>
@@ -7,13 +15,21 @@
 
 <view class="display-area">
     <view class="item" wx:for="{{failureHabits}}" wx:key="item" >
-        <view style="height: 54rpx; text-align: center; width: 480rpx; display: block; margin-top: 10rpx; box-sizing: border-box">
+        <view class="info">
+            <view>
             你坚持 {{item.name}} 持续了 {{item.day}} 天
         </view>
-        <view style="width: 480rpx; text-align: center; height: 54rpx; display: block; box-sizing: border-box; left: 0rpx; top: 10rpx; position: relative">
+        <view>
             已经到达 {{item.stage}} 阶段
+        </view>          
         </view>
-        <button class="restart" style="width: 200rpx; height: 114rpx; display: block; box-sizing: border-box; left: 244rpx; top: -108rpx; position: relative" 
-         bindtap="restart" data-id="{{item._id}}">重新开始</button>
+        <view class="buttons">
+            <view class="restart" bindtap="restart" data-id="{{item._id}}" data-index="{{index}}">重新培养</view>
+            <view class="delete" bindtap="delete" data-id="{{item._id}}">删除记录</view>
+        </view>
+        <!-- <button class="restart" style="width: 200rpx; height: 114rpx; display: block; box-sizing: border-box; left: 244rpx; top: -108rpx; position: relative" 
+         bindtap="restart" data-id="{{item._id}}">重新开始</button> -->
+
     </view>
 </view>
+</block>

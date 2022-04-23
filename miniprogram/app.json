@@ -10,7 +10,8 @@
         "pages/habits/habitDetail/habitDetail",
         "pages/habits/invite/invite",
         "pages/my/successHabits/successHabits",
-        "pages/my/failureHabits/failureHabits"
+        "pages/my/failureHabits/failureHabits",
+        "pages/habits/everydayCard/everydayCard"
     ],
     "window": {
         "backgroundColor": "#CDF46E",
@@ -46,7 +47,5 @@
     },
     "sitemapLocation": "sitemap.json",
     "style": "v2",
-    "useExtendedLib": {
-        "weui": true
-    }
+    "lazyCodeLoading": "requiredComponents"
 }

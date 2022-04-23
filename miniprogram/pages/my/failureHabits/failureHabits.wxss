@@ -6,6 +6,17 @@ Page {
     background-color: #f5f5E9;
 }
 
+.initial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: gray;
+    font-size: small;
+    height: 1200rpx;
+    width: 100%;
+}
+
 .head {
     font-size: large;
     background-color: #eba13e double;
@@ -53,12 +64,31 @@ Page {
     border-style: solid;
     margin-bottom: 5rpx;
     margin-top: 5rpx;
+    display: flex;
+    flex-direction: row;
 }
 
-.restart{
+/* .restart{
     background-color: rgba(255, 0, 0, 0.555);
     color: wheat;
     border-radius: 25%;
     border-style: solid;
     border-width: thin;
+} */
+
+.info{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+/* .lastDay{
+    width: 100%;
+} */
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
 }

@@ -43,6 +43,12 @@ Page({
         })
     },
 
+    toEverydayCard () {
+        wx.navigateTo({
+          url: '../everydayCard/everydayCard'
+        })
+    },
+    
     getHabits(){
         const that = this
         return new Promise(function(resolve,reject){

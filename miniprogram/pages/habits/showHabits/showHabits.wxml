@@ -9,6 +9,10 @@
 
 <block wx:if="{{openId}}">
     <view class="new-habit"> 
+        <button class="everydayCard" bindtap="toEverydayCard">
+            <image src="../../../images/calendar.png" class="card-icon"></image>
+            <view class="cardText">每日卡片</view>
+        </button>
         <image src="../../../images/newHabit.png" class="new-habit-icon" bindtap="tonewHabit"></image> 
     </view>
     <view wx:if="{{habits.length!=0}}">

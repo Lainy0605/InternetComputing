@@ -45,7 +45,4 @@
         <view class="failure">培养失败</view>
         <image class="more" src="../../../images/more.png"></image>
     </view>
-    <view class="item" bindtap="toMyfarm">
-        <view>积分牧场</view>
-    </view>
 </view>
