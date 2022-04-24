@@ -265,7 +265,6 @@ Page({
     setBackRemindTime: function () {
         wx.cloud.database().collection('habits').doc(this.data.habitDetail._id).get()
             .then(result => {
-                console.log(result)
                 if (result.data.remindTime) {
                     this.setData({
                         ["habitDetail.remindTime"]: result.data.remindTime,
@@ -314,7 +313,6 @@ Page({
     //   todo: 设置提醒时间
     bindTimeChange: function (e) {
         //用户自定义设置时间
-        console.log('picker发送选择改变，携带值为', e.detail.value)
         this.setData({
             time: e.detail.value,
             ["habitDetail.remindTime"]: e.detail.value,
@@ -326,9 +324,7 @@ Page({
 
     setRemindTime: function () {
         const that = this
-
         // 点击确定按钮获取input值并且关闭弹窗
-        console.log(that.data.textV)
         if (!that.data.textV) {
             wx.showToast({
                 duration: 500,
@@ -360,7 +356,7 @@ Page({
                 console.log(re.subscriptionsSetting)
                 console.log(re.subscriptionsSetting[TEMPLATE_ID])
                 if (typeof (re.subscriptionsSetting[TEMPLATE_ID]) == 'undefined') {//accept->总是允许，reject->总是拒绝，猜测undefined可以代表啥都没选的
-                    //显示提示勾选总是允许弹窗 zheli
+                    //显示温馨提示弹窗
                     that.setData({
                         showPromptModal: true
                     })
@@ -370,24 +366,6 @@ Page({
                     that.setData({
                         isShowSetModal: true
                     })
-                }
-                else if (re.subscriptionsSetting[TEMPLATE_ID] === 'accept') {
-                    //直接请求授权好多次，嘿嘿。
-                    // var count = 365
-                    // while (count > 0) {
-                    //     wx.requestSubscribeMessage({
-                    //         tmplIds: [TEMPLATE_ID],
-                    //         success(res) {
-                    //             count--
-                    //         },
-                    //         fail(res) {
-                    //             console.log(res.errCode)
-                    //             console.log(res)
-                    //             console.log(count)
-                    //         }
-                    //     })
-                        
-                    // }
                 }
             }
         })
@@ -411,18 +389,8 @@ Page({
                                 icon: 'success',
                                 mask: true,
                                 duration: 2000,
-
-                                // //设置成功就回主页面，方便（事实证明，并不一定。。）
-                                // success() {
-                                //     setTimeout(function () {
-                                //         wx.navigateBack({
-                                //             delta: 1
-                                //         })
-                                //     }, 500)
-                                // }
                             })
                             )
-                        console.log(new Date())
                     } else if (res[TEMPLATE_ID] === 'reject') {
                         //用户点击拒绝
                         that.setBackRemindTime()
@@ -438,10 +406,8 @@ Page({
                         wx.getSetting({
                             withSubscriptions: true,
                             success(re) {
-                                console.log(re.authSetting)
-                                console.log(re.subscriptionsSetting)
                                 if (re.subscriptionsSetting[TEMPLATE_ID] !== 'accept') {
-                                    //显示引导设置弹窗 zheli
+                                    //显示引导设置弹窗
                                     that.setData({
                                         isShowSetModal: true
                                     })
@@ -485,7 +451,6 @@ Page({
                 showCancel: false
             })
         }
-
     },
 
     checkSetting: function () {
@@ -493,8 +458,6 @@ Page({
         wx.getSetting({
             withSubscriptions: true,
             success(re) {
-                console.log(re.authSetting)
-                console.log(re.subscriptionsSetting)
                 if (re.subscriptionsSetting[TEMPLATE_ID] !== 'accept') {
                     //继续显示引导设置弹窗
                     wx.showToast({
