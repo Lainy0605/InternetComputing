@@ -232,10 +232,10 @@ Page({
                         that.setData({
                             postList:res.data,   
                         })
+                        wx.hideLoading({
+                            success: (res) => {},
+                          })
                     }
-                    wx.hideLoading({
-                      success: (res) => {},
-                    })
                     resolve('success')
                 }
             })

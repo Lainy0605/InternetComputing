@@ -12,15 +12,42 @@ page{
     height: 1200rpx;
     width: 100%;
 }
-
+.everydayCard{
+    height:80rpx;
+    width: 140rpx;
+    position: absolute;
+    left: 25rpx;
+    top: 5rpx;
+    bottom: 5rpx;
+    margin: 20prx;
+    display: flex;
+    border-style: dashed;
+    border-color: #F5E952;
+}
+.card-icon{
+    width: 66rpx;
+    height: 66rpx;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+}
+.cardText{
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    margin-left: 20rpx;
+}
 .new-habit{
     text-align: center;
-    vertical-align: right;
-    height: 66rpx;
+    /*vertical-align: right;*/
+    height: 70rpx;
+    position: relative;
 }
 .new-habit-icon{
     width: 66rpx;
     height: 66rpx;
+    position: absolute;
+    right: 20rpx;
 }
 .habit{
     position: relative;

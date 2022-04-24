@@ -1,6 +1,7 @@
 // pages/my/failureHabits/failureHabits.js
 const app=getApp()
 const HABITS = wx.cloud.database().collection('habits')
+const GROUPHABITS = wx.cloud.database().collection('groupHabits')
 import {
     DakaMinusOne, formatTime
   } from "../../../utils/utils"
@@ -16,36 +17,92 @@ Page({
     },
 
     restart(e) {
-        console.log(e.currentTarget.dataset.id)
-
-        HABITS.doc(e.currentTarget.dataset.id).update({
-            data: {
-                state: "培养中",
-                buqian: 2,
-                buqianDay: [],
-                endTime:"",
-                day:0,
-                startTime: formatTime(new Date()),
-                tempDay:0,
+        const that = this
+        var index = e.currentTarget.dataset.index
+        HABITS.doc(e.currentTarget.dataset.id).remove()
+        GROUPHABITS.add({
+            data:{
+                name:that.data.failureHabits[index].name,
             },
-            success(res) {
-                console.log("更新成功")
-            },
-            fail(res) {
-                console.log("更新失败")
-            }
-        })
-        wx.switchTab({
-            url: "/pages/habits/showHabits/showHabits",
-            success: function (res) {
-                console.log("载入第一页成功")
-            },
-            fail(res) {
-                console.log("载入第一页失败")
+            success:function(re)
+            {
+                HABITS.add
+                ({
+                    data:{
+                        name:that.data.failureHabits[index].name,
+                        lastDaka:DakaMinusOne(new Date()),
+                        groupHabitId:re._id,
+                        day:0,
+                        state:"培养中",
+                        stage:"观察期",
+                        nickName:app.globalData.userInfo.nickName,
+                        avatar:app.globalData.userInfo.avatarUrl,
+                        buqian:2,
+                        buqianDay:[],
+                        tempDay:0,
+                        startTime:formatTime(new Date())
+                    },
+                    success(r){
+                        wx.switchTab({
+                            url: "/pages/habits/showHabits/showHabits",
+                            success: function (res) {
+                                console.log("载入第一页成功")
+                            },
+                            fail(res) {
+                                console.log("载入第一页失败")
+                            }
+                        })
+                    }
+                })
             }
         })
     },
+    delete(e){
+        const that = this
+        wx.showModal({
+          cancelColor: 'cancelColor',
+          content:'需要消耗50积分，确定删除吗？',
+          success(res){
+              if(res.confirm){
+                  wx.cloud.database().collection('userInfos').where({
+                      _openid:app.globalData.openId
+                  }).get({
+                      success(re){
+                          console.log(re)
+                          if(re.data[0].credits>=50){
+                              wx.cloud.database().collection('userInfos').where({
+                                  _openid:app.globalData.openId
+                              }).update({
+                                    data:{
+                                        credits:wx.cloud.database().command.inc(-50)
+                                    },
+                                  success(r){
+                                    HABITS.doc(e.currentTarget.dataset.id).remove({
+                                        success(t){
+                                            wx.showToast({
+                                                title: '删除成功！',
+                                                icon:'error'
+                                            })
+                                            that.onLoad()
+                                        }
+                                    }
+                                    )
+                                  }
+                            })
+                          }
+                          else{
+                              wx.showToast({
+                                title: '积分不足！',
+                                icon:'error'
+                              })
+                          }
+                      }
+                  })
+              }
+          }
+        })
 
+    },
     /**
      * 生命周期函数--监听页面加载
      */

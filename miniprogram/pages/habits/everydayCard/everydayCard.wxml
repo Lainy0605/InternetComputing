@@ -1,0 +1,16 @@
+<!--pages/habits/everydayCard/everydayCard.wxml-->
+<!-- <view> -->
+<!--<image class="bg-image" mode="scaleToFill" src="/../../../images/cardBackground.JPG"></image>-->
+<!-- </view> -->
+<view class="card">
+  <image mode="aspectFit" src="../../../images/note.png" class="textImg"></image>
+  <view class="note">
+    <view class="date">{{date}}</view> 
+    <text class="quotation">“</text>
+    <text class="text">我们最大的弱点在于放弃，成功的必由之路就是不断地重来一次。</text>
+    <text class="quotation">”</text>
+  </view>
+</view>
+<view class="tip">-继续今天的习惯养成之旅吧-</view>
+<image mode="aspectFit" src="../../../images/grass.png" class="grass" style="left: 90rpx; top: -500rpx; "></image>
+<image mode="aspectFit" src="../../../images/grass2.png" class="grass" style="left: 230rpx; top: -645rpx; "></image>

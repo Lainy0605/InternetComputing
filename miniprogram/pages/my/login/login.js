@@ -90,6 +90,7 @@ Page({
     toSuccessHabits() {
         wx.navigateTo({
             url: '../successHabits/successHabits',
+            success: function (res) {}
         })
     },
 
@@ -99,6 +100,7 @@ Page({
             success: function (res) {}
         })
     },
+
     /**
      * 生命周期函数--监听页面加载
      */

@@ -6,6 +6,17 @@ Page {
     background-color: white;
 }
 
+.initial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: gray;
+    font-size: small;
+    height: 1200rpx;
+    width: 100%;
+}
+
 .head {
     font-size: large;
     background-color: #eba13e double;
@@ -46,7 +57,7 @@ Page {
 
 .time {
     position: absolute;
-    top: 200rpx;
+    top: 200rpx; 
     left: 30rpx;
     font-size: xx-small;
 }
