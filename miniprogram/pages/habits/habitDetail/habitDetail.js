@@ -355,7 +355,7 @@ Page({
                 console.log(re.authSetting)
                 console.log(re.subscriptionsSetting)
                 console.log(re.subscriptionsSetting[TEMPLATE_ID])
-                if (typeof (re.subscriptionsSetting[TEMPLATE_ID]) == 'undefined') {//accept->总是允许，reject->总是拒绝，猜测undefined可以代表啥都没选的
+                if (typeof (re.subscriptionsSetting[TEMPLATE_ID]) == 'undefined' || re.subscriptionsSetting[TEMPLATE_ID] === 'accept') {//accept->总是允许，reject->总是拒绝，猜测undefined可以代表啥都没选的
                     //显示温馨提示弹窗
                     that.setData({
                         showPromptModal: true
@@ -485,7 +485,7 @@ Page({
         const that = this
         wx.showModal({
             title: "提示",
-            content: "您要取消设置此提醒时间吗",
+            content: "您要取消设置此提醒时间吗？",
             cancelColor: '#EBA13E',
             confirmColor: '#fc5959',
             success(res) {
