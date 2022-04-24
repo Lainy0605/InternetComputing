@@ -260,9 +260,38 @@ Page({
     },
 
     /**
-     * 点击返回按钮隐藏
+     * 用于在中断或失败的情形下将页面上的提醒时间设回修改前
+     */
+    setBackRemindTime: function () {
+        wx.cloud.database().collection('habits').doc(this.data.habitDetail._id).get()
+            .then(result => {
+                console.log(result)
+                if (result.data.remindTime) {
+                    this.setData({
+                        ["habitDetail.remindTime"]: result.data.remindTime,
+                        remindTime: result.data.remindTime,
+                    })
+                }
+                else {
+                    this.setData({
+                        ["habitDetail.remindTime"]: "",
+                        remindTime: "",
+                    })
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    },
+    // 用于阻止授权请求弹窗出来得比我的温馨提示还快，事实证明，完全没用。
+    blockPopUpWindow() {
+        while (showPromptModal) { }
+    },
+    /**
+     * 点击返回按钮隐藏，并将提醒时间设回修改前
      */
     back: function () {
+        this.setBackRemindTime()
         this.setData({
             showModal: false
         })
@@ -276,28 +305,31 @@ Page({
         })
     },
 
+    closePromptModal: function () {
+        this.setData({
+            showPromptModal: false
+        })
+    },
+
     //   todo: 设置提醒时间
     bindTimeChange: function (e) {
         //用户自定义设置时间
         console.log('picker发送选择改变，携带值为', e.detail.value)
         this.setData({
             time: e.detail.value,
+            ["habitDetail.remindTime"]: e.detail.value,
             remindTime: e.detail.value,
             //显示弹窗
             showModal: true
         })
     },
-    // 模板ID: n-qNHtl2sbZxWQStuj19B2ZhFLFWDFhyftyjqzmPHyM
-    // 计划名称 {{thing1.DATA}}
-    // 上次打卡时间 {{time4.DATA}}
-    // 备注 {{thing3.DATA}}
-    // 完成进度 {{thing2.DATA}}
+
     setRemindTime: function () {
         const that = this
 
         // 点击确定按钮获取input值并且关闭弹窗
         console.log(that.data.textV)
-        if(!that.data.textV){
+        if (!that.data.textV) {
             wx.showToast({
                 duration: 500,
                 title: '输入不能为空!',
@@ -316,18 +348,56 @@ Page({
             return
         }
         that.setData({
-            showModal: false
+            showModal: false,
         })
 
         //授权请求
         const TEMPLATE_ID = 'n-qNHtl2sbZxWQStuj19B2ZhFLFWDFhyftyjqzmPHyM' //模板ID
+        wx.getSetting({
+            withSubscriptions: true,
+            success(re) {
+                console.log(re.authSetting)
+                console.log(re.subscriptionsSetting)
+                console.log(re.subscriptionsSetting[TEMPLATE_ID])
+                if (typeof (re.subscriptionsSetting[TEMPLATE_ID]) == 'undefined') {//accept->总是允许，reject->总是拒绝，猜测undefined可以代表啥都没选的
+                    //显示提示勾选总是允许弹窗 zheli
+                    that.setData({
+                        showPromptModal: true
+                    })
+                    that.blockPopUpWindow()//懒得思考，出此下策。
+                }
+                else if (re.subscriptionsSetting[TEMPLATE_ID] === 'reject') {
+                    that.setData({
+                        isShowSetModal: true
+                    })
+                }
+                else if (re.subscriptionsSetting[TEMPLATE_ID] === 'accept') {
+                    //直接请求授权好多次，嘿嘿。
+                    // var count = 365
+                    // while (count > 0) {
+                    //     wx.requestSubscribeMessage({
+                    //         tmplIds: [TEMPLATE_ID],
+                    //         success(res) {
+                    //             count--
+                    //         },
+                    //         fail(res) {
+                    //             console.log(res.errCode)
+                    //             console.log(res)
+                    //             console.log(count)
+                    //         }
+                    //     })
+                        
+                    // }
+                }
+            }
+        })
+
         if (wx.requestSubscribeMessage) {
             wx.requestSubscribeMessage({
                 tmplIds: [TEMPLATE_ID],
                 success(res) {
                     if (res[TEMPLATE_ID] === 'accept') {
                         //用户点击同意
-                        
                         //写进数据库
                         var temp = that.data.habitDetail
                         wx.cloud.database().collection('habits').doc(temp._id).update({
@@ -336,15 +406,6 @@ Page({
                                 remindTime: that.data.remindTime
                             }
                         })
-                        wx.cloud.database().collection('habits').doc(temp._id).get()
-                        .then(result=>{
-                            console.log(result)
-                        })
-                        .catch(error=>{
-                            console.log(error)
-                        })
-
-                        
                             .then(() => wx.showToast({
                                 title: '提醒设置成功！',
                                 icon: 'success',
@@ -361,14 +422,34 @@ Page({
                                 // }
                             })
                             )
+                        console.log(new Date())
                     } else if (res[TEMPLATE_ID] === 'reject') {
                         //用户点击拒绝
+                        that.setBackRemindTime()
+                        that.setData({
+                            showPromptModal: false
+                        })
                         wx.showToast({
                             title: '获取权限失败！',
                             icon: 'error',
                             mask: true,
                         })
+                        //这个地方，有可能，因为前面写了那个用户授权判断的if-else，变成冗余了也说不定。
+                        wx.getSetting({
+                            withSubscriptions: true,
+                            success(re) {
+                                console.log(re.authSetting)
+                                console.log(re.subscriptionsSetting)
+                                if (re.subscriptionsSetting[TEMPLATE_ID] !== 'accept') {
+                                    //显示引导设置弹窗 zheli
+                                    that.setData({
+                                        isShowSetModal: true
+                                    })
+                                }
+                            }
+                        })
                     } else {
+                        that.setBackRemindTime()
                         wx.showToast({
                             title: '啊哦，授权订阅消息失败',
                             icon: 'none',
@@ -378,11 +459,12 @@ Page({
                 },
                 fail(res) {
                     console.log(res.errCode)
+                    that.setBackRemindTime()
                     //20004:用户关闭了主开关，无法进行订阅,引导开启
                     if (res.errCode == 20004) {
                         //显示引导设置弹窗
                         that.setData({
-                            isShowSetModel: true
+                            isShowSetModal: true
                         })
                     } else {
                         //其他错误信息码
@@ -395,6 +477,7 @@ Page({
                 }
             });
         } else {
+            that.setBackRemindTime()
             wx.showModal({
                 //基础库2.4.4后才支持订阅模板消息
                 title: '提示',
@@ -403,51 +486,68 @@ Page({
             })
         }
 
-        // wx.getUserProfile({
-        //     desc: '获取信息',
-        //     success(res) {
-        //         wx.cloud.callFunction({
-        //             name: "getOpenId",
-        //             success(re) {
-        //                 //1.login
-        //                 // app.globalData.openId = re.result.openid,
-        //                 //     app.globalData.userInfo = res.userInfo
-        //                 // that.setData({
-        //                 //     openId: re.result.openid,
-        //                 //     userInfo: res.userInfo,
-        //                 // })
-        //                 // that.onShow()
-        //                 // wx.setStorageSync('openId', that.data.openId)
-        //                 // wx.setStorageSync('userInfo', that.data.userInfo)
+    },
 
-        //                 //2.invite
-        //                 // wx.cloud.callFunction({
-        //                 //     name:"getIngHabits",
-        //                 //     success(r){
-        //                 //       that.setData({
-        //                 //         habits: r.result.data,
-        //                 //         hasLoginIn: true,
-        //                 //         openId: re.result.openid,
-        //                 //         userInfo: res.userInfo
-        //                 //       })
-        //                 //       app.globalData.openId = re.result.openid
-        //                 //       app.globalData.userInfo = res.userInfo 
-        //                 //       wx.setStorageSync('openId', re.result.openid)
-        //                 //       wx.setStorageSync('userInfo', res.userInfo)                          
-        //                 //     }
-        //                 //   })
+    checkSetting: function () {
+        const TEMPLATE_ID = 'n-qNHtl2sbZxWQStuj19B2ZhFLFWDFhyftyjqzmPHyM' //模板ID
+        wx.getSetting({
+            withSubscriptions: true,
+            success(re) {
+                console.log(re.authSetting)
+                console.log(re.subscriptionsSetting)
+                if (re.subscriptionsSetting[TEMPLATE_ID] !== 'accept') {
+                    //继续显示引导设置弹窗
+                    wx.showToast({
+                        title: '后台检测到您依然处于拒收状态，请再检查一下设置~',
+                        icon: "none",
+                        mask: true
+                    })
+                }
+                else {
+                    this.setData({
+                        isShowSetModal: false
+                    })
+                }
+            }
+        })
+    },
 
-        //                 wx.cloud.callFunction({
-        //                     name: "updateInfo",
-        //                     data: {
-        //                         avatarUrl: that.data.userInfo.avatarUrl,
-        //                         nickName: that.data.userInfo.nickName
-        //                     },
-        //                 })
-        //             }
-        //         })
-        //     }
-        // })
+    closeSetModal: function () {
+        this.setData({
+            isShowSetModal: false
+        })
+    },
+
+    deleteRemindTime: function () {
+        const that = this
+        wx.showModal({
+            title: "提示",
+            content: "您要取消设置此提醒时间吗",
+            cancelColor: '#EBA13E',
+            confirmColor: '#fc5959',
+            success(res) {
+                if (res.confirm) {
+                    var temp = that.data.habitDetail
+                    wx.cloud.database().collection('habits').doc(temp._id).update({
+                        data: {
+                            note: "",
+                            remindTime: ""
+                        }
+                    })
+                    that.setData({
+                        remindTime: "",
+                        ["habitDetail.remindTime"]: "",
+                        time: "00:00"
+                    })
+                    wx.showToast({
+                        title: '取消设置成功~',
+                    })
+                }
+            }
+        })
+    },
+
+    preventTouchMove: function () {
 
     },
 
