@@ -102,8 +102,8 @@
         <view class="jumpSetBox">
             <view class="m-title" style="color: darkorange;">温馨提示</view>
             <view class="m-content" style="color: darkorange;">由于小程序订阅消息机制限制，一次授权只能发送一次消息通知，所以您很有可能只能收到一次打卡提醒，下一次需要重新设置哦~（鞠躬）</view>
-            <view class="m-control" style="border: darkorange;">
-                <button class="m-confirm" catchtap="closePromptModal" style="width: 100%;background-color: darkorange;">好的</button>
+            <view class="m-control" style="border: darkorange; background-color: darkorange;border-bottom-left-radius: 30rpx;border-bottom-right-radius: 30rpx;">
+                <button class="m-confirm" catchtap="closePromptModal" style="width: 100%;background-color: darkorange; border-bottom-left-radius: 30rpx;border-bottom-right-radius: 30rpx;">好的</button>
             </view>
         </view>
     </view>
