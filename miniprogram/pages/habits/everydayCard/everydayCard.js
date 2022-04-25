@@ -8,16 +8,37 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    numOfDaka:0,
+    openID:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     var date = util.formatDate(new Date());
     this.setData({
       date: date
+    })
+    var month = Number.parseInt(date[5] + date[6]);
+    var day = Number.parseInt(date[8] + date[9]);
+    var dateNum = month*100 + day;
+    wx.cloud.database().collection('habits').where({
+      _openid:options.openid,
+      state:'培养中'
+    })
+    .get({
+      success(res){
+        for(var i=0;i<res.data.length;i++){
+          if(res.data[i].lastDaka==dateNum){
+            that.data.numOfDaka++;
+            that.setData({
+              numOfDaka:that.data.numOfDaka
+            })
+          }
+        }
+      }
     })
   },
 

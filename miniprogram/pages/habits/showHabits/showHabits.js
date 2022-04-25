@@ -106,7 +106,7 @@ Page({
         }
         else{
             wx.showToast({
-              title: '未登录!',
+              title: '请先登录',
               icon:'none',
               mask:true
             })

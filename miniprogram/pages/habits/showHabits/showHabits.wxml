@@ -30,7 +30,7 @@
     <view wx:else>
         <view class="initial">
             <text>您没有正在培养的习惯，
-            点击顶部图标,
+            点击加号图标,
             创建您的第一个习惯吧!
             </text>
         </view>

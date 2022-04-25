@@ -80,3 +80,7 @@
   left: 0rpx; 
   top: -285rpx
 }
+.habitCount{
+  color: #2A5B96;
+  font-weight: bolder;
+}

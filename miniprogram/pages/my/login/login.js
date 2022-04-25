@@ -88,17 +88,34 @@ Page({
     },
 
     toSuccessHabits() {
-        wx.navigateTo({
-            url: '../successHabits/successHabits',
-            success: function (res) {}
-        })
+        if(app.globalData.openId){
+            wx.navigateTo({
+                url: '../successHabits/successHabits',
+                success: function (res) {}
+            })
+        }
+        else{
+            wx.showToast({
+              title: '请先登录',
+              icon:"none"
+            })
+        }
+
     },
 
     toFailureHabits() {
-        wx.navigateTo({
-            url: '../failureHabits/failureHabits',
-            success: function (res) {}
-        })
+        if(app.globalData.openId){
+            wx.navigateTo({
+                url: '../failureHabits/failureHabits',
+                success: function (res) {}
+            })
+        }
+        else{
+            wx.showToast({
+                title: '请先登录',
+                icon:"none"
+              })          
+        }
     },
 
     /**

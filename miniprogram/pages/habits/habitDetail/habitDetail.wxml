@@ -1,5 +1,4 @@
 <!--pages/habits/habitDetail/habitDetail.wxml-->
-<!-- <view>{{habitDetail.name}}</view> -->
 
 <view class="setHabitName">
     <view class="HabitInfoText">

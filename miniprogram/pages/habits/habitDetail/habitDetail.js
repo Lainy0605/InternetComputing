@@ -104,81 +104,6 @@ Page({
           url: '../../posts/showPosts/showPosts',
         })
     }
-  
-
-    // const that = this
-    // wx.showModal({
-    //     title:"提示",
-    //     content:"确定打卡？",
-    //     cancelColor: '#CDF46E',
-    //     confirmColor:'#fc5959',
-    //     success(res){
-    //         if(res.confirm){
-    //             var temp2
-    //             var creditPlus
-    //             var temp = that.data.habitDetail
-    //             var tempStage = that.data.habitDetail.stage
-    //             var tempDay = that.data.habitDetail.day+1
-    //             var dates = Daka(new Date());
-    //             if(tempDay>=0 && tempDay<=3){temp2="观察期"}
-    //             else if(tempDay>=4 && tempDay<=7){temp2="起步期"}
-    //             else if(tempDay>=8 && tempDay<=21){temp2="养成期"}
-    //             else if(tempDay>=22 && tempDay<=90){temp2="稳定期"}
-    //             if(tempStage=="观察期"){creditPlus=1}
-    //             else if(tempStage=="起步期"){creditPlus=3}
-    //             else if(tempStage=="养成期"){creditPlus=5}
-    //             else if(tempStage=="稳定期"){creditPlus=8}
-    //             wx.cloud.database().collection('userInfos').where({
-    //                 _openid:app.globalData.openId
-    //             }).update({
-    //               data:{
-    //                 credits:wx.cloud.database().command.inc(creditPlus)
-    //               }
-    //             })
-    //             wx.cloud.database().collection('habits').doc(temp._id).update({
-    //               data:{
-    //                   lastDaka:dates,
-    //                   day:tempDay,
-    //                   stage:temp2
-    //               },
-    //               success(re){
-    //                 that.setData({
-    //                   ["habitDetail.lastDaka"]:dates,
-    //                   ["habitDetail.day"] : tempDay,
-    //                   ["habitDetail.stage"] : temp2,
-    //                   ["memberHabitDetail[0].day"]:tempDay,
-    //                   ["memberHabitDetail[0].credits"]:that.data.memberHabitDetail[0].credits+creditPlus,
-    //                   canDaka:false
-    //                 })
-    //                 wx.showToast({
-    //                   title: '打卡成功！',
-    //                   mask:true
-    //                 })
-    //                 if(tempDay==90){
-    //                   wx.showToast({
-    //                     title: '习惯培养成功！积分+100',
-    //                     mask:true
-    //                   })
-    //                   wx.cloud.database().collection('habits').doc(temp._id).update({
-    //                     data:{
-    //                         state:"培养成功",
-    //                         endTime:formatTime(new Date())
-    //                     },
-    //                   })
-    //                   wx.cloud.database.collection('userInfos').where({
-    //                     _openid:that.data.openId
-    //                   }).update({
-    //                     data:{
-    //                       credits:wx.cloud.database().command.inc(100),
-    //                       successNumber:wx.cloud.database().command.inc(1)
-    //                     }
-    //                   })
-    //                 }
-    //               }
-    //             })
-    //         }
-    //     }
-    // })
   },
 
   deleteUpdateDatabase(){
@@ -200,11 +125,31 @@ Page({
     })
     wx.cloud.database().collection('userInfos').where({
       _openid:that.data.openId
-    }).update({
-      data:{
-        credits:wx.cloud.database().command.inc(-creditsMinus)
-      },
-    }) 
+    }).get({
+      success(res){
+        console.log(res)
+        if(res.data[0].credits>=creditsMinus){
+          console.log(11)
+          wx.cloud.database().collection('userInfos').where({
+            _openid:that.data.openId
+          }).update({
+            data:{
+              credits:wx.cloud.database().command.inc(-creditsMinus)
+            },
+          })
+        }
+        else{
+          console.log(22)
+          wx.cloud.database().collection('userInfos').where({
+            _openid:that.data.openId
+          }).update({
+            data:{
+              credits:0
+            },
+          })
+        }
+      }
+    })
     wx.cloud.database().collection('groupHabits').doc(temp.groupHabitId).get({
       success(res){
         if(res.data._openid==that.data.openId){
@@ -429,9 +374,18 @@ Page({
    */
   onShareAppMessage: function () {
     var that = this;
-    return{
+    if(that.data.memberNum>19){
+        wx.showToast({
+          title: '培养人数达上限',
+          icon: 'error',
+          mask:true
+          })
+    }
+    else{
+      return{
         title:'快来一起养成好习惯吧！',//todo
         path:'/pages/habits/invite/invite?groupHabitId='+that.data.habitDetail.groupHabitId,
+    }
     }
   }
 })
