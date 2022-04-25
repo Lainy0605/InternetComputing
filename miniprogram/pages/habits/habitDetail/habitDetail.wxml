@@ -10,7 +10,7 @@
 
     <view wx:if="{{!canDaka}}" class="yidaka" bindtap="daka">
         逛逛好友的打卡动态吧~
-        <image  src="../../../images/clickToNewPost.png" class="littleIcon" ></image>
+        <image src="../../../images/clickToNewPost.png" class="littleIcon"></image>
     </view>
     <view wx:else class="daka" bindtap="daka">
         <image src="../../../images/clickToDaka.png" class="littleIcon"></image>
@@ -20,7 +20,7 @@
     <view class="buqianText">本月剩余补签次数：{{habitDetail.buqian}}</view>
     <view bindtap="buqian" wx:if="{{skipOne && habitDetail.buqian!=0}}" class="dianjibuqianText">昨日未打卡哦，点击补签~</view>
     <view bindtap="buqian" wx:if="{{skipTwo && habitDetail.buqian!=0}}" class="dianjibuqianText">连续两日未打卡哦，点击补签~</view>
-    
+
     <view wx:if='{{memberNum!=0}}'>
         <view class="textBeforeInvite">
             <text>您正在与{{memberNum}}个好友一起培养该习惯，加油哦~</text>
@@ -68,11 +68,67 @@
     </view>
 
     <br></br>
-    <view bindtap="setRemindTime" class="setRemindTime">
-        <image src="../../../images/clock.png" class="littleIcon"></image>
-        <text>设置提醒时间</text>
+
+    <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange" class="setRemindTime">
+        <view class="setRemindTime" style="margin: 0;">
+            <image src="../../../images/clock.png" class="littleIcon" mode="scaleToFill">
+            </image>
+            <text>设置提醒时间</text>
+        </view>
+    </picker>
+
+    <!-- 弹窗，获取用户自定义输入的备注-->
+    <view wx:if='{{showModal}}' class="modalDlg" catchtouchmove='preventTouchMove'>
+        <view class='windowRow'>
+            <text class='userTitle'>想看到什么备注？
+            </text>
+            <view class='back' bindtap='back'>
+                返回
+            </view>
+        </view>
+
+        <view class='wishName'>
+            <input bindinput='wish_put' placeholder='请输入内容（20个字符内）' placeholder-style="color: rgba(60, 179, 114, 0.5);" class='wish_put'></input>
+        </view>
+        <view class='tips'>写一句鼓励自己的话吧~</view>
+        <view class='wishbnt'>
+            <button class='wishbnt_bt' bindtap='setRemindTime'>确定</button>
+        </view>
     </view>
+
+    <!-- 弹窗，提示用户勾选总是允许 -->
+    <view wx:if='{{showPromptModal}}' class="jumpSetModal" style="background-color: lemonchiffon; border-color: darkorange; border-width: 2rpx;border-radius: 30rpx;" catchtouchmove='preventTouchMove'>
+        <view class="jumpSetBox">
+            <view class="m-title" style="color: darkorange;">温馨提示</view>
+            <view class="m-content" style="color: darkorange;">由于小程序订阅消息机制限制，一次授权只能发送一次消息通知，所以您很有可能只能收到一次打卡提醒，下一次需要重新设置哦~（鞠躬）</view>
+            <view class="m-control" style="border: darkorange; background-color: darkorange;border-bottom-left-radius: 30rpx;border-bottom-right-radius: 30rpx;">
+                <button class="m-confirm" catchtap="closePromptModal" style="width: 100%;background-color: darkorange; border-bottom-left-radius: 30rpx;border-bottom-right-radius: 30rpx;">好的</button>
+            </view>
+        </view>
+    </view>
+    <!-- todo: 如果不能点击一次一直授权，考虑设置小问号告知用户需重复授权 -->
+    <view wx:if='{{habitDetail.remindTime}}' class='remindTime'>
+        当前已设置提醒时间：{{habitDetail.remindTime}}
+        <image src="../../../images/deleteRemindTime.png" class="littleIcon" style="width: 36rpx; height: 36rpx; display: block; box-sizing: border-box" bindtap="deleteRemindTime"></image>
+    </view>
+
     <view bindtap="delete" class="delete">
         放弃
     </view>
 </view>
+
+<!-- 自定义模态框 -- 引导跳授权设置页面 -->
+<view class="jumpSetModal" wx:if="{{isShowSetModal}}">
+    <view class="jumpSetBox">
+        <view class="m-title">提示</view>
+        <view class="m-content">检测到您未开启打卡提醒订阅消息通知权限，只有开启才能正常使用该功能，是否去设置？</view>
+        <view class="m-control">
+            <button class="m-cancel" catchtap="closeSetModal" style="width: 33%;">不了</button>
+            <button class="m-check" catchtap="checkSetting" style="width: 34%;">设置好了</button>
+            <button class="m-confirm" open-type="openSetting" bindopensetting="openSetCallback" style="width: 33%;">去设置</button>
+        </view>
+    </view>
+</view>
+
+<!-- 蒙层 -->
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal || isShowSetModal || showPromptModal}}"></view>

@@ -1,59 +1,66 @@
 /* pages/habits/habitDetail/habitDetail.wxss */
-page{
+page {
     background-color: white;
 }
-.setHabitName{
-  font: bolder;
-  padding: 30rpx 30rpx 30rpx 30rpx;
-  margin: 40rpx 40rpx 40rpx 40rpx;
-  background: #e8f7b942;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  border-style: dotted;
-  border-width: medium;
-  border-color: #A4C257;
-  box-shadow: 0 2px 5px rgb(214, 240, 236);
+
+.setHabitName {
+    font: bolder;
+    padding: 30rpx 30rpx 30rpx 30rpx;
+    margin: 40rpx 40rpx 40rpx 40rpx;
+    background: #e8f7b942;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-style: dotted;
+    border-width: medium;
+    border-color: #A4C257;
+    box-shadow: 0 2px 5px rgb(214, 240, 236);
 }
-.setHabitName days{
-  color: blueviolet;
-  margin: 0 7rpx 0 7rpx;
-  font-weight: 900;
+
+.setHabitName days {
+    color: blueviolet;
+    margin: 0 7rpx 0 7rpx;
+    font-weight: 900;
 }
-.HabitInfoText{
+
+.HabitInfoText {
     margin: 10rpx 20rpx 10rpx 20rpx;
     font-weight: 900rpx;
     font-size: medium;
 }
-.littleIcon{
+
+.littleIcon {
     width: 42rpx;
     height: 42rpx;
 }
-.wrap{
-  position: relative;
-  z-index: 0; 
-  top: 0rpx;
-  left: 0;
-  background-color: #fff;
-  width: 100%;
-  height: 100%;
+
+.wrap {
+    position: relative;
+    z-index: 0;
+    top: 0rpx;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
 }
-.daka{
+
+.daka {
     white-space: nowrap;
     display: flex;
     position: relative;
     padding: 20rpx;
     font-size: large;
-    color:white;
+    color: white;
     height: 30rpx;
     width: 130rpx;
     font-weight: 900;
     justify-content: center;
     align-items: center;
-    background-color:#46C244;
+    background-color: #46C244;
     border-radius: 20rpx;
     margin: 20rpx 20rpx 17rpx 20rpx;
 }
-.yidaka{
+
+.yidaka {
     white-space: nowrap;
     display: flex;
     position: relative;
@@ -63,7 +70,7 @@ page{
     border-radius: 20rpx;
     border-color: #A4C257;
     font-size: large;
-    color:#A4C257;
+    color: #A4C257;
     height: 30rpx;
     width: 510rpx;
     font-weight: 900;
@@ -71,14 +78,16 @@ page{
     align-items: center;
     margin: 20rpx 20rpx 15rpx 20rpx;
 }
-.buqianText{
+
+.buqianText {
     margin: 0 0 5rpx 20rpx;
     font-size: small;
     font-weight: 500;
     /* color: #ACCC5C; 对比度低，便是不好么*/
-    color:seagreen;
+    color: seagreen;
 }
-.dianjibuqianText{
+
+.dianjibuqianText {
     margin: 0 0 5rpx 20rpx;
     font-size: small;
     font-weight: bold;
@@ -91,12 +100,14 @@ page{
     white-space: nowrap;
     width: 320rpx;
 }
-.textBeforeInvite{
+
+.textBeforeInvite {
     margin: 10rpx 0 20rpx 20rpx;
     font-size: small;
     color: #46616e;
 }
-.member-area{
+
+.member-area {
     display: flex;
     flex-direction: row;
     background-color: #87e8f548;
@@ -107,25 +118,29 @@ page{
     padding: 20rpx 20rpx;
     margin: 0rpx 20rpx;
 }
-.member-icon{
+
+.member-icon {
     width: 33rpx;
     height: 33rpx;
     margin-right: 15rpx;
     margin-top: 23rpx;
 }
-.member{
+
+.member {
     display: flex;
     flex-direction: row;
     margin-bottom: 10rpx;
 }
-.member-avator{
+
+.member-avator {
     width: 80rpx;
     height: 80rpx;
     border-radius: 100%;
     margin-right: 20rpx;
     margin-top: 5rpx;
 }
-.state-day-points{
+
+.state-day-points {
     color: darkgreen;
     /* color: #2D3618; */
     font-size: 25rpx;
@@ -133,22 +148,27 @@ page{
     flex-direction: row;
     justify-content: space-between;
     width: 360rpx;
-    flex:1;
+    flex: 1;
 }
-.member-nickname{
+
+.member-nickname {
     color: darkslateblue;
     /* color: #586894; */
 }
-.member-status{
+
+.member-status {
     width: 110rpx;
 }
-.member-day{
+
+.member-day {
     width: 110rpx;
 }
-.member-credit{
+
+.member-credit {
     width: 140rpx;
 }
-.invite-view{
+
+.invite-view {
     height: 60rpx;
     display: block;
     justify-content: left;
@@ -156,33 +176,211 @@ page{
     align-content: flex-start;
     margin: 25rpx 20rpx 30rpx 20rpx;
 }
-.invite{
+
+.invite {
     white-space: nowrap;
     float: left;
-    color:white;
+    color: white;
     display: flex;
     font-weight: 900;
     justify-content: center;
-    background-color:#9987F5;
+    background-color: #9987F5;
     border-radius: 60rpx;
 }
-.setRemindTime{
+
+.setRemindTime {
     white-space: nowrap;
-    color:white;
+    color: white;
     display: flex;
     width: 280rpx;
     font-weight: 800;
     justify-content: center;
     align-items: center;
-    background-color:#eba13e;
+    background-color: #eba13e;
     border-radius: 20rpx;
-    padding: 10rpx 5rpx 10rpx 0rpx;
+    padding: 8rpx 5rpx 8rpx 0rpx;
     margin: 20rpx 20rpx 20rpx 20rpx;
 }
-.delete{
-    color:cornflowerblue;
+
+.delete {
+    color: cornflowerblue;
     display: flex;
     font-weight: 800;
     justify-content: center;
     align-items: center;
+}
+
+.remindTime {
+    margin: 0 10rpx 15rpx 20rpx;
+    display: flex;
+    font-size: small;
+    color: #eba13e;
+    padding: 1rpx 0rpx 0 0rpx;
+    white-space: nowrap;
+}
+
+.modalDlg {
+    width: 70%;
+    position: fixed;
+    top: 404rpx;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin: 0 auto;
+    background-color: rgb(228, 243, 252);
+    border-radius: 50rpx;
+    border-style: solid;
+    border-width: 2rpx;
+    border-color: darkgreen;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2rpx 5rpx lightblue;
+}
+
+.windowRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 110rpx;
+    width: 100%;
+}
+
+.back {
+    text-align: center;
+    font-weight: bold;
+    color: lightseagreen;
+    text-decoration: underline;
+    margin: 30rpx;
+}
+
+.userTitle {
+    color: darkgreen;
+    font-weight: bold;
+    margin: 30rpx;
+}
+
+.wishName {
+    width: 100%;
+    justify-content: center;
+    flex-direction: row;
+    display: flex;
+    height: 80rpx;
+    align-items: center;
+}
+
+.wish_put {
+    width: 80%;
+    height: 90%;
+    border: 2rpx solid;
+    border-radius: 10rpx;
+    padding-left: 10rpx;
+    /* color: mediumseagreen; */
+    color: rgb(38, 148, 87);
+    background-color: rgb(250, 250, 250);
+}
+
+.wishbnt {
+    width: 100%;
+    font-size: 30rpx;
+    margin-bottom: 30rpx;
+}
+
+.tips{
+    font-size: small;
+    color: slategray;
+    margin: 1%;
+    display: flex;
+    margin-right: 30%;
+}
+
+.wishbnt_bt {
+    width: 50%;
+    margin: 3%;
+    background-color: rgb(26, 104, 60);
+    color: #fbf1e8;
+    font-size: 30rpx;
+    border: 0;
+}
+.jumpSetModal{
+    width: 70%;
+    position: fixed;
+    top: 404rpx;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin: 0 auto;
+    background-color: rgb(252, 250, 228);
+    border-radius: 10rpx;
+    border-style: solid;
+    border-width: 2rpx;
+    border-color: darkorange;
+    border-width: 4rpx;
+    border-color: tomato;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1rpx 2rpx lightyellow;
+}
+.jumpSetBox{
+    align-items: center;
+    justify-content: center;
+}
+.m-title{
+    display: flex;
+    font-size:larger;
+    font-weight: bold;
+    color: darkorange;
+    color: tomato;
+    justify-content: center;
+    margin-top: 4%;
+}
+.m-content{
+    color: darkred;
+    display:flex;
+    justify-content: center;
+    margin: 3% 8% 8% 8%;
+    word-wrap: break-word;
+    letter-spacing: normal;
+    line-height: 150%;
+}
+.m-control{
+    display: flex;
+    border-top: 1rpx darkorange solid;
+    border-top: 4rpx tomato solid;
+}
+.m-cancel{
+    white-space: nowrap;
+    border-radius: 0;
+    background-color: white;
+    /* color: darkorange; */
+    color:tomato;
+}    
+.m-check{
+    padding-left:2%;
+    padding-right: 2%;
+    white-space: nowrap;
+    border-radius: 0;
+    /* background-color: rgba(255, 99, 71, 0.5); */
+    background-color: lightsalmon;
+    /* color:darkorange; */
+    color:rgb(255, 81, 0);
+}
+.m-confirm{
+    padding-left:2%;
+    padding-right: 2%;
+    white-space: nowrap;
+    border-radius: 0;
+    /* background-color: darkorange; */
+    background-color: tomato;
+    color:white;
+}
+.mask{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    z-index: 9000;
+    opacity: 0.25;
 }
