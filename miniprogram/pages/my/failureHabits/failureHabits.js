@@ -108,22 +108,16 @@ Page({
      */
     onLoad: function (options) {
         const that = this
-        //todo
-        wx.cloud.database().collection('habits').where({
-            _openid:app.globalData.openId,
-            state:"培养失败"
-        }).get({
+        wx.cloud.callFunction({
+            name:"getFailureHabits",
             success(res){
+                console.log(res)
                 that.setData({
-                    failureHabits:res.data,
+                    failureHabits:res.result.data,
+                    nums:res.result.data.length
                 })
-                that.setData({
-                    nums: that.data.failureHabits.length,
-                })
-                console.log(res.data[0])
             }
         })
-        
     },
 
     /**

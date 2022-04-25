@@ -27,22 +27,17 @@ Page({
      */
     onLoad: function (options) {
         const that = this
-        //todo
-        wx.cloud.database().collection('habits').where({
-            _openid:app.globalData.openId,
-            state:"培养成功"
-        }).get({
+        wx.cloud.callFunction({
+            name:"getSuccessHabits",
             success(res){
-                for(var item of res.data){
+                console.log(res)
+                for(var item of res.result.data){
                     item.endTime = that.getItemTime(item.endTime)
                 }
                 that.setData({
-                    successHabits: res.data,  
-                    nums: res.data.length
+                    successHabits:res.result.data,
+                    nums:res.result.data.length
                 })
-            },
-            fail (res) {
-                console.log("获取培养失败的习惯失败")
             }
         })
     },

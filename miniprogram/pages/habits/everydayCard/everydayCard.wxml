@@ -13,5 +13,5 @@
 </view>
 <view class="tip">-今日已打卡<text class="habitCount"> {{numOfDaka}} </text>个习惯-</view>
 <view class="tip">-继续今天的习惯养成之旅吧-</view>
-<image mode="aspectFit" src="../../../images/grass.png" class="grass" style="left: 85rpx; top: -540rpx; position: relative"></image>
-<image mode="aspectFit" src="../../../images/grass2.png" class="grass" style="left: 210rpx; top: -685rpx; position: relative"></image>
+<image mode="aspectFit" src="../../../images/grass.png" class="grass" style="left: 85rpx; top: -520rpx; position: relative"></image>
+<image mode="aspectFit" src="../../../images/grass2.png" class="grass" style="left: 210rpx; top: -663rpx; position: relative"></image>

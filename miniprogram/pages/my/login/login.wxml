@@ -8,7 +8,7 @@
             <view class="nickName">{{userInfo.nickName}}</view>
             <view class="need">
                 <block wx:if="{{needNumber!=-1}}">
-                     升级还需培养成功{{needNumber}}个习惯
+                    下一级还需培养成功{{needNumber}}个习惯
                 </block>
                 <block wx:else>
                     当前已是最高等级！

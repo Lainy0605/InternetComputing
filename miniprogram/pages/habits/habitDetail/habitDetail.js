@@ -541,7 +541,6 @@ Page({
                         })
                     }
                 }
-                //todo
                 wx.cloud.database().collection('habits').where({
                     groupHabitId: res.data.groupHabitId
                 }).get({
