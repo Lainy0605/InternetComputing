@@ -1,4 +1,5 @@
 <!--pages/my/failureHabits/failureHabits.wxml-->
+<block wx:if="{{setNums}}">
 <block wx:if="{{nums==0}}">
     <view class="initial">
         <text>您当前暂无培养失败的习惯，
@@ -32,4 +33,5 @@
 
     </view>
 </view>
+</block>
 </block>

@@ -342,7 +342,7 @@ Page({
                     } else {
                         that.setBackRemindTime()
                         wx.showToast({
-                            title: '啊哦，授权订阅消息失败',
+                            title: '授权订阅消息失败',
                             icon: 'none',
                             mask: true
                         })

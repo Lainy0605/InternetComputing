@@ -1,4 +1,5 @@
 <!--pages/my/successHabits/successHabits.wxml-->
+<block wx:if="{{setNums}}">
 <block wx:if="{{nums==0}}">
     <view class="initial">
         <text>您当前暂无培养成功的习惯，
@@ -17,4 +18,5 @@
         <view class="time">获得时间：{{item.endTime}}</view>
     </view>
 </view>
+</block>
 </block>

@@ -107,6 +107,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        wx.showLoading({
+            title: '加载中',
+          })
         const that = this
         wx.cloud.callFunction({
             name:"getFailureHabits",
@@ -114,8 +117,12 @@ Page({
                 console.log(res)
                 that.setData({
                     failureHabits:res.result.data,
-                    nums:res.result.data.length
+                    nums:res.result.data.length,
+                    setNums:true
                 })
+                wx.hideLoading({
+                    success: (res) => {},
+                  })
             }
         })
     },
