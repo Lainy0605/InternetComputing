@@ -1,7 +1,7 @@
 // pages/habits/everydayCard/everydayCard.js
 
 const util = require('../../../utils/utils.js')
-
+const app = getApp()
 Page({
 
   /**
@@ -9,13 +9,17 @@ Page({
    */
   data: {
     numOfDaka:0,
-    openID:""
+    openID:"",
+    text:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     var that = this
     var date = util.formatDate(new Date());
     this.setData({
@@ -24,20 +28,50 @@ Page({
     var month = Number.parseInt(date[5] + date[6]);
     var day = Number.parseInt(date[8] + date[9]);
     var dateNum = month*100 + day;
+    console.log(date)
+    wx.cloud.database().collection('specialDateCard').where({
+      month:month,
+      day:day
+    })
+    .get({
+      success(res){
+        var currText=res.data[0].text;
+        if(currText==""){
+          wx.cloud.database().collection('everydayCard').skip(2).limit(1)
+          .get({
+            success(res){
+              var currText=res.data[0].text;
+              that.setData({
+                text:currText
+              })
+            }
+        })
+        }
+        else{
+          that.setData({
+            text:currText
+          })
+        }
+      } 
+    })
     wx.cloud.database().collection('habits').where({
-      _openid:options.openid,
+      _openid:app.globalData.openId,
       state:'培养中'
     })
     .get({
       success(res){
         for(var i=0;i<res.data.length;i++){
           if(res.data[i].lastDaka==dateNum){
+            console.log(res.data[i])
             that.data.numOfDaka++;
             that.setData({
               numOfDaka:that.data.numOfDaka
             })
           }
         }
+        wx.hideLoading({
+          success: (res) => {},
+        })
       }
     })
   },
