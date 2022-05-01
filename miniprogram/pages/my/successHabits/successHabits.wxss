@@ -4,7 +4,7 @@ Page {
     width: 100%;
     height: 100%;
     background-color: white;
-    background-color: rgba(255, 0, 0, 0.05);
+    background-color: rgba(255, 255, 0, 0.05);
     padding-top: 20rpx;
 }
 
@@ -21,13 +21,9 @@ Page {
 
 .head {
     font-size: large;
-    /* background-color: #eba13e double; */
     text-align: center;
     font-weight: bold;
-    color: #09699E;
-    color: tomato;
     color: red;
-    /* color: #3DADEB; */
 }
 
 .display-area {
@@ -70,6 +66,6 @@ Page {
     top: 200rpx; 
     left: 30rpx;
     font-size: xx-small;
-    color: #3DADEB;
     color: #FF0946;
+    color: tomato;
 }
