@@ -7,7 +7,7 @@
   <view class="note">
     <view class="date">{{date}}</view> 
     <text class="quotation">“</text>
-    <text class="text">我们最大的弱点在于放弃，成功的必由之路就是不断地重来一次。</text>
+    <text class="text">{{text}}</text>
     <text class="quotation">”</text>
   </view>
 </view>
