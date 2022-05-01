@@ -4,6 +4,7 @@ Page {
     width: 100%;
     height: 100%;
     background-color: white;
+    padding-top: 20rpx;
 }
 
 .initial{
@@ -19,53 +20,77 @@ Page {
 
 .head {
     font-size: large;
-    background-color: #eba13e double;
+    /* background-color: #eba13e double; */
     text-align: center;
+    font-weight: bold;
+    color: forestgreen;
 }
 
 .title {
     margin-top: 20rpx;
     position: relative;
-    align-self: center;
+    /* align-self: center; */
+    margin-left: 35rpx;
     display: flex;
     flex-direction: column;
-    background-color: burlywood;
+    /* background-color: burlywood;
     border-width: 5rpx;
     border-bottom-left-radius: 20%;
     border-top-right-radius: 20%;
-    border-style: solid;
-    width: 96%;
+    border-style: solid; 
+    width: 96%;*/
+    width: 85%;
+    padding: 15rpx;
+    /* border-style: dashed;
+    border-width: 15rpx;
+    border-radius: 10%;
+    border-color: orange; */
+    box-shadow: 15rpx 20rpx rgba(255, 81, 0, 0.3);
+    background-color: rgba(255, 228, 181, 0.6);
     height: auto;
-    color: #ff000f;
-    font-size: large;
+    /* color: #ff000f; */
+    color: orangered;
+    /* font-weight: bold; */
+    font-style: oblique;
+    text-shadow: 1rpx 1rpx darkred;
+    /* font-size: large; */
+    margin-bottom: 20rpx;
 }
 
 .display-area {
     margin: 30rpx;
-    width: 96%;
+    /* width: 96%; */
+    width: 90%;
     height: auto;
     align-self: center;
     align-items: center;
     display: flex;
     flex-direction: column;
     background: #e8f7b942;
-    border-width: medium;
+    /* border-width: medium;
     border-color: #a4c257;
     box-shadow: 0 2px 5px rgb(214, 240, 236);
-    border-style: dotted;
+    border-style: dotted; */
+    border-style: solid;
+    border-color: yellowgreen;
+    border-radius: 8rpx;
+    padding: 5rpx;
 }
 
 .item {
-    width: 96%;
+    width: 98%;
     height: 140rpx;
     border-width: thin;
     border-radius: 10%, 25%;
-    border-color: burlywood;
+    /* border-color: burlywood; */
+    border-color: yellowgreen;
+    border-radius: 5rpx;
     border-style: solid;
     margin-bottom: 5rpx;
     margin-top: 5rpx;
     display: flex;
     flex-direction: row;
+    font-size: 95%;
 }
 
 .info{
@@ -74,11 +99,42 @@ Page {
     flex-direction: column;
     justify-content: center; 
     align-items: center;
+    margin-left: 3%;
+    text-align: center;
 }
-
+.info days{
+    font-weight: bold;
+    color: #EB9526;
+}
+.info names{
+    font-weight: bold;
+    color: #EB9526;
+    /* color: plum; */
+}
+.info stages{
+    font-weight: bold;
+    color: yellowgreen;
+}
 .buttons{
     display: flex;
     flex-direction: column;
     justify-content: center; 
     align-items: center;
+    margin-left: 2%;
+}
+.restart{
+    background-color: yellowgreen;
+    border-bottom: 4rpx forestgreen solid;
+    border-right: 3.5rpx forestgreen solid;
+    /* box-shadow: 1px 1.5px forestgreen; */
+    font-weight: bold;
+    color: white;
+    padding: 4rpx 10rpx 4rpx 15rpx;
+    border-radius: 20rpx 0;
+}
+.delete{
+    color: #EBC649;
+    font-weight: bold;
+    margin-top: 5rpx;
+    text-decoration: underline;
 }

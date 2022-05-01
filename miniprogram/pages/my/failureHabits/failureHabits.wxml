@@ -10,18 +10,18 @@
 <block wx:else>
 <view class="head">您一共放弃了 {{nums}} 个习惯</view>
 <view class="title">
-    <text>我们最大的弱点在于放弃,</text>
-    <text style="margin-left: 15%; margin-top: 1%;">成功的必由之路就是不断地重来一次。</text>
+    <text>“我们最大的弱点在于放弃,</text>
+    <text style="margin-top: 1%;align-self: flex-end;">成功的必由之路就是不断地重来一次。”</text>
 </view>
 
 <view class="display-area">
     <view class="item" wx:for="{{failureHabits}}" wx:key="item" >
         <view class="info">
             <view>
-            你坚持 {{item.name}} 持续了 {{item.day}} 天
+            你坚持 <names>{{item.name}}</names> 持续了 <days>{{item.day}}</days> 天
         </view>
         <view>
-            已经到达 {{item.stage}} 阶段
+            已经到达 <stages>{{item.stage}}</stages> 阶段
         </view>          
         </view>
         <view class="buttons">
