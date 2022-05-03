@@ -24,6 +24,8 @@ exports.main = async (event, context) => {
             }
         }
         })
+        console.log(result)
+        setTimeout(600)
         return result;
     } catch (err) {
         console.log(err);

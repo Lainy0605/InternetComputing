@@ -195,11 +195,19 @@ Page({
                 habitName:that.data.habitDetail.name,
             },
             success(res){
-
-                wx.showToast({
-                  title: '提醒成功',
-                  icon:"success"
-                })
+                if(res.result.errCode==undefined){
+                    wx.showToast({
+                        title: '提醒成功',
+                        icon:"success"
+                    })   
+                }
+                else if(res.result.errCode==43101){
+                    wx.showToast({
+                      title: '对方授权不足',
+                      icon:'error',
+                      mask:true
+                    })
+                }
             }
         })
     },

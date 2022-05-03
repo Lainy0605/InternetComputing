@@ -33,7 +33,7 @@ exports.main = async (event, context) => {
                         templateId: 'n-qNHtl2sbZxWQStuj19B2ZhFLFWDFhyftyjqzmPHyM',
                         // 点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。 
                         // page: 'index?foo=bar' 
-                        page: 'pages/habits/showHabits/showHabits?foo=bar',
+                        page: 'pages/habits/showHabits/showHabits',
                         // 模板所需要的键值
                         data: {
                             // 计划名称
