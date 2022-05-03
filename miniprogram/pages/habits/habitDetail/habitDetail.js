@@ -195,6 +195,7 @@ Page({
                 habitName:that.data.habitDetail.name,
             },
             success(res){
+
                 wx.showToast({
                   title: '提醒成功',
                   icon:"success"
@@ -453,9 +454,22 @@ Page({
         })
     },
     getChances(){
+        const TEMPLATE_ID = 'BLLbYDcc4q2nGcjNkxVCZJl_ax6P2yUFRgfcQT2Vy8U'
         wx.requestSubscribeMessage({
-          tmplIds: ['BLLbYDcc4q2nGcjNkxVCZJl_ax6P2yUFRgfcQT2Vy8U'],
-          success(res){      
+          tmplIds: [TEMPLATE_ID],
+          success(res){
+              if(res[TEMPLATE_ID] === 'accept'){
+                  wx.showToast({
+                    title: '授权成功！',
+                    icon:'success'
+                  })
+              }
+              else if(res[TEMPLATE_ID] === 'reject'){
+                wx.showToast({
+                    title: '授权失败！',
+                    icon:'error'
+                  })
+              }      
           }
         })
     },
