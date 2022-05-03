@@ -83,7 +83,11 @@ Page({
     async send(){
         const that = this
         if(this.data.inputValue || this.data.imgList.length!=0){
-            Buttonclicked(this)
+            that.data.clicked = true
+            wx.showLoading({
+              title: '发布中',
+              mask:true
+            })
             for(var temp of this.data.imgList){
                 await this.uploadTocloud(temp)
             }
@@ -92,6 +96,9 @@ Page({
             if(that.data.habitDetail.lastDaka < dates){
                 that.daka(dates)
             }else{
+                wx.hideLoading({
+                  success: (res) => {},
+                })
                 wx.showToast({
                     title: '发布成功',
                     mask:true,
