@@ -1,5 +1,8 @@
 <!--pages/habits/invite/invite.wxml-->
-
+<block wx:if="{{abandon}}">
+    <view class="habit">当前习惯已被放弃！</view>
+</block>
+<block wx:else>
 <view class="habit">是否添加#{{currHabitName}}#习惯并培养</view>
 <view wx:if="{{!hasLoginIn}}">
     <button lang="zh_CN" bindtap="getUserInfo" >请先登录</button>
@@ -14,3 +17,4 @@
     
     <button lang="zh_CN" bindtap="acceptInvitation">加入群组</button>
 </view>
+</block>

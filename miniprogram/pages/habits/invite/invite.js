@@ -16,7 +16,8 @@ Page({
     userInfo: {},
     openId: "",
     currHabitName: "",
-    hasLoginIn: false
+    hasLoginIn: false,
+    abandon:false
   },
 
   getUserInfo: function () {
@@ -112,6 +113,11 @@ Page({
           currHabitName: res.data.name
         })
       },
+      fail:function(res){
+        that.setData({
+          abandon:true
+        })
+      }
     })
   },
 
