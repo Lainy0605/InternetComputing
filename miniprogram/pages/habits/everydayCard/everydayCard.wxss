@@ -52,6 +52,7 @@
   font-size: xx-large;
   font-weight: bolder;
   color: #2A5B96;
+  vertical-align: bottom;
 }
 
 .text{

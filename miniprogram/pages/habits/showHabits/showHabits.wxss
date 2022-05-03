@@ -44,10 +44,10 @@ page{
     position: relative;
 }
 .new-habit-icon{
-    width: 66rpx;
-    height: 66rpx;
+    width: 85rpx;
+    height: 85rpx;
     position: absolute;
-    right: 20rpx;
+    right: 55rpx;
 }
 .habit{
     position: relative;

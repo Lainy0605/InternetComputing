@@ -59,6 +59,13 @@ page{
     width: 65rpx;
     height: 65rpx;
 }
+.show-new-post-icon{
+    width: 45rpx;
+    height: 45rpx;
+    vertical-align: bottom;
+    margin-left: 2rpx;
+    margin-right: 3rpx;
+}
 .message{
     display: flex;
     flex-direction:row;

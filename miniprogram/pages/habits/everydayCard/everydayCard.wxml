@@ -1,15 +1,17 @@
 <!--pages/habits/everydayCard/everydayCard.wxml-->
 <view>
-<!--<image class="bg-image" mode="scaleToFill" src="/../../../images/cardBackground.JPG"></image>-->
+    <!--<image class="bg-image" mode="scaleToFill" src="/../../../images/cardBackground.JPG"></image>-->
 </view>
 <view class="card">
-  <image mode="aspectFit" src="../../../images/note.png" class="textImg"></image>
-  <view class="note">
-    <view class="date">{{date}}</view> 
-    <text class="quotation">“</text>
-    <text class="text">{{text}}</text>
-    <text class="quotation">”</text>
-  </view>
+    <image mode="aspectFit" src="../../../images/note.png" class="textImg"></image>
+    <view class="note">
+        <view class="date">{{date}}</view>
+        <view style="line-height: 60rpx;">
+            <text class="quotation">“</text>
+            <text class="text">{{text}}</text>
+            <text class="quotation" style="margin-left: 10rpx;">”</text>
+        </view>
+    </view>
 </view>
 <view class="tip">-今日已打卡<text class="habitCount"> {{numOfDaka}} </text>个习惯-</view>
 <view class="tip">-继续今天的习惯养成之旅吧-</view>
