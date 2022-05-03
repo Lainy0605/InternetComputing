@@ -184,6 +184,24 @@ Page({
         })
     },
 
+    remindOthers:function(e){
+        var that = this
+        var index = e.currentTarget.dataset.index
+        wx.cloud.callFunction({
+            name:"sendNotifications",
+            data:{
+                openId: that.data.memberHabitDetail[index]._openid,
+                nickName: app.globalData.userInfo.nickName,
+                habitName:that.data.habitDetail.name,
+            },
+            success(res){
+                wx.showToast({
+                  title: '提醒成功',
+                  icon:"success"
+                })
+            }
+        })
+    },
     /**
      * 用于在中断或失败的情形下将页面上的提醒时间设回修改前
      */
@@ -294,7 +312,6 @@ Page({
                 }
             }
         })
-
         if (wx.requestSubscribeMessage) {
             wx.requestSubscribeMessage({
                 tmplIds: [TEMPLATE_ID],
@@ -435,9 +452,12 @@ Page({
             }
         })
     },
-
-    preventTouchMove: function () {
-
+    getChances(){
+        wx.requestSubscribeMessage({
+          tmplIds: ['BLLbYDcc4q2nGcjNkxVCZJl_ax6P2yUFRgfcQT2Vy8U'],
+          success(res){      
+          }
+        })
     },
     getCredits(openId) {
         const that = this

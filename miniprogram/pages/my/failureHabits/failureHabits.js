@@ -60,7 +60,8 @@ Page({
     delete(e){
         const that = this
         wx.showModal({
-          cancelColor: 'cancelColor',
+          cancelColor: '#CDF46E',
+          confirmColor:'#fc5959',
           content:'需要消耗50积分，确定删除吗？',
           success(res){
               if(res.confirm){

@@ -32,17 +32,17 @@
                 </view>
                 <view class="member-right">
                     <block wx:for="{{memberHabitDetail}}" wx:key="this">
-                        <view class="member" data-index="{{index}}">
+                        <view class="member">
                             <image src="{{item.avatar}}" class="member-avator"></image>
                             <view>
                                 <view class="membernickname">{{item.nickName}}</view>
                                 <view class="state-day-points">
                                     <block wx:if="{{openId!=item._openid}}">
                                         <view class="member-status" wx:if="{{item.dakaOrNot}}">已打卡</view>
-                                        <view class="member-status" wx:else style="color: royalblue; text-decoration: underline royalblue;">提醒</view>
+                                        <view class="member-status" wx:else style="color: royalblue; text-decoration: underline royalblue;" bindtap="remindOthers" data-index="{{index}}">提醒</view>
                                     </block>
                                     <block wx:else>
-                                        <view class="member-status"></view>
+                                        <view class="member-status" style="color: royalblue; text-decoration: underline royalblue;" bindtap="getChances">授权提醒</view>
                                     </block>
                                     <view class="member-day">{{item.day}}天</view>
                                     <view class="member-credit">积分：{{item.credits}}</view>
@@ -76,7 +76,6 @@
             <text>设置提醒时间</text>
         </view>
     </picker>
-
     <!-- 弹窗，获取用户自定义输入的备注-->
     <view wx:if='{{showModal}}' class="modalDlg" catchtouchmove='preventTouchMove'>
         <view class='windowRow'>

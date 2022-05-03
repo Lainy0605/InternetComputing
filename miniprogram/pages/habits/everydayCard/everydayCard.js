@@ -28,28 +28,27 @@ Page({
     var month = Number.parseInt(date[5] + date[6]);
     var day = Number.parseInt(date[8] + date[9]);
     var dateNum = month*100 + day;
-    console.log(date)
+    var count = month*31 + day;
     wx.cloud.database().collection('specialDateCard').where({
       month:month,
       day:day
     })
     .get({
       success(res){
-        var currText=res.data[0].text;
-        if(currText==""){
-          wx.cloud.database().collection('everydayCard').skip(2).limit(1)
+        if(res.data.length==0){
+          wx.cloud.database().collection('everydayCard').skip(count%54).limit(1)
           .get({
-            success(res){
-              var currText=res.data[0].text;
+            success(re){
+              console.log(re)
               that.setData({
-                text:currText
+                text:re.data[0].text
               })
             }
         })
         }
         else{
           that.setData({
-            text:currText
+            text:res.data[0].text
           })
         }
       } 

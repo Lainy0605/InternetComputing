@@ -10,7 +10,7 @@ Page({
         openId:"",
         index:"",
     },
-
+    
     tonewHabit:function(){
         const that = this
         wx.cloud.database().collection('habits').where({
