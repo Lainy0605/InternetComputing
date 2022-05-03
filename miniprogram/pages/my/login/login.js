@@ -18,23 +18,26 @@ Page({
     },
 
     setlevelValue(successNumber) {
+        var levelValue = ""
+        var level = 0
+        var needNumber = 0
         if (successNumber == 0) {
-            this.data.levelValue = "习惯小白", this.data.level = 0, this.data.needNumber = 1
+            levelValue = "习惯小白", level = 0, needNumber = 1
         } else if (1 <= successNumber && successNumber < 5) {
-            this.data.levelValue = "习惯新手", this.data.level = 1, this.data.needNumber = 5-successNumber
+            levelValue = "习惯新手", level = 1, needNumber = 5-successNumber
         } else if (5 <= successNumber && successNumber < 10) {
-            this.data.levelValue = "习惯达人", this.data.level = 2, this.data.needNumber = 10-successNumber
+            levelValue = "习惯达人", level = 2, needNumber = 10-successNumber
         } else if (10 <= successNumber && successNumber < 20) {
-            this.data.levelValue = "习惯精英", this.data.level = 3, this.data.needNumber = 20-successNumber
+            levelValue = "习惯精英", level = 3, needNumber = 20-successNumber
         } else if (20 <= successNumber && successNumber < 50) {
-            this.data.levelValue = "习惯大师", this.data.level = 4, this.data.needNumber = 50-successNumber
+            levelValue = "习惯大师", level = 4, needNumber = 50-successNumber
         } else if (50 <= successNumber) {
-            this.data.levelValue = "习惯王者", this.data.level = 5,this.data.needNumber = -1
+            levelValue = "习惯王者", level = 5,needNumber = -1
         }
         this.setData({
-            levelValue: this.data.levelValue,
-            level: this.data.level,
-            needNumber: this.data.needNumber
+            levelValue: levelValue,
+            level: level,
+            needNumber: needNumber
         })
     },
 
@@ -47,7 +50,7 @@ Page({
                     name: "getOpenId",
                     success(re) {
                         app.globalData.openId = re.result.openid,
-                            app.globalData.userInfo = res.userInfo
+                        app.globalData.userInfo = res.userInfo
                         that.setData({
                             openId: re.result.openid,
                             userInfo: res.userInfo,
