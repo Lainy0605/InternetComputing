@@ -13,9 +13,9 @@ page {
 .rules{
     position: absolute;
     top: 10rpx;
-    right: 10rpx;
-    height: 50rpx;
-    width: 50rpx;
+    right: 25rpx;
+    height: 70rpx;
+    width: 70rpx;
 }
 .avatar{
     display: flex;

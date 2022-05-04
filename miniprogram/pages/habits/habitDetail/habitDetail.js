@@ -14,6 +14,7 @@ Page({
         skipOne: false,
         skipTwo: false,
         remindTime: "",
+        myIndex:0
     },
 
     buqian: function () {
@@ -34,7 +35,8 @@ Page({
                                     day: wx.cloud.database().command.inc(that.data.habitDetail.tempDay + 1),
                                     buqian: wx.cloud.database().command.inc(-1),
                                     tempDay: 0,
-                                    buqianDay: wx.cloud.database().command.push(DakaMinusOne(new Date()))
+                                    buqianDay: wx.cloud.database().command.push(DakaMinusOne(new Date())),
+                                    lastDaka: DakaMinusOne(new Date())
                                 }
                             })
                             temp = that.data.habitDetail.tempDay + that.data.habitDetail.day + 1
@@ -45,7 +47,8 @@ Page({
                                     day: wx.cloud.database().command.inc(1),
                                     buqian: wx.cloud.database().command.inc(-1),
                                     tempDay: 0,
-                                    buqianDay: wx.cloud.database().command.push(DakaMinusOne(new Date()))
+                                    buqianDay: wx.cloud.database().command.push(DakaMinusOne(new Date())),
+                                    lastDaka: DakaMinusOne(new Date())
                                 }
                             })
                             temp = that.data.habitDetail.day + 1
@@ -56,8 +59,8 @@ Page({
                             ["habitDetail.day"]: temp,
                             ["habitDetail.tempDay"]: 0,
                             ["habitDetail.buqian"]: buqianNum,
-                            ["memberHabitDetail[0].day"]: temp,
-                            ["memberHabitDetail[0].credits"]: that.data.memberHabitDetail[0].credits - 20
+                            ["memberHabitDetail["+that.data.myIndex+"].day"]: temp,
+                            ["memberHabitDetail["+that.data.myIndex+"].credits"]: that.data.memberHabitDetail[that.data.myIndex].credits - 20
                         })
                         wx.cloud.database().collection('userInfos').where({
                             _openid: that.data.openId
@@ -499,11 +502,18 @@ Page({
 
     async getAllCredits(data, dates) {
         const that = this
+        var count = 0
         for (var temp of data) {
             temp.dakaOrNot = temp.lastDaka < dates ? false : true
             await that.getCredits(temp._openid).then(function (credits) {
                 temp.credits = credits
             })
+            if(temp._openid == that.data.openId){
+                that.setData({
+                    myIndex:count
+                })
+            }
+            count++
         }
         that.setData({
             memberHabitDetail: data
@@ -568,13 +578,14 @@ Page({
                             }
                         })
                     }
-                    if (that.data.skipOne || that.data.skipTwo) {
+                    if ((that.data.skipOne || that.data.skipTwo) && res.data.day!=0) {
                         wx.cloud.database().collection('habits').doc(options.id).update({
                             data: {
                                 tempDay: res.data.day,
                                 day: 0
                             },
                             success(re) {
+                                console.log(res.data.day)
                                 that.setData({
                                     ["habitDetail.tempDay"]: res.data.day,
                                     ["habitDetail.day"]: 0
