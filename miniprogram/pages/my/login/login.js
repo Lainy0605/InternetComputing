@@ -14,7 +14,8 @@ Page({
         credits: 0,
         level: "",
         levelValue: "",
-        needNumber:0
+        needNumber:0,
+        showPromptModal:false
     },
 
     setlevelValue(successNumber) {
@@ -120,7 +121,11 @@ Page({
               })          
         }
     },
-
+    closePromptModal: function () {
+        this.setData({
+            showPromptModal: false
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -151,6 +156,9 @@ Page({
             }).get({
                 success(res) {
                     if (res.data.length == 0) {
+                        that.setData({
+                            showPromptModal:true
+                        })
                         wx.cloud.database().collection('userInfos').add({
                             data: {
                                 credits: 0,

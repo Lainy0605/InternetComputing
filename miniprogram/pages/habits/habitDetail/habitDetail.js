@@ -339,7 +339,7 @@ Page({
                             }
                         })
                             .then(() => wx.showToast({
-                                title: '提醒设置成功！',
+                                title: '设置成功！',
                                 icon: 'success',
                                 mask: true,
                                 duration: 2000,
@@ -415,7 +415,7 @@ Page({
                 if (re.subscriptionsSetting[TEMPLATE_ID] !== 'accept') {
                     //继续显示引导设置弹窗
                     wx.showToast({
-                        title: '后台检测到您依然处于拒收状态，请再检查一下设置~',
+                        title: '授权失败！',
                         icon: "none",
                         mask: true
                     })

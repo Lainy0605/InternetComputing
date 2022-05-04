@@ -19,12 +19,19 @@
     </view>
     <view style="height:45rpx"></view>
     <block wx:if="{{postList.length==0}}">
-        <view class="initial" style="flex-direction: column;">
-            <text>暂无打卡动态哦~</text>
-            <view style="white-space: nowrap;margin-bottom: 10rpx;">点击右上方<image src="../../../images/newPost.png" class="show-new-post-icon" style="align-self: center;"></image>图标，</view>
-            <text>发布您的第一条打卡动态吧！</text>
-
-        </view>
+        <block wx:if="{{currentTab==0}}">
+            <view class="initial" style="flex-direction: column;">
+                <text>暂无打卡动态哦~</text>
+                <text>在具体习惯下发布打卡动态吧！</text>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="initial" style="flex-direction: column;">
+                <text>暂无打卡动态哦~</text>
+                <view style="white-space: nowrap;margin-bottom: 10rpx;">点击右上方<image src="../../../images/newPost.png" class="show-new-post-icon" style="align-self: center;"></image>图标，</view>
+                <text>发布您的第一条打卡动态吧！</text>
+            </view>
+        </block>
     </block>
     <block wx:for="{{postList}}" wx:key="this">
         <view class="message">

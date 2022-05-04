@@ -46,3 +46,13 @@
         <image class="more" src="../../../images/more.png"></image>
     </view>
 </view>
+
+<view wx:if="{{showPromtModel}}" class="jumpSetModal" style="background-color: lemonchiffon; border-color: darkorange; border-width: 2rpx;border-radius: 30rpx;" catchtouchmove='preventTouchMove'>
+        <view class="jumpSetBox">
+            <view class="m-title" style="color: darkorange;">温馨提示</view>
+            <view class="m-content" style="color: darkorange;">欢迎使用HabiTime习惯养成助手,点击右上角问号即可查看助手指南~</view>
+            <view class="m-control" style="border: darkorange; background-color: darkorange;border-bottom-left-radius: 30rpx;border-bottom-right-radius: 30rpx;">
+                <button class="m-confirm" catchtap="closePromptModal" style="width: 100%;background-color: darkorange; border-bottom-left-radius: 30rpx;border-bottom-right-radius: 30rpx;">好的</button>
+            </view>
+        </view>
+</view>

@@ -19,15 +19,28 @@ Page {
     font-size: 25rpx;
     margin-left: 10rpx;
     margin-bottom: 5rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
-
+.table{
+    font-size: 25rpx;
+    margin-left: 35rpx;
+    margin-bottom: 5rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 .middletitle{
     font-size: 25rpx;
     margin-left: 35rpx;
     margin-bottom: 5rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 .content{
-    margin-left: 45rpx;
+    margin-left: 10rpx;
     margin-bottom: 5rpx;
 }
 .bottom{
@@ -46,4 +59,35 @@ Page {
     right: 55rpx;   
     font-weight: 600;
     top: 50rpx;   
+}
+.su-table{
+    margin: 0 auto;
+    display: table;
+    border-collapse: collapse;
+    overflow-x: auto;
+    word-break: keep-all;
+    white-space: nowrap;
+    width: 90%;
+    border-radius: 20rpx;
+}
+.su-tr{
+    display: table-row;
+}
+.su-th{
+    display: table-cell;
+    height: 60rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border: 1rpx solid #DDDDDD;
+    font-weight: 600;
+}
+.su-td{
+    display: table-cell;
+    height: 60rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border: 1rpx solid #DDDDDD;
+}
+.xuhao{
+    width: auto;
 }

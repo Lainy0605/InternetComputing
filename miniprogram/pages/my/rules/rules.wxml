@@ -1,30 +1,94 @@
 <view class="page"><view class="title">助手指南</view>
 <view class="bigtitle">1.习惯创建
 </view>
-<view class="middletitle">1.1 习惯名称支持0~9个字符</view>
-<view class="middletitle">1.2 支持最多同时培养20条习惯</view>
-<view class="bigtitle">2.习惯培养</view>
-<view class="middletitle">2.1 培养中的习惯按照打卡天数划分如下阶段
-        <view class="content">0~3天  观察期</view>
-        <view class="content">4~7天  起步期</view>
-        <view class="content">8~21天  养成期</view>
-        <view class="content">22~90天 稳定期</view>
+<view class="middletitle">
+    <view class="xuhao">1.1</view>
+    <view class="content">习惯名称支持0~9个字符</view>
 </view>
-
-<view class="middletitle">2.2 每日首次在圈子对应习惯下发布动态，即可打卡成功，同时获得对应积分，培养天数越久获得积分越多</view>
-<view class="middletitle">2.3 每月每习惯可补打卡两次，每次补打卡成功需扣除20积分，且仅能补当前日期前一天，补打卡成功后培养天数即恢复</view>
-<view class="middletitle">2.4 若连续三天未打卡，即认定放弃培养该习惯，参照下3</view>
-<view class="middletitle">2.5 打卡天数达到90天，该习惯认定培养成功，纳入培养成功记录，并获得积分奖励+100</view>
+<view class="middletitle">
+    <view class="xuhao">1.2</view>
+    <view class="content">支持最多同时培养20条习惯</view>
+</view>
+<view class="bigtitle">2.习惯培养</view>
+<view class="table">2.1 培养中的习惯按照培养天数划分如下阶段
+    <view class="su-table">
+        <view class="su-tr">
+            <view class="su-th">培养天数</view>
+            <view class="su-th">阶段</view>
+            <view class="su-th">打卡成功</view>
+            <view class="su-th">放弃培养</view>
+        </view>
+        <view class="su-tr">
+            <view class="su-td">0~3天</view>
+            <view class="su-td">观察期</view>
+            <view class="su-td">积分：+1</view>
+            <view class="su-td">积分：-0</view>
+        </view>
+        <view class="su-tr">
+            <view class="su-td">4~7天</view>
+            <view class="su-td">起步期</view>
+            <view class="su-td">积分：+3</view>
+            <view class="su-td">积分：-10</view>
+        </view>
+        <view class="su-tr">
+            <view class="su-td">8~21天</view>
+            <view class="su-td">养成期</view>
+            <view class="su-td">积分：+5</view>
+            <view class="su-td">积分：-20</view>
+        </view>
+        <view class="su-tr">
+            <view class="su-td">22~90天</view>
+            <view class="su-td">稳定期</view>
+            <view class="su-td">积分：+8</view>
+            <view class="su-td">积分：-40</view>
+        </view>
+    </view>
+</view>
+<view class="middletitle">
+    <view class="xuhao">2.2</view>
+    <view class="content">每日首次在圈子对应习惯下发布动态，即可打卡成功，同时获得对应积分，参照上2.1</view>
+</view> 
+<view class="middletitle">
+    <view class="xuhao">2.3</view>
+    <view class="content">每月每习惯可补打卡两次，每次补打卡需扣除20积分，且仅能补当前日期前一天，补打卡成功后培养天数恢复</view>
+    </view>
+<view class="middletitle">
+    <view class="xuhao">2.4</view>
+    <view class="content">连续三天未打卡，该习惯培养失败，参照下3</view>
+</view>
+<view class="middletitle">
+    <view class="xuhao">2.5</view>
+    <view class="content">培养天数达到90天，该习惯培养成功，纳入培养成功记录，并获得积分奖励+100</view>
+</view>
+<view class="middletitle">
+    <view class="xuhao">2.6</view>
+    <view class="content">由于小程序限制，提醒时间设置成功后，仅能给您发送一次提醒，下次需重新设置</view>
+</view>
 <view class="bigtitle">3.放弃培养</view>
-<view class="middletitle">3.1 若放弃培养习惯，需扣除对应积分，培养天数越久扣除积分越多</view>
-<view class="middletitle">3.2 所有放弃培养的习惯将会计入习惯培养失败记录中</view>
+<view class="middletitle">
+    <view class="xuhao">3.1</view>
+    <view class="content">若放弃培养习惯，需扣除对应积分，参照上2.1</view>
+</view>
+<view class="middletitle">
+    <view class="xuhao">3.2</view>
+    <view class="content">所有放弃培养的习惯将会计入习惯培养失败记录中</view>
+</view>
 <view class="bigtitle">4.习惯展示</view>
 <view class="middletitle">4.1 删除一条培养失败习惯记录需扣除50积分</view>
 <view class="middletitle">4.2 重新开始培养失败的习惯无需消耗积分</view>
 <view class="bigtitle">5.组队培养</view>
-    <view class="middletitle">5.1 在习惯详情页向好友发送邀请链接</view>
-    <view class="middletitle">5.2 若好友当天未打卡，则可点击提醒好友</view>
-    <view class="middletitle">5.3 由于小程序限制，您只有点击授权提醒后，好友才能给您发送提醒通知，且每授权一次好友仅能发送一次提醒</view>
+    <view class="middletitle">
+        <view class="xuhao">5.1</view>
+        <view class="content">在习惯详情页向好友发送邀请链接</view>
+    </view>
+    <view class="middletitle">
+        <view class="xuhao">5.2</view>
+        <view class="content">若好友当天未打卡，则可点击提醒好友</view>
+    </view>
+    <view class="middletitle">
+        <view class="xuhao">5.3</view>
+        <view class="content">由于小程序限制，您只有每授权一次提醒，好友才能给您发送一次提醒通知。建议您提前授权足够多的次数，以免好友不能给您发送提醒</view>
+    </view>
 <view class="bottom">
     <view class="name">开发者团队</view>
     <view class="time">2022.5.4</view>

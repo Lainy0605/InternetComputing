@@ -149,3 +149,57 @@ page {
     position: absolute;
     right: 4%;
 }
+.jumpSetModal{
+    width: 70%;
+    position: fixed;
+    top: 404rpx;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin: 0 auto;
+    background-color: rgb(252, 250, 228);
+    border-radius: 10rpx;
+    border-style: solid;
+    border-width: 2rpx;
+    border-color: darkorange;
+    border-width: 4rpx;
+    border-color: tomato;
+    display: flex;
+    align-items: center;
+}
+.jumpSetBox{
+    align-items: center;
+    justify-content: center;
+}
+.m-title{
+    display: flex;
+    font-size:larger;
+    font-weight: bold;
+    color: darkorange;
+    color: tomato;
+    justify-content: center;
+    margin-top: 4%;
+}
+.m-content{
+    color: darkred;
+    display:flex;
+    justify-content: center;
+    margin: 3% 8% 8% 8%;
+    word-wrap: break-word;
+    letter-spacing: normal;
+    line-height: 150%;
+}
+.m-control{
+    display: flex;
+    border-top: 1rpx darkorange solid;
+    border-top: 4rpx tomato solid;
+}
+.m-confirm{
+    padding-left:2%;
+    padding-right: 2%;
+    white-space: nowrap;
+    border-radius: 0;
+    /* background-color: darkorange; */
+    background-color: tomato;
+    color:white;
+}
