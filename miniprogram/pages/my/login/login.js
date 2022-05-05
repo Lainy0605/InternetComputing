@@ -23,17 +23,17 @@ Page({
         var level = 0
         var needNumber = 0
         if (successNumber == 0) {
-            levelValue = "习惯小白", level = 0, needNumber = 1
+            levelValue = "习惯小白", level = 1, needNumber = 1
         } else if (1 <= successNumber && successNumber < 5) {
-            levelValue = "习惯新手", level = 1, needNumber = 5-successNumber
+            levelValue = "习惯新手", level = 2, needNumber = 5-successNumber
         } else if (5 <= successNumber && successNumber < 10) {
-            levelValue = "习惯达人", level = 2, needNumber = 10-successNumber
+            levelValue = "习惯达人", level = 3, needNumber = 10-successNumber
         } else if (10 <= successNumber && successNumber < 20) {
-            levelValue = "习惯精英", level = 3, needNumber = 20-successNumber
+            levelValue = "习惯精英", level = 4, needNumber = 20-successNumber
         } else if (20 <= successNumber && successNumber < 50) {
-            levelValue = "习惯大师", level = 4, needNumber = 50-successNumber
+            levelValue = "习惯大师", level = 5, needNumber = 50-successNumber
         } else if (50 <= successNumber) {
-            levelValue = "习惯王者", level = 5,needNumber = -1
+            levelValue = "习惯王者", level = 6,needNumber = -1
         }
         this.setData({
             levelValue: levelValue,
@@ -55,6 +55,9 @@ Page({
                         that.setData({
                             openId: re.result.openid,
                             userInfo: res.userInfo,
+                        })
+                        that.setData({
+                            showPromptModal:true
                         })
                         that.onShow()
                         wx.setStorageSync('openId', that.data.openId)
@@ -167,7 +170,10 @@ Page({
                             success(t) {
                                 that.setData({
                                     credits: 0,
-                                    successNumber: 0
+                                    successNumber: 0,            
+                                    levelValue: "习惯小白",
+                                    level: 1,
+                                    needNumber: 1
                                 })
                             }
                         })
